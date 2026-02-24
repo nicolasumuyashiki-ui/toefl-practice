@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEFL iBT Practice - Login</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+body{background:#f0f4f8}
+.login-card{background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.08);width:100%;max-width:420px;overflow:hidden}
+.login-header{background:linear-gradient(135deg,#2d3748,#4a5568);padding:36px 32px 28px;text-align:center;color:#fff}
+.login-icon{width:56px;height:56px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.login-icon svg{width:28px;height:28px;fill:#fff}
+.login-header h1{font-size:1.25em;font-weight:600;margin-bottom:4px}
+.login-header p{font-size:.85em;color:#cbd5e0}
+.login-body{padding:32px}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-size:.8em;font-weight:600;color:#4a5568;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.form-input{width:100%;padding:11px 14px 11px 42px;font-size:.95em;font-family:inherit;border:1.5px solid #e2e8f0;border-radius:8px;background:#fff;color:#2d3748;outline:none;transition:border-color .2s,box-shadow .2s}
+.form-input:focus{border-color:#3182ce;box-shadow:0 0 0 3px rgba(49,130,206,.15)}
+.form-input::placeholder{color:#a0aec0}
+.input-wrap{position:relative}
+.input-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;fill:#a0aec0;pointer-events:none}
+.btn-login{width:100%;padding:12px;font-size:1em;font-family:inherit;font-weight:600;color:#fff;background:#3182ce;border:none;border-radius:8px;cursor:pointer;transition:all .2s;margin-top:4px}
+.btn-login:hover{background:#2b6cb0}
+.btn-login:disabled{background:#a0aec0;cursor:not-allowed}
+.error-msg{background:#fff5f5;border:1px solid #feb2b2;color:#c53030;border-radius:8px;padding:10px 14px;font-size:.85em;margin-bottom:16px;display:none;align-items:center;gap:8px}
+.error-msg.show{display:flex}
+.error-msg svg{width:16px;height:16px;fill:#c53030;flex-shrink:0}
+.spinner{display:inline-block;width:18px;height:18px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.login-footer{border-top:1px solid #f0f0f0;padding:16px 32px;text-align:center;font-size:.8em;color:#a0aec0}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div class="top-bar-title">TOEFL iBT&reg; Practice Test</div>
+</div>
+<div class="main">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="login-icon"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+      <h1>Practice Test Login</h1>
+      <p>Enter your credentials to begin</p>
+    </div>
+    <div class="login-body">
+      <div class="error-msg" id="errorMsg">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        <span id="errorText"></span>
+      </div>
+      <div class="form-group">
+        <label>User ID</label>
+        <div class="input-wrap">
+          <svg class="input-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          <input type="text" class="form-input" id="userId" placeholder="e.g. user01" autocomplete="username" autofocus>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <div class="input-wrap">
+          <svg class="input-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          <input type="password" class="form-input" id="password" placeholder="Enter your password" autocomplete="current-password">
+        </div>
+      </div>
+      <button class="btn-login" id="loginBtn" onclick="doLogin()">
+        <span id="loginBtnText">Log In</span>
+      </button>
+    </div>
+    <div class="login-footer">TCK Workshop &mdash; TOEFL iBT Practice System</div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  if (Auth.get()) location.href = 'mic-check.html';
+
+  document.getElementById('password').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+  document.getElementById('userId').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('password').focus(); });
+
+  async function doLogin(){
+    const uid  = document.getElementById('userId').value.trim();
+    const pass = document.getElementById('password').value.trim();
+    const btn  = document.getElementById('loginBtn');
+    const txt  = document.getElementById('loginBtnText');
+    const err  = document.getElementById('errorMsg');
+    const errT = document.getElementById('errorText');
+
+    if(!uid||!pass){ err.classList.add('show'); errT.textContent='IDとパスワードを入力してください。'; return; }
+
+    err.classList.remove('show');
+    btn.disabled=true;
+    txt.innerHTML='<span class="spinner"></span>Logging in...';
+
+    try {
+      const result = await API.login(uid, pass);
+      if(result.success){
+        Auth.save({ id: result.userId, name: result.userName });
+        location.href = 'mic-check.html';
+      } else {
+        err.classList.add('show');
+        errT.textContent = result.message || 'Login failed.';
+        btn.disabled=false; txt.textContent='Log In';
+        document.getElementById('password').value='';
+        document.getElementById('password').focus();
+      }
+    } catch(e){
+      err.classList.add('show');
+      errT.textContent = 'Connection error: ' + e.message;
+      btn.disabled=false; txt.textContent='Log In';
+    }
+  }
+</script>
+</body>
+</html>
