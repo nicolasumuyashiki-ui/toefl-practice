@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEFL iBT - Reading Section</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+body{background:#fff}
+.reading-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:12px 24px;display:flex;align-items:center;gap:14px}
+.reading-nav-close{width:32px;height:32px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:6px;color:#4a5568;font-size:1.2em;transition:background .2s}
+.reading-nav-close:hover{background:#f7fafc}
+.reading-nav-label{font-size:.95em;color:#4a5568;font-weight:500}
+.reading-nav-right{margin-left:auto;font-size:.85em;color:#718096}
+.reading-nav-right strong{color:#2d3748}
+.reading-progress{height:4px;background:#ebf4ff;width:100%}
+.reading-progress-fill{height:100%;width:0%;background:#3182ce;border-radius:2px}
+.reading-body{flex:1;display:flex;justify-content:center;padding:60px 24px 120px}
+.reading-content{width:100%;max-width:640px}
+.reading-content h2{font-size:1.35em;font-weight:700;color:#1a202c;margin-bottom:16px}
+.reading-content p{font-size:.95em;color:#4a5568;line-height:1.7;margin-bottom:28px}
+.task-table{width:100%;border-collapse:collapse;border:1px solid #e2e8f0;overflow:hidden}
+.task-table thead th{background:#ebf4ff;color:#2d3748;font-size:.85em;font-weight:600;text-align:left;padding:12px 18px;border-bottom:1px solid #e2e8f0}
+.task-table tbody td{padding:14px 18px;font-size:.9em;color:#4a5568;border-bottom:1px solid #f0f0f0;vertical-align:top}
+.task-table tbody tr:last-child td{border-bottom:none}
+.task-table tbody tr:hover{background:#f7fafc}
+.reading-footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e2e8f0;padding:14px 24px;display:flex;justify-content:flex-end}
+.btn-start{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-size:.95em;font-family:inherit;font-weight:600;color:#fff;background:#2d3748;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+.btn-start:hover{background:#1a202c}
+.btn-start svg{width:16px;height:16px;fill:currentColor}
+</style>
+</head>
+<body>
+
+<div class="reading-nav">
+  <button class="reading-nav-close" onclick="location.href='mic-check.html'" title="Back">&times;</button>
+  <span class="reading-nav-label">Reading</span>
+  <span class="reading-nav-right" id="userBadge"></span>
+</div>
+<div class="reading-progress"><div class="reading-progress-fill"></div></div>
+
+<div class="reading-body">
+  <div class="reading-content">
+    <h2>Reading Section</h2>
+    <p>In the Reading section, you will answer 35-48 questions to demonstrate how well you understand academic and non-academic texts in English. There are three types of tasks.</p>
+    <table class="task-table">
+      <thead><tr><th>Type of Task</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Complete the Words</td><td>Fill in the missing letters in a paragraph.</td></tr>
+        <tr><td>Read in Daily Life</td><td>Answer questions about everyday reading material.</td></tr>
+        <tr><td>Read in Academic Passage</td><td>Answer questions about academic passages.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="reading-footer">
+  <button class="btn-start" onclick="alert('Reading questions coming soon!')">
+    Start Practice
+    <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+  </button>
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+  Auth.require();
+  Auth.showBadge('userBadge');
+</script>
+</body>
+</html>
