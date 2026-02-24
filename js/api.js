@@ -2,7 +2,7 @@
  * GAS API通信モジュール
  * GAS Deploy URL設定済み
  */
-const API_URL = 'https://script.google.com/a/macros/tckworkshop.co.jp/s/AKfycbwylm042co9aSzwlQG_nV8ZxyMEFtr0VGhL5i6hqHXoLLfNA8YJOLrpJriw0NdTWvZG2Q/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwylm042co9aSzwlQG_nV8ZxyMEFtr0VGhL5i6hqHXoLLfNA8YJOLrpJriw0NdTWvZG2Q/exec';
 
 const API = {
   async login(id, pass) {
