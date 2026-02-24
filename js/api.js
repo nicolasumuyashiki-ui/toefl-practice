@@ -6,13 +6,13 @@ const API_URL = 'https://script.google.com/a/macros/tckworkshop.co.jp/s/AKfycbwy
 
 const API = {
   async login(id, pass) {
-    const url = \`\${API_URL}?action=login&id=\${encodeURIComponent(id)}&pass=\${encodeURIComponent(pass)}\`;
+    const url = `${API_URL}?action=login&id=${encodeURIComponent(id)}&pass=${encodeURIComponent(pass)}`;
     const res = await fetch(url, { redirect: 'follow' });
     return res.json();
   },
 
   async getQuestions(section) {
-    const url = \`\${API_URL}?action=getQuestions&section=\${encodeURIComponent(section)}\`;
+    const url = `${API_URL}?action=getQuestions&section=${encodeURIComponent(section)}`;
     const res = await fetch(url, { redirect: 'follow' });
     return res.json();
   },
