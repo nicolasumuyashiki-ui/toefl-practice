@@ -73,6 +73,7 @@ body{background:#f0f4f8}
 <script src="js/api.js"></script>
 <script src="js/auth.js"></script>
 <script>
+  // 既にログイン済みならスキップ
   if (Auth.get()) location.href = 'mic-check.html';
 
   document.getElementById('password').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
