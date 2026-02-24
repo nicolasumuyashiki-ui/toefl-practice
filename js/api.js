@@ -3,7 +3,7 @@
  * 
  * ★ GASをデプロイしたら、下の API_URL を書き換えてください
  */
-const API_URL = 'YOUR_GAS_DEPLOY_URL_HERE';
+const API_URL = 'https://script.google.com/a/macros/tckworkshop.co.jp/s/AKfycbwylm042co9aSzwlQG_nV8ZxyMEFtr0VGhL5i6hqHXoLLfNA8YJOLrpJriw0NdTWvZG2Q/exec';
 
 const API = {
   async login(id, pass) {
