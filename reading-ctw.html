@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEFL iBT - Complete the Words</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#2d3748;line-height:1.7}
+
+/* ===== TOP NAV ===== */
+.top-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+.top-nav-left{display:flex;align-items:center;gap:16px;font-size:.9em;color:#4a5568}
+.top-nav-left strong{color:#2d3748}
+.top-nav-right{display:flex;align-items:center;gap:12px}
+.timer-btn{background:none;border:1px solid #cbd5e0;border-radius:6px;padding:6px 14px;font-size:.85em;color:#4a5568;cursor:pointer;font-family:inherit;transition:all .2s}
+.timer-btn:hover{background:#f7fafc}
+.timer-display{font-family:'Courier New',monospace;font-size:.9em;color:#2d3748;font-weight:600;min-width:60px;text-align:center}
+.review-btn{background:#4a90d9;color:#fff;border:none;border-radius:14px;padding:6px 18px;font-size:.85em;cursor:pointer;font-family:inherit;font-weight:500;transition:all .2s}
+.review-btn:hover{background:#3a7bc8}
+.user-badge{font-size:.8em;color:#718096}
+.user-badge strong{color:#2d3748}
+
+/* ===== PROGRESS BAR ===== */
+.progress-bar{height:4px;background:#ebf4ff;width:100%}
+.progress-fill{height:100%;width:5%;background:#3182ce;border-radius:2px;transition:width .3s}
+
+/* ===== MAIN CONTENT ===== */
+.main{flex:1;display:flex;justify-content:center;padding:40px 24px 120px}
+.content{width:100%;max-width:660px}
+.direction{font-weight:700;font-size:1em;color:#2d3748;margin-bottom:24px}
+
+/* ===== PASSAGE ===== */
+.passage{font-size:.95em;line-height:2.2;color:#2d3748}
+.word-blank{display:inline-block;white-space:nowrap}
+.sh{font-size:.95em}
+.bx{display:inline-block;width:1.15em;height:1.5em;border:1px solid #bbb;border-radius:2px;background:#ececec;text-align:center;vertical-align:baseline;margin:0 .5px;position:relative}
+.bx input{width:100%;height:100%;border:none;background:transparent;text-align:center;font-size:.85em;font-family:inherit;outline:none;padding:0;color:#2d3748}
+.bx:focus-within{background:#dce8f7;border-color:#4a90d9}
+
+/* ===== FOOTER NAV (matches reading-intro.html) ===== */
+.reading-footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e2e8f0;padding:14px 24px;display:flex;justify-content:flex-end;gap:12px;z-index:100}
+.btn-nav{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-size:.95em;font-family:inherit;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+.btn-back{color:#4a5568;background:#fff;border:1px solid #e2e8f0;opacity:.5;cursor:not-allowed}
+.btn-next{color:#fff;background:#2d3748}
+.btn-next:hover{background:#1a202c}
+.btn-next svg{width:16px;height:16px;fill:currentColor}
+
+/* ===== REVIEW OVERLAY ===== */
+.overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);z-index:200;justify-content:center;align-items:center}
+.overlay.active{display:flex}
+.review-panel{background:#fff;border-radius:12px;width:90%;max-width:820px;max-height:80vh;display:flex;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.review-left{flex:55%;border-right:1px solid #e2e8f0;overflow-y:auto;padding:0}
+.review-right{flex:45%;padding:28px;overflow-y:auto;background:#f9fafb}
+.review-header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid #e2e8f0;position:sticky;top:0;background:#fff;z-index:1}
+.review-header h3{font-size:1em;color:#2d3748}
+.review-close{background:none;border:none;font-size:1.3em;cursor:pointer;color:#718096;padding:4px 8px;border-radius:4px}
+.review-close:hover{background:#f7fafc}
+.review-row{display:flex;padding:12px 20px;border-bottom:1px solid #f0f0f0;cursor:pointer;align-items:center;font-size:.88em;transition:background .15s}
+.review-row:hover,.review-row.active{background:#ebf4ff}
+.review-no{width:36px;color:#718096;font-weight:500}
+.review-q{flex:1;color:#2d3748}
+.review-status{font-size:.8em;padding:3px 10px;border-radius:10px;white-space:nowrap}
+.review-status.answered{background:#c6f6d5;color:#22543d}
+.review-status.not-answered{background:#fed7d7;color:#9b2c2c}
+.review-status.coming{background:#e2e8f0;color:#718096}
+.detail-label{display:inline-block;background:#ebf4ff;color:#4a90d9;font-size:.75em;font-weight:600;padding:3px 10px;border-radius:10px;margin-bottom:12px}
+.detail-title{font-size:1.05em;font-weight:700;color:#2d3748;margin-bottom:12px}
+.detail-desc{font-size:.88em;color:#4a5568;line-height:1.65;margin-bottom:20px}
+.btn-goto{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;font-size:.85em;font-family:inherit;font-weight:600;color:#fff;background:#4a90d9;border:none;border-radius:14px;cursor:pointer;transition:all .2s}
+.btn-goto:hover{background:#3a7bc8}
+.btn-goto.disabled{background:#cbd5e0;cursor:not-allowed}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div class="top-nav">
+  <div class="top-nav-left">
+    <span>Question <strong>1-10</strong> of 20</span>
+    <span>|</span>
+    <span>Reading</span>
+  </div>
+  <div class="top-nav-right">
+    <span class="timer-display" id="timer" onclick="toggleTimer()">36:00</span>
+    <button class="timer-btn" onclick="toggleTimer()">Hide Time</button>
+    <button class="review-btn" onclick="openReview()">Review</button>
+    <span class="user-badge" id="userBadge"></span>
+  </div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+  <div class="content">
+    <p class="direction">Fill in the missing letters in the paragraph.</p>
+    <div class="passage" id="passage"></div>
+  </div>
+</div>
+
+<!-- FOOTER NAV -->
+<div class="reading-footer">
+  <button class="btn-nav btn-back" disabled>&#8249; Back</button>
+  <button class="btn-nav btn-next" onclick="goNext()">Next &#8250;
+    <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+  </button>
+</div>
+
+<!-- REVIEW OVERLAY -->
+<div class="overlay" id="reviewOverlay">
+  <div class="review-panel">
+    <div class="review-left">
+      <div class="review-header">
+        <h3>Review Questions</h3>
+        <button class="review-close" onclick="closeReview()">&times;</button>
+      </div>
+      <div id="reviewList"></div>
+    </div>
+    <div class="review-right" id="reviewDetail">
+      <div class="detail-label">Reading</div>
+      <div class="detail-title">Select a question to see details</div>
+      <div class="detail-desc">Click on any question in the list to view its description and navigate to it.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== DATA ===== */
+var D = {
+  intro: "Earthquakes are natural events that happen when large pieces of rock deep underground suddenly move and release stored energy. They can occur anywhere on Earth, but some areas experience them much more often than others.",
+  conclusion: "Scientists use special instruments called seismographs to measure the strength and location of these events, helping communities prepare and reduce damage.",
+  target: [
+    {w:"This",      a:"is",    s:"Th",    p:""},
+    {w:"powerful",  a:null,    s:null,    p:""},
+    {w:"force",     a:"ce",    s:"for",   p:""},
+    {w:"travels",   a:null,    s:null,    p:""},
+    {w:"through",   a:"ough",  s:"thr",   p:""},
+    {w:"the",       a:null,    s:null,    p:""},
+    {w:"ground",    a:"und",   s:"gro",   p:""},
+    {w:"in",        a:null,    s:null,    p:""},
+    {w:"waves",     a:"es",    s:"wav",   p:""},
+    {w:"that",      a:null,    s:null,    p:""},
+    {w:"can",       a:"an",    s:"c",     p:""},
+    {w:"shake",     a:null,    s:null,    p:""},
+    {w:"buildings", a:"ings",  s:"build", p:""},
+    {w:"and",       a:null,    s:null,    p:""},
+    {w:"roads",     a:"ds",    s:"roa",   p:""},
+    {w:"for",       a:null,    s:null,    p:""},
+    {w:"several",   a:"eral",  s:"sev",   p:""},
+    {w:"minutes",   a:null,    s:null,    p:""},
+    {w:"or",        a:"r",     s:"o",     p:""},
+    {w:"longer",    a:null,    s:null,    p:""}
+  ]
+};
+
+/* ===== REVIEW DATA ===== */
+var questions = [
+  {no:"1-10", title:"Complete the Words", desc:"Fill in the missing letters in the paragraph about the science of earthquakes.", section:"Reading", page:"reading-ctw.html"},
+  {no:"11",   title:"Read a Notice (Q11)", desc:"Read a notice and answer a multiple choice question.", section:"Reading", page:null},
+  {no:"12",   title:"Read a Notice (Q12)", desc:"Read the same notice and answer a second multiple choice question.", section:"Reading", page:null},
+  {no:"13",   title:"Read in Daily Life (Q13)", desc:"Read an everyday text and answer a question.", section:"Reading", page:null},
+  {no:"14",   title:"Read in Daily Life (Q14)", desc:"Read the same text and answer a second question.", section:"Reading", page:null},
+  {no:"15",   title:"Read in Daily Life (Q15)", desc:"Read the same text and answer a third question.", section:"Reading", page:null},
+  {no:"16-20",title:"Academic Passage", desc:"Read an academic passage and answer questions.", section:"Reading", page:null}
+];
+
+/* ===== RENDER PASSAGE ===== */
+(function(){
+  var h = '<span>' + D.intro + '</span> ';
+  D.target.forEach(function(t){
+    if(t.a !== null){
+      h += '<span class="word-blank"><span class="sh">' + t.s + '</span><span class="boxes">';
+      for(var j=0;j<t.a.length;j++){
+        h += '<span class="bx"><input type="text" maxlength="1" data-idx="'+j+'" autocomplete="off" autocorrect="off" spellcheck="false"></span>';
+      }
+      h += '</span>';
+      if(t.p) h += t.p;
+      h += '</span> ';
+    } else {
+      h += t.w + (t.p||'') + ' ';
+    }
+  });
+  h += '<span>' + D.conclusion + '</span>';
+  document.getElementById('passage').innerHTML = h;
+
+  /* Auto-advance on input */
+  var boxes = document.querySelectorAll('.bx input');
+  boxes.forEach(function(inp, i){
+    inp.addEventListener('input', function(){
+      if(this.value.length === 1 && i < boxes.length - 1){
+        boxes[i+1].focus();
+      }
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Backspace' && this.value === '' && i > 0){
+        boxes[i-1].focus();
+      }
+    });
+  });
+})();
+
+/* ===== TIMER ===== */
+var timeLeft = 36*60;
+var timerVisible = true;
+var timerInterval = setInterval(function(){
+  timeLeft--;
+  if(timeLeft <= 0){ clearInterval(timerInterval); timeLeft = 0; }
+  var m = Math.floor(timeLeft/60);
+  var s = timeLeft%60;
+  document.getElementById('timer').textContent = m + ':' + (s<10?'0':'') + s;
+}, 1000);
+
+function toggleTimer(){
+  timerVisible = !timerVisible;
+  var el = document.getElementById('timer');
+  el.style.visibility = timerVisible ? 'visible' : 'hidden';
+  document.querySelector('.timer-btn').textContent = timerVisible ? 'Hide Time' : 'Show Time';
+}
+
+/* ===== REVIEW ===== */
+function getAnswerStatus(){
+  var blanks = D.target.filter(function(t){return t.a !== null;});
+  var allBoxes = document.querySelectorAll('.bx input');
+  var idx = 0;
+  var answered = 0;
+  blanks.forEach(function(b){
+    var filled = true;
+    for(var j=0;j<b.a.length;j++){
+      if(!allBoxes[idx+j].value) filled = false;
+    }
+    if(filled) answered++;
+    idx += b.a.length;
+  });
+  return {answered: answered, total: blanks.length};
+}
+
+function openReview(){
+  var status = getAnswerStatus();
+  var html = '';
+  questions.forEach(function(q, i){
+    var st, cls;
+    if(i === 0){
+      st = status.answered + '/' + status.total + ' Answered';
+      cls = status.answered === status.total ? 'answered' : 'not-answered';
+    } else if(q.page){
+      st = 'Not Started';
+      cls = 'not-answered';
+    } else {
+      st = 'Coming Soon';
+      cls = 'coming';
+    }
+    html += '<div class="review-row" onclick="showDetail('+i+')" data-idx="'+i+'">';
+    html += '<span class="review-no">'+q.no+'</span>';
+    html += '<span class="review-q">'+q.title+'</span>';
+    html += '<span class="review-status '+cls+'">'+st+'</span>';
+    html += '</div>';
+  });
+  document.getElementById('reviewList').innerHTML = html;
+  document.getElementById('reviewOverlay').classList.add('active');
+  showDetail(0);
+}
+
+function showDetail(idx){
+  var q = questions[idx];
+  document.querySelectorAll('.review-row').forEach(function(r){r.classList.remove('active')});
+  var rows = document.querySelectorAll('.review-row');
+  if(rows[idx]) rows[idx].classList.add('active');
+  var btnHtml;
+  if(q.page){
+    btnHtml = '<button class="btn-goto" onclick="closeReview()">Go to Question &#8250;</button>';
+  } else {
+    btnHtml = '<button class="btn-goto disabled" disabled>Coming Soon</button>';
+  }
+  document.getElementById('reviewDetail').innerHTML =
+    '<div class="detail-label">'+q.section+'</div>' +
+    '<div class="detail-title">'+q.title+'</div>' +
+    '<div class="detail-desc">'+q.desc+'</div>' +
+    btnHtml;
+}
+
+function closeReview(){
+  document.getElementById('reviewOverlay').classList.remove('active');
+}
+
+/* Close overlay on background click */
+document.getElementById('reviewOverlay').addEventListener('click', function(e){
+  if(e.target === this) closeReview();
+});
+
+/* ===== NAVIGATION ===== */
+function goNext(){
+  alert('Next section coming soon!');
+}
+
+/* ===== AUTH ===== */
+if(typeof Auth !== 'undefined'){
+  Auth.require();
+  Auth.showBadge('userBadge');
+}
+</script>
+<script src="js/auth.js"></script>
+</body>
+</html>
