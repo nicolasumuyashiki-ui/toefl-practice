@@ -172,7 +172,7 @@ var questions = [
     if(t.a !== null){
       h += '<span class="word-blank"><span class="sh">' + t.s + '</span><span class="boxes">';
       for(var j=0;j<t.a.length;j++){
-        h += '<span class="bx"><input type="text" maxlength="1" data-idx="'+j+'" autocomplete="off" autocorrect="off" spellcheck="false"></span>';
+        h += '<span class="bx"><input type="text" maxlength="1" data-idx="'+j+'" autocomplete="off" autocorrect="off" autocapitalize="off" inputmode="latin" lang="en" spellcheck="false"></span>';
       }
       h += '</span>';
       if(t.p) h += t.p;
