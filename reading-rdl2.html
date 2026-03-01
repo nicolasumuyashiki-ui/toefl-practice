@@ -116,7 +116,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
     <div class="email-container">
       <div class="email-subject">Subject: Volunteer Opportunity – Spring Park Cleanup</div>
       <div class="email-meta">
-        <span><strong>From:</strong> Green Action Club &lt;greenaction@lincolnhigh.edu&gt;</span>
+        <span><strong>From:</strong> Green Action Club &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aacdd8cfcfc4cbc9dec3c5c4eac6c3c4c9c5c6c4c2c3cdc284cfcedf">[email&#160;protected]</a>&gt;</span>
         <span><strong>To:</strong> All Students</span>
         <span><strong>Date:</strong> March 10, 2026</span>
       </div>
@@ -234,14 +234,22 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
       <div id="reviewList"></div>
     </div>
     <div class="review-right" id="reviewDetail">
-      <div class="detail-label">Reading</div>
-      <div class="detail-title">Select a question to see details</div>
-      <div class="detail-desc">Click on any question in the list to view its description.</div>
+      <h2 style="font-size:1.2em;font-weight:700;color:#2d3748;margin-bottom:12px">Reading Section</h2>
+      <p style="font-size:.88em;color:#4a5568;line-height:1.65;margin-bottom:16px">In the Reading section, you will answer questions to demonstrate how well you understand academic and non-academic texts in English. You will read passages and respond to questions about them.</p>
+      <p style="font-size:.88em;color:#4a5568;line-height:1.65;margin-bottom:16px">There are several types of tasks in this section:</p>
+      <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:6px;overflow:hidden;font-size:.85em">
+        <thead><tr style="background:#ebf4ff"><th style="text-align:left;padding:10px 14px;font-weight:600;color:#2d3748">Task Type</th><th style="text-align:left;padding:10px 14px;font-weight:600;color:#2d3748">What You'll Do</th></tr></thead>
+        <tbody>
+          <tr><td style="padding:10px 14px;font-weight:600;color:#2d3748;border-top:1px solid #e2e8f0">Complete the Words</td><td style="padding:10px 14px;color:#4a5568;border-top:1px solid #e2e8f0">Type the missing letters to finish words in a short paragraph.</td></tr>
+          <tr><td style="padding:10px 14px;font-weight:600;color:#2d3748;border-top:1px solid #e2e8f0">Read and Respond</td><td style="padding:10px 14px;color:#4a5568;border-top:1px solid #e2e8f0">Read practical, everyday texts and respond to comprehension questions.</td></tr>
+          <tr><td style="padding:10px 14px;font-weight:600;color:#2d3748;border-top:1px solid #e2e8f0">Academic Reading</td><td style="padding:10px 14px;color:#4a5568;border-top:1px solid #e2e8f0">Read a longer academic text and answer questions about its content.</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ===== DATA ===== */
 var answers = { q13: "B", q14: "C", q15: "C" };
 var currentPage = 1;
@@ -320,42 +328,18 @@ function openReview(){
     } else {
       st = 'Coming Soon'; cls = 'coming';
     }
-    html += '<div class="review-row" onclick="showDetail('+i+')" data-idx="'+i+'">';
+    html += '<div class="review-row" data-idx="'+i+'">';
     html += '<span class="review-no">'+q.no+'</span>';
     html += '<span class="review-q">'+q.title+'</span>';
     html += '<span class="review-status '+cls+'">'+st+'</span></div>';
   });
   document.getElementById('reviewList').innerHTML = html;
   document.getElementById('reviewOverlay').classList.add('active');
-  showDetail(3);
 }
-
-function showDetail(idx){
-  var q = questions[idx];
-  document.querySelectorAll('.review-row').forEach(function(r){r.classList.remove('active')});
-  var rows = document.querySelectorAll('.review-row');
-  if(rows[idx]) rows[idx].classList.add('active');
-  var btn;
-  if(q.page){
-    btn = '<button class="btn-goto" onclick="closeReview()">Go to Question &#8250;</button>';
-  } else {
-    btn = '<button class="btn-goto disabled" disabled>Coming Soon</button>';
-  }
-  document.getElementById('reviewDetail').innerHTML =
-    '<div class="detail-label">'+q.section+'</div>'+
-    '<div class="detail-title">'+q.title+'</div>'+
-    '<div class="detail-desc">'+q.desc+'</div>'+btn;
 }
 
 function closeReview(){ document.getElementById('reviewOverlay').classList.remove('active'); }
 document.getElementById('reviewOverlay').addEventListener('click', function(e){ if(e.target===this) closeReview(); });
 
 /* ===== NAVIGATION ===== */
-function goNext(){ alert('Next section (Academic Passage) coming soon!'); }
-
-/* ===== AUTH ===== */
-if(typeof Auth !== 'undefined'){ Auth.require(); Auth.showBadge('userBadge'); }
-</script>
-<script src="js/auth.js"></script>
-</body>
-</html>
+fun
