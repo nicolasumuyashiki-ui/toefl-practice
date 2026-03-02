@@ -27,7 +27,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
 .progress-fill{height:100%;background:#3182ce;border-radius:2px;transition:width .3s}
 
 /* ===== SPLIT LAYOUT ===== */
-.split-main{flex:1;display:flex;padding:0 0 80px 0;overflow:hidden}
+.split-main{flex:1;display:flex;padding:0 0 80px 0;overflow:hidden;max-width:1100px;margin:0 auto}
 .passage-panel{flex:1;padding:32px 28px;overflow-y:auto;border-right:1px solid #e2e8f0;background:#f9fafb}
 .question-panel{flex:1;padding:32px 28px;overflow-y:auto}
 .instruction{font-weight:600;font-size:.9em;color:#4a90d9;margin-bottom:16px}
@@ -117,10 +117,12 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
       <div class="notice-header">LIBRARY HOURS CHANGE</div>
       <div class="notice-subheader">Effective March 3 – March 14</div>
       <div class="notice-body">
-        <p>Due to heating system repairs, the West Campus Library will close at 6:00 PM instead of the usual 10:00 PM on weekdays. Weekend hours (9 AM – 5 PM) are not affected.</p>
-        <p>The 24-hour study room on the ground floor will remain open as usual. Please bring your student ID for after-hours access.</p>
+        <p>Due to heating system repairs, the <strong>West Campus Library</strong> will close at <strong>6:00 PM</strong> instead of the usual 10:00 PM on weekdays (Monday through Friday). Weekend hours (Saturday and Sunday, 9:00 AM – 5:00 PM) are not affected.</p>
+        <p>The <strong>24-hour study room</strong> on the ground floor (Room G-04) will remain open as usual. Outdoor book return drop boxes and online catalog access are also available at all times.</p>
+        <p>Students who wish to use the study room after 6:00 PM must bring a valid student ID for after-hours access. The security desk at the ground-floor entrance will verify IDs.</p>
+        <p>We apologize for any inconvenience and appreciate your patience while we improve the building's heating infrastructure.</p>
       </div>
-      <div class="notice-footer">Questions? Contact the Library Help Desk: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5d31343f703538312d1d2a382e293e3c302d282e73383928">[email&#160;protected]</a></div>
+      <div class="notice-footer">Questions? Contact the Library Help Desk: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f13161d52171a130f3f081a0c0b1c1e120f0a0c511a1b0a">[email&#160;protected]</a></div>
     </div>
   </div>
 
@@ -133,10 +135,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
         <label class="option" data-q="q11" data-v="A" onclick="selectOption(this)">
           <input type="radio" name="q11" value="A">
           <span class="option-label">(A)</span>
-          <span class="option-text">There is a staff shortage.</span>
-        </label>
-        <label class="option" data-q="q11" data-v="B" onclick="selectOption(this)">
-          <input type="radio" name="q11" value="B">
+          <span class="option-text">There is a staff   <input type="radio" name="q11" value="B">
           <span class="option-label">(B)</span>
           <span class="option-text">The heating system is being repaired.</span>
         </label>
@@ -216,7 +215,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ===== DATA ===== */
 var answers = { q11: "B", q12: "C" };
 var currentPage = 1;
@@ -307,4 +306,12 @@ function openReview(){
 function closeReview(){ document.getElementById('reviewOverlay').classList.remove('active'); }
 document.getElementById('reviewOverlay').addEventListener('click', function(e){ if(e.target===this) closeReview(); });
 
-/* ===== NAVIGATION =====
+/* ===== NAVIGATION ===== */
+function goNext(){ window.location.href = 'reading-rdl2.html'; }
+
+/* ===== AUTH ===== */
+if(typeof Auth !== 'undefined'){ Auth.require(); Auth.showBadge('userBadge'); }
+</script>
+<script src="js/auth.js"></script>
+</body>
+</html>

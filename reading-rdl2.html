@@ -27,7 +27,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
 .progress-fill{height:100%;background:#3182ce;border-radius:2px;transition:width .3s}
 
 /* ===== SPLIT LAYOUT ===== */
-.split-main{flex:1;display:flex;padding:0 0 80px 0;overflow:hidden}
+.split-main{flex:1;display:flex;padding:0 0 80px 0;overflow:hidden;max-width:1100px;margin:0 auto}
 .passage-panel{flex:1;padding:32px 28px;overflow-y:auto;border-right:1px solid #e2e8f0;background:#f9fafb}
 .question-panel{flex:1;padding:32px 28px;overflow-y:auto}
 .instruction{font-weight:600;font-size:.9em;color:#4a90d9;margin-bottom:16px}
@@ -116,7 +116,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
     <div class="email-container">
       <div class="email-subject">Subject: Volunteer Opportunity – Spring Park Cleanup</div>
       <div class="email-meta">
-        <span><strong>From:</strong> Green Action Club &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aacdd8cfcfc4cbc9dec3c5c4eac6c3c4c9c5c6c4c2c3cdc284cfcedf">[email&#160;protected]</a>&gt;</span>
+        <span><strong>From:</strong> Green Action Club &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ddbaafb8b8b3bcbea9b4b2b39db1b4b3beb2b1b3b5b4bab5f3b8b9a8">[email&#160;protected]</a>&gt;</span>
         <span><strong>To:</strong> All Students</span>
         <span><strong>Date:</strong> March 10, 2026</span>
       </div>
@@ -336,10 +336,16 @@ function openReview(){
   document.getElementById('reviewList').innerHTML = html;
   document.getElementById('reviewOverlay').classList.add('active');
 }
-}
 
 function closeReview(){ document.getElementById('reviewOverlay').classList.remove('active'); }
 document.getElementById('reviewOverlay').addEventListener('click', function(e){ if(e.target===this) closeReview(); });
 
 /* ===== NAVIGATION ===== */
-fun
+function goNext(){ alert('Next section (Academic Passage) coming soon!'); }
+
+/* ===== AUTH ===== */
+if(typeof Auth !== 'undefined'){ Auth.require(); Auth.showBadge('userBadge'); }
+</script>
+<script src="js/auth.js"></script>
+</body>
+</html>
