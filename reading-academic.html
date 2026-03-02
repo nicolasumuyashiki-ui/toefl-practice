@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEFL iBT - Read an Academic Passage</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#2d3748;line-height:1.7}
+
+/* ===== TOP NAV ===== */
+.top-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+.top-nav-left{display:flex;align-items:center;gap:16px;font-size:.9em;color:#4a5568}
+.top-nav-left strong{color:#2d3748}
+.top-nav-right{display:flex;align-items:center;gap:12px}
+.timer-btn{background:none;border:1px solid #cbd5e0;border-radius:6px;padding:6px 14px;font-size:.85em;color:#4a5568;cursor:pointer;font-family:inherit;transition:all .2s}
+.timer-btn:hover{background:#f7fafc}
+.timer-display{font-family:'Courier New',monospace;font-size:.9em;color:#2d3748;font-weight:600;min-width:60px;text-align:center}
+.review-btn{background:#4a90d9;color:#fff;border:none;border-radius:14px;padding:6px 18px;font-size:.85em;cursor:pointer;font-family:inherit;font-weight:500;transition:all .2s}
+.review-btn:hover{background:#3a7bc8}
+.user-badge{font-size:.8em;color:#718096}
+.user-badge strong{color:#2d3748}
+
+/* ===== PROGRESS BAR ===== */
+.progress-bar{height:4px;background:#ebf4ff;width:100%}
+.progress-fill{height:100%;background:#3182ce;border-radius:2px;transition:width .3s}
+
+/* ===== SPLIT LAYOUT ===== */
+.split-main{flex:1;display:flex;padding:0 0 80px 0;overflow:hidden;max-width:1100px;margin:0 auto}
+.passage-panel{flex:1;padding:32px 28px;overflow-y:auto;border-right:1px solid #e2e8f0;background:#f9fafb}
+.question-panel{flex:1;padding:32px 28px;overflow-y:auto}
+.instruction{font-weight:600;font-size:.9em;color:#4a90d9;margin-bottom:16px}
+
+/* ===== PASSAGE STYLES ===== */
+.passage-title{font-size:1.1em;font-weight:700;color:#2d3748;margin-bottom:16px}
+.passage-content{font-size:.93em;line-height:1.8;color:#2d3748}
+.passage-content p{margin-bottom:14px;text-indent:0}
+
+/* ===== QUESTION STYLES ===== */
+.question-page{display:none}
+.question-page.active{display:block}
+.question-text{font-weight:600;font-size:.95em;margin-bottom:20px;line-height:1.5}
+.question-number{color:#3182ce;font-weight:700;margin-right:4px}
+.options{display:flex;flex-direction:column;gap:12px}
+.option{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;border:1px solid #e2e8f0;border-radius:8px;cursor:pointer;transition:all .15s;font-size:.93em;line-height:1.5}
+.option:hover{background:#ebf4ff;border-color:#90cdf4}
+.option.selected{background:#ebf4ff;border-color:#3182ce}
+.option.correct{background:#f0fff4;border-color:#48bb78}
+.option.wrong{background:#fff5f5;border-color:#fc8181}
+.option input{display:none}
+.option-label{font-weight:600;color:#4a90d9;flex-shrink:0}
+.option-text{color:#2d3748}
+
+/* ===== SENTENCE INSERTION STYLES ===== */
+.insert-square{display:inline-block;width:20px;height:20px;background-color:#3182ce;color:white;font-size:0.7rem;font-weight:700;text-align:center;line-height:20px;border-radius:3px;cursor:pointer;vertical-align:middle;margin:0 3px;user-select:none;transition:all 0.2s}
+.insert-square:hover{background-color:#2c5282;transform:scale(1.15);box-shadow:0 2px 6px rgba(49,130,206,0.4)}
+.insert-square.selected-square{background-color:#38a169;transform:scale(1.15);box-shadow:0 2px 6px rgba(56,161,105,0.4)}
+.insert-square.correct-square{background-color:#38a169}
+.insert-square.wrong-square{background-color:#e53e3e}
+.inserted-sentence{display:inline;font-weight:700;color:#2c5282;background-color:#ebf8ff;padding:2px 5px;border-radius:3px;border-left:3px solid #3182ce}
+.insertion-sentence-display{font-weight:700;font-size:1rem;line-height:1.6;color:#2d3748;margin-bottom:20px}
+.insertion-instruction{background-color:#fffff0;border:1px solid #ecc94b;border-radius:8px;padding:15px 20px;margin-bottom:20px;font-size:0.9rem;color:#744210;line-height:1.5}
+.selection-status{padding:12px 16px;border-radius:6px;margin-bottom:15px;font-weight:500;text-align:center;font-size:0.95rem}
+.selection-status.none{background-color:#f7fafc;border:1px dashed #cbd5e0;color:#718096}
+.selection-status.chosen{background-color:#ebf8ff;border:1px solid #3182ce;color:#2c5282}
+
+
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e2e8f0;padding:14px 32px;display:flex;align-items:center;justify-content:flex-end;gap:12px;z-index:50}
+.btn-nav{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-size:.95em;font-family:inherit;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+.btn-back{background:#fff;color:#4a5568;border:1px solid #cbd5e0}.btn-back:hover{background:#f7fafc}
+.btn-next{background:#1a202c;color:#fff}.btn-next:hover{background:#2d3748}
+.btn-nav:disabled{opacity:.4;cursor:not-allowed}
+
+/* ===== REVIEW OVERLAY ===== */
+.review-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center}
+.review-overlay.active{display:flex}
+.review-box{background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.25);width:90%;max-width:800px;max-height:85vh;display:flex;overflow:hidden}
+.review-left{flex:1;padding:28px;overflow-y:auto;border-right:1px solid #e2e8f0}
+.review-right{flex:1;padding:28px;overflow-y:auto}
+.review-close{float:right;background:none;border:none;font-size:1.5em;cursor:pointer;color:#718096;transition:color .2s}.review-close:hover{color:#2d3748}
+.review-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:6px;margin-bottom:6px;font-size:.9em;cursor:pointer;transition:all .15s}
+.review-row:hover{background:#ebf4ff}
+.review-no{font-weight:600;color:#4a5568;min-width:36px}
+.review-q{flex:1;color:#2d3748}
+.review-status{font-size:.8em;padding:3px 10px;border-radius:10px;font-weight:500}
+.review-status.answered{background:#c6f6d5;color:#276749}
+.review-status.not-answered{background:#fed7d7;color:#9b2c2c}
+.review-status.coming{background:#e2e8f0;color:#718096}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div class="top-nav">
+  <div class="top-nav-left">
+    <span>Question <strong id="qLabel">16</strong> of 20</span>
+    <span style="color:#cbd5e0">|</span>
+    <span>Reading</span>
+  </div>
+  <div class="top-nav-right">
+    <span class="user-badge" id="userBadge"></span>
+    <span class="timer-display" id="timerDisplay">32:00</span>
+    <button class="timer-btn" id="timerToggle" onclick="toggleTimer()">Hide Time</button>
+    <button class="review-btn" onclick="openReview()">Review</button>
+  </div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:75%"></div></div>
+
+<!-- SPLIT LAYOUT -->
+<div class="split-main">
+
+  <!-- LEFT: Passage (fixed) -->
+  <div class="passage-panel">
+    <p class="instruction">Read the passage.</p>
+    <h2 class="passage-title">The Bystander Effect</h2>
+    <div class="passage-content">
+      <p>In 1964, a young woman named Kitty Genovese was attacked outside her apartment building in New York City. According to early reports, dozens of neighbors witnessed the event but none called for help. This shocking case led psychologists John Darley and Bibb Latané to investigate why people sometimes fail to act in emergencies when others are present.</p>
+      <p>Through a series of experiments, Darley and Latané identified a phenomenon they called the bystander effect. They found that individuals are less likely to offer help when other people are nearby. In one well-known study, participants heard someone in another room apparently having a seizure. When participants believed they were the only person aware of the emergency, 85 percent sought help. However, when they believed four other people were also listening, only 31 percent responded.</p>
+      <p id="insertionParagraph">The researchers proposed that two main psychological processes explain this behavior. The first is diffusion of responsibility, which occurs when people assume someone else will take action. The second is pluralistic ignorance, in which individuals look to others for cues on how to react. If no one appears concerned, each person concludes that the situation is not serious. Together, these processes can prevent even well-meaning people from helping in critical moments.</p>
+    </div>
+  </div>
+
+  <!-- RIGHT: Questions -->
+  <div class="question-panel">
+    <!-- Page 1: Q16 - Main Idea -->
+    <div class="question-page active" id="page1">
+      <p class="question-text"><span class="question-number">16.</span> What is the passage mainly about?</p>
+      <div class="options">
+        <label class="option" data-q="q16" data-v="A" onclick="selectOption(this)">
+          <input type="radio" name="q16" value="A">
+          <span class="option-label">(A)</span>
+          <span class="option-text">How the crime rate in New York City changed during the 1960s due to population growth</span>
+        </label>
+        <label class="option" data-q="q16" data-v="B" onclick="selectOption(this)">
+          <input type="radio" name="q16" value="B">
+          <span class="option-label">(B)</span>
+          <span class="option-text">How psychologists have developed new therapies to help witnesses overcome emotional trauma</span>
+        </label>
+        <label class="option" data-q="q16" data-v="C" onclick="selectOption(this)">
+          <input type="radio" name="q16" value="C">
+          <span class="option-label">(C)</span>
+          <span class="option-text">How the presence of other people can reduce an individual's likelihood of helping in emergencies</span>
+        </label>
+        <label class="option" data-q="q16" data-v="D" onclick="selectOption(this)">
+          <input type="radio" name="q16" value="D">
+          <span class="option-label">(D)</span>
+          <span class="option-text">How emergency response systems in large cities have improved since the Genovese case</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Page 2: Q17 - Factual -->
+    <div class="question-page" id="page2">
+      <p class="question-text"><span class="question-number">17.</span> According to the passage, what happened in Darley and Latané's seizure experiment?</p>
+      <div class="options">
+        <label class="option" data-q="q17" data-v="A" onclick="selectOption(this)">
+          <input type="radio" name="q17" value="A">
+          <span class="option-label">(A)</span>
+          <span class="option-text">Participants were more likely to help when they believed several others were also present</span>
+        </label>
+        <label class="option" data-q="q17" data-v="B" onclick="selectOption(this)">
+          <input type="radio" name="q17" value="B">
+          <span class="option-label">(B)</span>
+          <span class="option-text">A much higher percentage of participants helped when they thought they were the only witness</span>
+        </label>
+        <label class="option" data-q="q17" data-v="C" onclick="selectOption(this)">
+          <input type="radio" name="q17" value="C">
+          <span class="option-label">(C)</span>
+          <span class="option-text">Nearly all participants refused to help regardless of how many people they believed were listening</span>
+        </label>
+        <label class="option" data-q="q17" data-v="D" onclick="selectOption(this)">
+          <input type="radio" name="q17" value="D">
+          <span class="option-label">(D)</span>
+          <span class="option-text">Participants who believed others were present responded faster but with less effective assistance</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Page 3: Q18 - Inference -->
+    <div class="question-page" id="page3">
+      <p class="question-text"><span class="question-number">18.</span> What can be inferred from the passage about the bystander effect?</p>
+      <div class="options">
+        <label class="option" data-q="q18" data-v="A" onclick="selectOption(this)">
+          <input type="radio" name="q18" value="A">
+          <span class="option-label">(A)</span>
+          <span class="option-text">A person who has a medical emergency on a quiet street may receive help more quickly than in a crowd</span>
+        </label>
+        <label class="option" data-q="q18" data-v="B" onclick="selectOption(this)">
+          <input type="radio" name="q18" value="B">
+          <span class="option-label">(B)</span>
+          <span class="option-text">Bystanders in small groups are generally less aware of emergencies than those in large groups</span>
+        </label>
+        <label class="option" data-q="q18" data-v="C" onclick="selectOption(this)">
+          <input type="radio" name="q18" value="C">
+          <span class="option-label">(C)</span>
+          <span class="option-text">People who have studied psychology are completely immune to the effects of the bystander phenomenon</span>
+        </label>
+        <label class="option" data-q="q18" data-v="D" onclick="selectOption(this)">
+          <input type="radio" name="q18" value="D">
+          <span class="option-label">(D)</span>
+          <span class="option-text">The bystander effect only influences behavior during violent crimes rather than medical emergencies</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Page 4: Q19 - Sentence Insertion -->
+    <div class="question-page" id="page4">
+      <p class="question-text"><span class="question-number">19.</span> Look at the four squares [&#9632;] in paragraph 3 that indicate where the following sentence could be added to the passage.</p>
+      <p class="insertion-sentence-display">In other words, responsibility becomes spread across the group rather than felt by any single individual.</p>
+      <div class="insertion-instruction">
+        <strong>Directions:</strong> Click on a square [&#9632;] in the passage on the left to add the sentence. The sentence will appear in <strong>bold</strong> at the position you choose. Click a different square to move it.
+      </div>
+      <div class="selection-status none" id="insertionStatus">No position selected yet. Click a &#9632; in paragraph 3.</div>
+    </div>
+
+    <!-- Page 5: Q20 - Factual -->
+    <div class="question-page" id="page5">
+      <p class="question-text"><span class="question-number">20.</span> According to the passage, what is diffusion of responsibility?</p>
+      <div class="options">
+        <label class="option" data-q="q20" data-v="A" onclick="selectOption(this)">
+          <input type="radio" name="q20" value="A">
+          <span class="option-label">(A)</span>
+          <span class="option-text">It describes how witnesses physically intervene to stop an emergency from getting worse</span>
+        </label>
+        <label class="option" data-q="q20" data-v="B" onclick="selectOption(this)">
+          <input type="radio" name="q20" value="B">
+          <span class="option-label">(B)</span>
+          <span class="option-text">It refers to the tendency for bystanders to panic and flee from dangerous situations</span>
+        </label>
+        <label class="option" data-q="q20" data-v="C" onclick="selectOption(this)">
+          <input type="radio" name="q20" value="C">
+          <span class="option-label">(C)</span>
+          <span class="option-text">It explains why individuals in groups tend to overestimate the severity of an emergency</span>
+        </label>
+        <label class="option" data-q="q20" data-v="D" onclick="selectOption(this)">
+          <input type="radio" name="q20" value="D">
+          <span class="option-label">(D)</span>
+          <span class="option-text">It occurs when people in a group assume that someone else will take responsibility for acting</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="btn-nav btn-back" id="btnBack" onclick="changePage(-1)">&#8249; Back</button>
+  <button class="btn-nav btn-next" id="btnNext" onclick="changePage(1)">Next &#8250;
+  </button>
+</div>
+
+<!-- REVIEW OVERLAY -->
+<div class="review-overlay" id="reviewOverlay">
+  <div class="review-box">
+    <div class="review-left">
+      <button class="review-close" onclick="closeReview()">&times;</button>
+      <h2 style="font-size:1.15em;font-weight:700;color:#2d3748;margin-bottom:16px">Review Questions</h2>
+      <div id="reviewList"></div>
+    </div>
+    <div class="review-right">
+      <h2 style="font-size:1.2em;font-weight:700;color:#2d3748;margin-bottom:12px">Reading Section</h2>
+      <p style="font-size:.9em;color:#4a5568;line-height:1.7;margin-bottom:16px">In the Reading section, you will answer questions to demonstrate how well you understand academic and non-academic texts in English. You will read passages and respond to questions about them.</p>
+      <p style="font-size:.9em;color:#4a5568;line-height:1.7;margin-bottom:16px">There are several types of tasks in this section:</p>
+      <table style="width:100%;border-collapse:collapse;font-size:.85em;margin-bottom:16px">
+        <tr style="border-bottom:2px solid #e2e8f0"><th style="text-align:left;padding:8px;color:#4a5568">Task Type</th><th style="text-align:left;padding:8px;color:#4a5568">What You'll Do</th></tr>
+        <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:8px;font-weight:600">Complete the Words</td><td style="padding:8px;color:#4a5568">Type the missing letters to finish words in a short paragraph.</td></tr>
+        <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:8px;font-weight:600">Read and Respond</td><td style="padding:8px;color:#4a5568">Read practical, everyday texts and respond to comprehension questions.</td></tr>
+        <tr><td style="padding:8px;font-weight:600">Academic Passage</td><td style="padding:8px;color:#4a5568">Read a longer academic text and answer questions.</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== TIMER ===== */
+var timerSeconds = 32 * 60;
+var timerRunning = true;
+var timerHidden = false;
+var timerInterval = setInterval(function(){
+  if(!timerRunning) return;
+  timerSeconds--;
+  if(timerSeconds <= 0){ clearInterval(timerInterval); timerSeconds = 0; }
+  var m = Math.floor(timerSeconds/60);
+  var s = timerSeconds%60;
+  document.getElementById('timerDisplay').textContent = m+':'+(s<10?'0':'')+s;
+}, 1000);
+function toggleTimer(){
+  timerHidden = !timerHidden;
+  document.getElementById('timerDisplay').style.visibility = timerHidden ? 'hidden' : 'visible';
+  document.getElementById('timerToggle').textContent = timerHidden ? 'Show Time' : 'Hide Time';
+}
+
+/* ===== PAGE STATE ===== */
+var currentPage = 1;
+var totalPages = 5;
+var startQ = 16;
+var userAnswers = {};
+
+/* ===== REVIEW DATA ===== */
+var questions = [
+  {no:"1-10",  title:"Complete the Words",       desc:"Fill in the missing letters in the paragraph.", section:"Reading", page:"reading-ctw.html"},
+  {no:"11",    title:"Read a Notice (Q11)",       desc:"Read a notice and answer a factual question.", section:"Reading", page:"reading-rdl1.html"},
+  {no:"12",    title:"Read a Notice (Q12)",       desc:"Read the same notice and answer a detail question.", section:"Reading", page:"reading-rdl1.html", qPage:2},
+  {no:"13",    title:"Read an Email (Q13)",       desc:"Read an email and answer a question.", section:"Reading", page:"reading-rdl2.html"},
+  {no:"14",    title:"Read an Email (Q14)",       desc:"Read the same email and answer a second question.", section:"Reading", page:"reading-rdl2.html", qPage:2},
+  {no:"15",    title:"Read an Email (Q15)",       desc:"Read the same email and answer a third question.", section:"Reading", page:"reading-rdl2.html", qPage:3},
+  {no:"16",    title:"Academic Passage (Q16)",    desc:"Identify the main idea of an academic passage.", section:"Reading", page:"reading-academic.html", qPage:1},
+  {no:"17",    title:"Academic Passage (Q17)",    desc:"Answer a factual question about the passage.", section:"Reading", page:"reading-academic.html", qPage:2},
+  {no:"18",    title:"Academic Passage (Q18)",    desc:"Make an inference based on the passage.", section:"Reading", page:"reading-academic.html", qPage:3},
+  {no:"19",    title:"Academic Passage (Q19)",    desc:"Insert a sentence into the passage.", section:"Reading", page:"reading-academic.html", qPage:4},
+  {no:"20",    title:"Academic Passage (Q20)",    desc:"Answer a factual question about the passage.", section:"Reading", page:"reading-academic.html", qPage:5}
+];
+
+/* ===== PAGE NAVIGATION ===== */
+function changePage(dir){
+  var next = currentPage + dir;
+  if(next < 1){ window.location.href = 'reading-rdl2.html'; return; }
+  if(next > totalPages) return;
+  document.getElementById('page'+currentPage).classList.remove('active');
+  currentPage = next;
+  document.getElementById('page'+currentPage).classList.add('active');
+  document.getElementById('qLabel').innerHTML = '<strong>'+(startQ + currentPage - 1)+'</strong>';
+  if(currentPage === totalPages){
+    document.getElementById('btnNext').disabled = true;
+  } else {
+    document.getElementById('btnNext').disabled = false;
+    document.getElementById('btnNext').onclick = function(){ changePage(1); };
+  }
+  updateParagraphVersion();
+}
+
+/* ===== OPTION SELECT ===== */
+function selectOption(el){
+  var q = el.getAttribute('data-q');
+  var v = el.getAttribute('data-v');
+  document.querySelectorAll('.option[data-q="'+q+'"]').forEach(function(o){ o.classList.remove('selected'); });
+  el.classList.add('selected');
+  userAnswers[q] = v;
+}
+
+
+
+/* ===== SENTENCE INSERTION ===== */
+// Paragraph 3 has 4 sentences → standard layout: [S1] ■A [S2] ■B [S3] ■C [S4] ■D
+var normalParagraphHTML = 'The researchers proposed that two main psychological processes explain this behavior. The first is diffusion of responsibility, which occurs when people assume someone else will take action. The second is pluralistic ignorance, in which individuals look to others for cues on how to react. If no one appears concerned, each person concludes that the situation is not serious. Together, these processes can prevent even well-meaning people from helping in critical moments.';
+
+var insertionParagraphHTML = 'The researchers proposed that two main psychological processes explain this behavior. <span class="insert-square" data-insert="A">\u25A0</span> The first is diffusion of responsibility, which occurs when people assume someone else will take action. <span class="insert-square" data-insert="B">\u25A0</span> The second is pluralistic ignorance, in which individuals look to others for cues on how to react. <span class="insert-square" data-insert="C">\u25A0</span> If no one appears concerned, each person concludes that the situation is not serious. <span class="insert-square" data-insert="D">\u25A0</span> Together, these processes can prevent even well-meaning people from helping in critical moments.';
+
+var insertSentenceText = "In other words, responsibility becomes spread across the group rather than felt by any single individual.";
+var correctInsertion = "B";
+var insertionQuestionPage = 4;
+
+var selectedInsertionPoint = null;
+var insertionChecked = false;
+var para = document.getElementById('insertionParagraph');
+
+function updateParagraphVersion(){
+  if(currentPage === insertionQuestionPage){
+    if(!insertionChecked && !selectedInsertionPoint){
+      para.innerHTML = insertionParagraphHTML;
+      attachSquareListeners();
+    } else if(selectedInsertionPoint && !insertionChecked){
+      rebuildParagraphWithInsertion(selectedInsertionPoint);
+    }
+  } else {
+    para.innerHTML = normalParagraphHTML;
+  }
+}
+
+function attachSquareListeners(){
+  document.querySelectorAll('.insert-square').forEach(function(sq){
+    sq.addEventListener('click', function(){
+      if(insertionChecked) return;
+      selectedInsertionPoint = this.getAttribute('data-insert');
+      rebuildParagraphWithInsertion(selectedInsertionPoint);
+      document.getElementById('insertionStatus').className = 'selection-status chosen';
+      document.getElementById('insertionStatus').textContent = 'Sentence placed at position ' + selectedInsertionPoint + '.';
+    });
+  });
+}
+
+function rebuildParagraphWithInsertion(pos){
+  var sentences = [
+    'The researchers proposed that two main psychological processes explain this behavior.',
+    'The first is diffusion of responsibility, which occurs when people assume someone else will take action.',
+    'The second is pluralistic ignorance, in which individuals look to others for cues on how to react.',
+    'If no one appears concerned, each person concludes that the situation is not serious.',
+    'Together, these processes can prevent even well-meaning people from helping in critical moments.'
+  ];
+  var positions = ['A','B','C','D'];
+  var html = '';
+  for(var i = 0; i < sentences.length; i++){
+    html += sentences[i] + ' ';
+    if(i < positions.length){
+      if(positions[i] === pos){
+        html += '<span class="inserted-sentence">' + insertSentenceText + '</span> ';
+      }
+      var cls = 'insert-square';
+      if(positions[i] === pos) cls += ' selected-square';
+      html += '<span class="'+cls+'" data-insert="'+positions[i]+'">\u25A0</span> ';
+    }
+  }
+  para.innerHTML = html;
+  attachSquareListeners();
+}
+
+
+
+/* ===== REVIEW ===== */
+function openReview(){
+  var html = '';
+  questions.forEach(function(q, i){
+    var st, cls;
+    if(q.no.indexOf('-') === -1 && parseInt(q.no) >= 16 && parseInt(q.no) <= 20){
+      var key = 'q'+q.no;
+      st = userAnswers[key] ? 'Answered' : 'Not Answered';
+      cls = userAnswers[key] ? 'answered' : 'not-answered';
+    } else if(q.no === '1-10'){
+      st = 'Completed'; cls = 'answered';
+    } else if(q.page){
+      st = 'Not Started'; cls = 'not-answered';
+    } else {
+      st = 'Coming Soon'; cls = 'coming';
+    }
+    html += '<div class="review-row" data-idx="'+i+'">';
+    html += '<span class="review-no">'+q.no+'</span>';
+    html += '<span class="review-q">'+q.title+'</span>';
+    html += '<span class="review-status '+cls+'">'+st+'</span></div>';
+  });
+  document.getElementById('reviewList').innerHTML = html;
+  document.getElementById('reviewOverlay').classList.add('active');
+
+  /* Click a review row to jump to that question */
+  document.querySelectorAll('.review-row').forEach(function(row){
+    row.style.cursor = 'pointer';
+    row.addEventListener('click', function(){
+      var idx = parseInt(this.getAttribute('data-idx'));
+      var q = questions[idx];
+      if(!q.page) return;
+      if(q.page === 'reading-academic.html' && q.qPage){
+        closeReview();
+        document.getElementById('page'+currentPage).classList.remove('active');
+        currentPage = q.qPage;
+        document.getElementById('page'+currentPage).classList.add('active');
+        document.getElementById('qLabel').innerHTML = '<strong>'+(startQ + currentPage - 1)+'</strong>';
+        if(currentPage === totalPages){
+          document.getElementById('btnNext').disabled = true;
+        } else {
+          document.getElementById('btnNext').disabled = false;
+          document.getElementById('btnNext').onclick = function(){ changePage(1); };
+        }
+        updateParagraphVersion();
+      } else {
+        window.location.href = q.page;
+      }
+    });
+  });
+}
+
+function closeReview(){ document.getElementById('reviewOverlay').classList.remove('active'); }
+document.getElementById('reviewOverlay').addEventListener('click', function(e){ if(e.target===this) closeReview(); });
+
+/* ===== AUTH ===== */
+if(typeof Auth !== 'undefined'){ Auth.require(); Auth.showBadge('userBadge'); }
+</script>
+<script src="js/auth.js"></script>
+</body>
+</html>
