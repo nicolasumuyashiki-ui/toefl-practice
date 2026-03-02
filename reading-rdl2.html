@@ -265,7 +265,11 @@ var questions = [
   {no:"13",    title:"Read an Email (Q13)",       desc:"Read an email about a volunteer event and identify its main purpose.", section:"Reading", page:"reading-rdl2.html", qPage:1},
   {no:"14",    title:"Read an Email (Q14)",       desc:"Answer a negative factual information question about the email.", section:"Reading", page:"reading-rdl2.html", qPage:2},
   {no:"15",    title:"Read an Email (Q15)",       desc:"Make an inference based on the email content.", section:"Reading", page:"reading-rdl2.html", qPage:3},
-  {no:"16-20", title:"Academic Passage",          desc:"Read an academic passage and answer questions.", section:"Reading", page:null}
+  {no:"16",    title:"Academic Passage (Q16)",    desc:"Identify the main idea.", section:"Reading", page:"reading-academic.html", qPage:1},
+  {no:"17",    title:"Academic Passage (Q17)",    desc:"Answer a factual question.", section:"Reading", page:"reading-academic.html", qPage:2},
+  {no:"18",    title:"Academic Passage (Q18)",    desc:"Make an inference.", section:"Reading", page:"reading-academic.html", qPage:3},
+  {no:"19",    title:"Academic Passage (Q19)",    desc:"Insert a sentence.", section:"Reading", page:"reading-academic.html", qPage:4},
+  {no:"20",    title:"Academic Passage (Q20)",    desc:"Answer a factual question.", section:"Reading", page:"reading-academic.html", qPage:5}
 ];
 
 /* ===== PAGE NAVIGATION ===== */
@@ -365,7 +369,7 @@ function closeReview(){ document.getElementById('reviewOverlay').classList.remov
 document.getElementById('reviewOverlay').addEventListener('click', function(e){ if(e.target===this) closeReview(); });
 
 /* ===== NAVIGATION ===== */
-function goNext(){ alert('Next section (Academic Passage) coming soon!'); }
+function goNext(){ window.location.href = 'reading-academic.html'; }
 
 /* ===== AUTH ===== */
 if(typeof Auth !== 'undefined'){ Auth.require(); Auth.showBadge('userBadge'); }
