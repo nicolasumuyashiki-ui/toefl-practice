@@ -217,7 +217,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
 
 <!-- FOOTER NAV -->
 <div class="reading-footer">
-  <button class="btn-nav btn-back" id="btnBack" onclick="changePage(-1)" disabled>&#8249; Back</button>
+  <button class="btn-nav btn-back" id="btnBack" onclick="changePage(-1)">&#8249; Back</button>
   <button class="btn-nav btn-next" id="btnNext" onclick="changePage(1)">Next &#8250;
     <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
   </button>
@@ -271,12 +271,12 @@ var questions = [
 /* ===== PAGE NAVIGATION ===== */
 function changePage(dir){
   var next = currentPage + dir;
-  if(next < 1 || next > totalPages) return;
+  if(next < 1){ window.location.href = 'reading-rdl1.html'; return; }
+  if(next > totalPages) return;
   document.getElementById('page'+currentPage).classList.remove('active');
   currentPage = next;
   document.getElementById('page'+currentPage).classList.add('active');
   document.getElementById('qLabel').innerHTML = '<strong>'+(startQ + currentPage - 1)+'</strong>';
-  document.getElementById('btnBack').disabled = (currentPage === 1);
   if(currentPage === totalPages){
     document.getElementById('btnNext').onclick = function(){ goNext(); };
   } else {
@@ -335,6 +335,30 @@ function openReview(){
   });
   document.getElementById('reviewList').innerHTML = html;
   document.getElementById('reviewOverlay').classList.add('active');
+
+  /* Click a review row to jump to that question */
+  document.querySelectorAll('.review-row').forEach(function(row){
+    row.style.cursor = 'pointer';
+    row.addEventListener('click', function(){
+      var idx = parseInt(this.getAttribute('data-idx'));
+      var q = questions[idx];
+      if(!q.page) return;
+      if(q.page === 'reading-rdl2.html' && q.qPage){
+        closeReview();
+        document.getElementById('page'+currentPage).classList.remove('active');
+        currentPage = q.qPage;
+        document.getElementById('page'+currentPage).classList.add('active');
+        document.getElementById('qLabel').innerHTML = '<strong>'+(startQ + currentPage - 1)+'</strong>';
+        if(currentPage === totalPages){
+          document.getElementById('btnNext').onclick = function(){ goNext(); };
+        } else {
+          document.getElementById('btnNext').onclick = function(){ changePage(1); };
+        }
+      } else {
+        window.location.href = q.page;
+      }
+    });
+  });
 }
 
 function closeReview(){ document.getElementById('reviewOverlay').classList.remove('active'); }
