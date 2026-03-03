@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEFL iBT - Module Transition</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8f9fa;min-height:100vh;display:flex;flex-direction:column;color:#2d3748;line-height:1.6}
+.reading-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:12px 24px;display:flex;align-items:center;gap:14px}
+.reading-nav-label{font-size:.95em;color:#4a5568;font-weight:500}
+.reading-nav-right{margin-left:auto;font-size:.85em;color:#718096}
+.reading-nav-right strong{color:#2d3748}
+.reading-progress{height:4px;background:#ebf4ff;width:100%;flex-shrink:0}
+.reading-progress-fill{height:100%;width:100%;background:#3182ce;border-radius:2px}
+.reading-body{flex:1;display:flex;justify-content:center;padding:60px 24px 120px}
+.reading-content{width:100%;max-width:640px}
+.reading-content h2{font-size:1.35em;font-weight:700;color:#1a202c;margin-bottom:16px}
+.reading-content p{font-size:.95em;color:#4a5568;line-height:1.7;margin-bottom:20px}
+.bold{font-weight:700;color:#2d3748}
+.info-box{background:#f7fafc;border:1px solid #e2e8f0;border-radius:8px;padding:20px 24px;margin-bottom:24px}
+.info-box h3{font-size:.95em;font-weight:700;color:#2d3748;margin-bottom:10px}
+.info-box p{font-size:.9em;color:#4a5568;line-height:1.65;margin-bottom:8px}
+.info-box p:last-child{margin-bottom:0}
+.action-list{list-style:none;padding:0;margin:0 0 24px 0}
+.action-list li{font-size:.92em;color:#4a5568;line-height:1.65;padding:6px 0 6px 18px;position:relative}
+.action-list li::before{content:"\2022";position:absolute;left:0;color:#4a90d9;font-weight:700}
+.action-list li .label{font-weight:700;color:#2d3748;text-decoration:underline}
+.caution-banner{display:flex;align-items:flex-start;gap:10px;background:#fffbeb;border:1px solid #fbd38d;border-radius:8px;padding:14px 18px;margin-bottom:24px}
+.caution-icon{font-size:1.2em;flex-shrink:0;margin-top:1px}
+.caution-text{font-size:.9em;color:#744210;line-height:1.6}
+.caution-text strong{color:#744210}
+.reading-footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e2e8f0;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.footer-left{display:flex;gap:12px}
+.btn-footer{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-size:.95em;font-family:inherit;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+.btn-review{color:#4a5568;background:#fff;border:1px solid #cbd5e0}
+.btn-review:hover{background:#f7fafc;border-color:#a0aec0}
+.btn-back{color:#4a5568;background:#fff;border:1px solid #e2e8f0}
+.btn-back:hover{background:#f7fafc}
+.btn-continue{color:#fff;background:#2d3748;padding:12px 32px}
+.btn-continue:hover{background:#1a202c}
+.btn-continue svg{width:16px;height:16px;fill:currentColor}
+</style>
+</head>
+<body>
+
+<div class="reading-nav">
+  <span class="reading-nav-label">Reading</span>
+  <span class="reading-nav-right">
+    <span class="user-badge" id="userBadge"></span>
+  </span>
+</div>
+<div class="reading-progress"><div class="reading-progress-fill"></div></div>
+
+<div class="reading-body">
+  <div class="reading-content">
+
+    <h2>Module 1 Complete &mdash; Time Remaining</h2>
+
+    <p>You have finished all the questions in Module 1. While time remains, you may review and change your answers within this module.</p>
+
+    <div class="caution-banner">
+      <span class="caution-icon">&#9888;&#65039;</span>
+      <span class="caution-text">Once you move on to Module 2, you <strong>WILL NOT</strong> be able to return to Module 1.</span>
+    </div>
+
+    <div class="info-box">
+      <h3>About Module 2</h3>
+      <p>Based on your performance in Module 1, the test will assign you to one of two paths for Module 2:</p>
+      <p><span class="bold">Hard Path</span> &mdash; focuses more on academic reading content with higher-level comprehension tasks.</p>
+      <p><span class="bold">Easy Path</span> &mdash; focuses more on everyday reading content with practical comprehension tasks.</p>
+      <p>Both paths include the same task types, but the content and difficulty will differ. A new timer will begin when Module 2 starts.</p>
+    </div>
+
+    <p>Choose one of the following actions:</p>
+
+    <ul class="action-list">
+      <li>Select <span class="label">Review</span> to return to the Review screen and check your answers.</li>
+      <li>Select <span class="label">Back</span> to go back to the last question in Module 1.</li>
+      <li>Select <span class="label">Continue</span> to leave Module 1 and begin Module 2 of the reading section.</li>
+    </ul>
+
+  </div>
+</div>
+
+<div class="reading-footer">
+  <div class="footer-left">
+    <button class="btn-footer btn-review" onclick="goReview()">Review</button>
+    <button class="btn-footer btn-back" onclick="goBack()">&#8249; Back</button>
+  </div>
+  <button class="btn-footer btn-continue" onclick="goModule2()">Continue
+    <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+  </button>
+</div>
+
+<script>
+function goReview(){
+  window.location.href = 'reading-academic.html';
+}
+function goBack(){
+  window.location.href = 'reading-academic.html';
+}
+function goModule2(){
+  if(confirm('Are you sure you want to proceed to Module 2? You will NOT be able to return to Module 1.')){
+    window.location.href = 'reading-m2-select.html';
+  }
+}
+if(typeof Auth !== 'undefined'){
+  Auth.require();
+  Auth.showBadge('userBadge');
+}
+</script>
+</body>
+  </html>
