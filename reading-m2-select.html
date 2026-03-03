@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEFL iBT - Module 2 Path Selection</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8f9fa;min-height:100vh;display:flex;flex-direction:column;color:#2d3748;line-height:1.6}
+.reading-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:12px 24px;display:flex;align-items:center;gap:14px}
+.reading-nav-label{font-size:.95em;color:#4a5568;font-weight:500}
+.reading-nav-right{margin-left:auto;font-size:.85em;color:#718096}
+.reading-nav-right strong{color:#2d3748}
+.reading-body{flex:1;display:flex;justify-content:center;padding:60px 24px 40px}
+.reading-content{width:100%;max-width:640px}
+.reading-content h2{font-size:1.35em;font-weight:700;color:#1a202c;margin-bottom:12px}
+.reading-content p{font-size:.95em;color:#4a5568;line-height:1.7;margin-bottom:20px}
+.note{font-size:.85em;color:#718096;font-style:italic;margin-bottom:28px}
+.path-cards{display:flex;flex-direction:column;gap:16px;margin-bottom:24px}
+.path-card{background:#fff;border:2px solid #e2e8f0;border-radius:10px;padding:24px 28px;cursor:pointer;transition:all .2s;position:relative}
+.path-card:hover{border-color:#4a90d9;box-shadow:0 2px 12px rgba(74,144,217,.15)}
+.path-card.selected{border-color:#4a90d9;background:#f0f7ff}
+.path-card h3{font-size:1.05em;font-weight:700;color:#2d3748;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.path-card .badge{font-size:.7em;font-weight:600;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px}
+.badge-hard{background:#fed7d7;color:#9b2c2c}
+.badge-easy{background:#c6f6d5;color:#22543d}
+.path-card p{font-size:.88em;color:#4a5568;line-height:1.6;margin-bottom:0}
+.path-radio{position:absolute;top:24px;right:24px;width:20px;height:20px;border:2px solid #cbd5e0;border-radius:50%;transition:all .2s}
+.path-card.selected .path-radio{border-color:#4a90d9;background:#4a90d9;box-shadow:inset 0 0 0 3px #fff}
+.reading-footer{background:#fff;border-top:1px solid #e2e8f0;padding:14px 24px;display:flex;justify-content:flex-end;align-items:center}
+.btn-start{display:inline-flex;align-items:center;gap:8px;padding:12px 32px;font-size:.95em;font-family:inherit;font-weight:600;color:#fff;background:#2d3748;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+.btn-start:hover{background:#1a202c}
+.btn-start:disabled{background:#a0aec0;cursor:not-allowed}
+.btn-start svg{width:16px;height:16px;fill:currentColor}
+</style>
+</head>
+<body>
+
+<div class="reading-nav">
+  <span class="reading-nav-label">Reading &mdash; Module 2</span>
+  <span class="reading-nav-right">
+    <span class="user-badge" id="userBadge"></span>
+  </span>
+</div>
+
+<div class="reading-body">
+  <div class="reading-content">
+
+    <h2>Select Your Module 2 Path</h2>
+
+    <p>On the actual TOEFL iBT, the system automatically assigns you a path based on your Module 1 score. For this practice test, please choose which path you would like to attempt.</p>
+
+    <p class="note">Tip: Try the Easy path first for warm-up, then challenge yourself with the Hard path.</p>
+
+    <div class="path-cards">
+      <div class="path-card" id="cardHard" onclick="selectPath('hard')">
+        <div class="path-radio" id="radioHard"></div>
+        <h3>Hard Path <span class="badge badge-hard">Harder</span></h3>
+        <p>Academic-focused content. Includes Complete the Words and Read an Academic Passage. Tests higher-level comprehension, vocabulary, and inference skills.</p>
+      </div>
+
+      <div class="path-card" id="cardEasy" onclick="selectPath('easy')">
+        <div class="path-radio" id="radioEasy"></div>
+        <h3>Easy Path <span class="badge badge-easy">Easier</span></h3>
+        <p>Everyday-focused content. Includes Complete the Words and Read in Daily Life passages. Tests practical reading comprehension with accessible texts.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="reading-footer">
+  <button class="btn-start" id="btnStart" onclick="startModule2()" disabled>Start Module 2
+    <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+  </button>
+</div>
+
+<script>
+var selectedPath = null;
+
+function selectPath(path){
+  selectedPath = path;
+  document.getElementById('cardHard').classList.toggle('selected', path==='hard');
+  document.getElementById('cardEasy').classList.toggle('selected', path==='easy');
+  document.getElementById('btnStart').disabled = false;
+}
+
+function startModule2(){
+  if(!selectedPath) return;
+  if(selectedPath === 'easy'){
+    window.location.href = 'reading-m2e-ctw.html';
+  } else {
+    window.location.href = 'reading-m2h-ctw.html';
+  }
+}
+
+if(typeof Auth !== 'undefined'){
+  Auth.require();
+  Auth.showBadge('userBadge');
+}
+</script>
+</body>
+</html>
