@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TOEFL iBT - Module 2 Path Selection</title>
+<title>TOEFL iBT - Module 2</title>
 <link rel="stylesheet" href="css/common.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -11,27 +11,19 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8f9fa;
 .reading-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:12px 24px;display:flex;align-items:center;gap:14px}
 .reading-nav-label{font-size:.95em;color:#4a5568;font-weight:500}
 .reading-nav-right{margin-left:auto;font-size:.85em;color:#718096}
-.reading-nav-right strong{color:#2d3748}
 .reading-body{flex:1;display:flex;justify-content:center;padding:60px 24px 40px}
 .reading-content{width:100%;max-width:640px}
-.reading-content h2{font-size:1.35em;font-weight:700;color:#1a202c;margin-bottom:12px}
-.reading-content p{font-size:.95em;color:#4a5568;line-height:1.7;margin-bottom:20px}
-.note{font-size:.85em;color:#718096;font-style:italic;margin-bottom:28px}
-.path-cards{display:flex;flex-direction:column;gap:16px;margin-bottom:24px}
-.path-card{background:#fff;border:2px solid #e2e8f0;border-radius:10px;padding:24px 28px;cursor:pointer;transition:all .2s;position:relative}
-.path-card:hover{border-color:#4a90d9;box-shadow:0 2px 12px rgba(74,144,217,.15)}
-.path-card.selected{border-color:#4a90d9;background:#f0f7ff}
-.path-card h3{font-size:1.05em;font-weight:700;color:#2d3748;margin-bottom:6px;display:flex;align-items:center;gap:8px}
-.path-card .badge{font-size:.7em;font-weight:600;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px}
-.badge-hard{background:#fed7d7;color:#9b2c2c}
-.badge-easy{background:#c6f6d5;color:#22543d}
-.path-card p{font-size:.88em;color:#4a5568;line-height:1.6;margin-bottom:0}
-.path-radio{position:absolute;top:24px;right:24px;width:20px;height:20px;border:2px solid #cbd5e0;border-radius:50%;transition:all .2s}
-.path-card.selected .path-radio{border-color:#4a90d9;background:#4a90d9;box-shadow:inset 0 0 0 3px #fff}
+.reading-content h2{font-size:1.35em;font-weight:700;color:#1a202c;margin-bottom:16px}
+.reading-content>p{font-size:.95em;color:#4a5568;line-height:1.7;margin-bottom:20px}
+.info-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:24px 28px;margin-bottom:28px}
+.info-card h3{font-size:1.05em;font-weight:700;color:#2d3748;margin-bottom:10px}
+.info-card p{font-size:.9em;color:#4a5568;line-height:1.7;margin-bottom:10px}
+.info-card p:last-child{margin-bottom:0}
+.info-card ul{margin:8px 0 10px 20px;font-size:.9em;color:#4a5568;line-height:1.7}
+.info-card ul li{margin-bottom:4px}
 .reading-footer{background:#fff;border-top:1px solid #e2e8f0;padding:14px 24px;display:flex;justify-content:flex-end;align-items:center}
 .btn-start{display:inline-flex;align-items:center;gap:8px;padding:12px 32px;font-size:.95em;font-family:inherit;font-weight:600;color:#fff;background:#2d3748;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
 .btn-start:hover{background:#1a202c}
-.btn-start:disabled{background:#a0aec0;cursor:not-allowed}
 .btn-start svg{width:16px;height:16px;fill:currentColor}
 </style>
 </head>
@@ -46,54 +38,93 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8f9fa;
 
 <div class="reading-body">
   <div class="reading-content">
+    <h2>Beginning Module 2</h2>
+    <p>You have completed Module 1. Based on your performance, the system has automatically assigned you a path for Module 2.</p>
 
-    <h2>Select Your Module 2 Path</h2>
-
-    <p>On the actual TOEFL iBT, the system automatically assigns you a path based on your Module 1 score. For this practice test, please choose which path you would like to attempt.</p>
-
-    <p class="note">Tip: Try the Easy path first for warm-up, then challenge yourself with the Hard path.</p>
-
-    <div class="path-cards">
-      <div class="path-card" id="cardHard" onclick="selectPath('hard')">
-        <div class="path-radio" id="radioHard"></div>
-        <h3>Hard Path <span class="badge badge-hard">Harder</span></h3>
-        <p>Academic-focused content. Includes Complete the Words and Read an Academic Passage. Tests higher-level comprehension, vocabulary, and inference skills.</p>
-      </div>
-
-      <div class="path-card" id="cardEasy" onclick="selectPath('easy')">
-        <div class="path-radio" id="radioEasy"></div>
-        <h3>Easy Path <span class="badge badge-easy">Easier</span></h3>
-        <p>Everyday-focused content. Includes Complete the Words and Read in Daily Life passages. Tests practical reading comprehension with accessible texts.</p>
-      </div>
+    <div class="info-card">
+      <h3>About Module 2</h3>
+      <p>The TOEFL iBT Reading section uses an adaptive format. Module 2 has two possible paths:</p>
+      <ul>
+        <li><strong>Hard Path</strong> &mdash; focuses on academic reading content with higher-level comprehension tasks.</li>
+        <li><strong>Easy Path</strong> &mdash; focuses on everyday reading content with practical comprehension tasks.</li>
+      </ul>
+      <p>Both paths include the same task types: Complete the Words and reading comprehension questions. A new timer will begin when Module 2 starts.</p>
     </div>
-
   </div>
 </div>
 
 <div class="reading-footer">
-  <button class="btn-start" id="btnStart" onclick="startModule2()" disabled>Start Module 2
+  <button class="btn-start" id="btnStart" onclick="startModule2()">Start Module 2
     <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
   </button>
 </div>
 
 <script>
-var selectedPath = null;
+/* ===== SCORE CALCULATION ===== */
+var assignedPath = 'easy';
 
-function selectPath(path){
-  selectedPath = path;
-  document.getElementById('cardHard').classList.toggle('selected', path==='hard');
-  document.getElementById('cardEasy').classList.toggle('selected', path==='easy');
-  document.getElementById('btnStart').disabled = false;
+function calculateScore(){
+  var totalCorrect = 0;
+  var totalQuestions = 0;
+
+  /* Academic Q16-Q20 */
+  var acCorrect = parseInt(localStorage.getItem('m1_academic_correct')) || 0;
+  var acTotal = parseInt(localStorage.getItem('m1_academic_total')) || 0;
+  totalCorrect += acCorrect;
+  totalQuestions += acTotal;
+
+  /* CTW Q1-Q10 */
+  var ctwCorrect = parseInt(localStorage.getItem('m1_ctw_correct')) || 0;
+  var ctwTotal = parseInt(localStorage.getItem('m1_ctw_total')) || 0;
+  totalCorrect += ctwCorrect;
+  totalQuestions += ctwTotal;
+
+  /* RDL1 Q11-Q12 */
+  var rdl1Correct = parseInt(localStorage.getItem('m1_rdl1_correct')) || 0;
+  var rdl1Total = parseInt(localStorage.getItem('m1_rdl1_total')) || 0;
+  totalCorrect += rdl1Correct;
+  totalQuestions += rdl1Total;
+
+  /* RDL2 Q13-Q15 */
+  var rdl2Correct = parseInt(localStorage.getItem('m1_rdl2_correct')) || 0;
+  var rdl2Total = parseInt(localStorage.getItem('m1_rdl2_total')) || 0;
+  totalCorrect += rdl2Correct;
+  totalQuestions += rdl2Total;
+
+  /* Fallback */
+  if(totalQuestions === 0){
+    totalCorrect = 0;
+    totalQuestions = 5;
+  }
+
+  var pct = (totalCorrect / totalQuestions) * 100;
+
+  /* 60% threshold */
+  assignedPath = (pct >= 60) ? 'hard' : 'easy';
 }
 
 function startModule2(){
-  if(!selectedPath) return;
-  if(selectedPath === 'easy'){
+  /* Clean up M1 scores */
+  localStorage.removeItem('m1_academic_correct');
+  localStorage.removeItem('m1_academic_total');
+  localStorage.removeItem('m1_academic_answers');
+  localStorage.removeItem('m1_academic_insertion');
+  localStorage.removeItem('m1_ctw_correct');
+  localStorage.removeItem('m1_ctw_total');
+  localStorage.removeItem('m1_rdl1_correct');
+  localStorage.removeItem('m1_rdl1_total');
+  localStorage.removeItem('m1_rdl2_correct');
+  localStorage.removeItem('m1_rdl2_total');
+
+  if(assignedPath === 'easy'){
     window.location.href = 'reading-m2e-ctw.html';
   } else {
     window.location.href = 'reading-m2h-ctw.html';
   }
 }
+
+/* Run on page load */
+calculateScore();
 
 if(typeof Auth !== 'undefined'){
   Auth.require();
