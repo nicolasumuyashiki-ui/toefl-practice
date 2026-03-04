@@ -246,7 +246,7 @@ var questions = [
 function changePage(dir){
   var next = currentPage + dir;
   if(next < 1){ window.location.href = 'reading-rdl2.html'; return; }
-  if(next > totalPages) return;
+  if(next > totalPages){ goNext(); return; }
   document.getElementById('page'+currentPage).classList.remove('active');
   currentPage = next;
   document.getElementById('page'+currentPage).classList.add('active');
