@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEFL iBT - Complete the Words (Module 2)</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#2d3748;line-height:1.7}
+.top-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+.top-nav-left{display:flex;align-items:center;gap:16px;font-size:.9em;color:#4a5568}
+.top-nav-left strong{color:#2d3748}
+.top-nav-right{display:flex;align-items:center;gap:12px}
+.timer-btn{background:none;border:1px solid #cbd5e0;border-radius:6px;padding:6px 14px;font-size:.85em;color:#4a5568;cursor:pointer;font-family:inherit;transition:all .2s}
+.timer-btn:hover{background:#f7fafc}
+.timer-display{font-family:'Courier New',monospace;font-size:.9em;color:#2d3748;font-weight:600;min-width:60px;text-align:center}
+.review-btn{background:#4a90d9;color:#fff;border:none;border-radius:14px;padding:6px 18px;font-size:.85em;cursor:pointer;font-family:inherit;font-weight:500;transition:all .2s}
+.review-btn:hover{background:#3a7bc8}
+.user-badge{font-size:.8em;color:#718096}
+.progress-bar{height:4px;background:#ebf4ff;width:100%}
+.progress-fill{height:100%;background:#3182ce;border-radius:2px;transition:width .3s}
+.main-area{flex:1;display:flex;justify-content:center;padding:40px 24px 100px}
+.content-box{width:100%;max-width:780px}
+.instruction{font-weight:600;font-size:.9em;color:#4a90d9;margin-bottom:20px}
+.passage{font-size:1em;line-height:2.1;color:#2d3748}
+.word-blank{display:inline}
+.word-blank .given{font-weight:600;color:#2d3748}
+.word-blank input{border:none;border-bottom:2px solid #cbd5e0;outline:none;font-size:.95em;font-family:inherit;color:#2d3748;width:1.1em;text-align:center;padding:0 1px;margin:0;transition:border-color .2s;background:transparent}
+.word-blank input:focus{border-bottom-color:#3182ce}
+.word-blank input.correct{border-bottom-color:#48bb78;color:#276749;background:#f0fff4}
+.word-blank input.wrong{border-bottom-color:#fc8181;color:#9b2c2c;background:#fff5f5}
+.bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e2e8f0;padding:14px 32px;display:flex;align-items:center;justify-content:flex-end;gap:12px;z-index:50}
+.btn-nav{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-size:.95em;font-family:inherit;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+.btn-back{background:#fff;color:#4a5568;border:1px solid #cbd5e0}.btn-back:hover{background:#f7fafc}
+.btn-next{background:#1a202c;color:#fff}.btn-next:hover{background:#2d3748}
+.btn-nav:disabled{opacity:.4;cursor:not-allowed}
+/* Review overlay */
+.review-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center}
+.review-overlay.active{display:flex}
+.review-box{background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.25);width:90%;max-width:700px;max-height:80vh;overflow-y:auto;padding:28px}
+.review-close{float:right;background:none;border:none;font-size:1.5em;cursor:pointer;color:#718096}.review-close:hover{color:#2d3748}
+.review-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:6px;margin-bottom:6px;font-size:.9em;cursor:pointer;transition:all .15s}
+.review-row:hover{background:#ebf4ff}
+.review-no{font-weight:600;color:#4a5568;min-width:36px}
+.review-q{flex:1;color:#2d3748}
+.review-status{font-size:.8em;padding:3px 10px;border-radius:10px;font-weight:500}
+.review-status.answered{background:#c6f6d5;color:#276749}
+.review-status.current{background:#ebf4ff;color:#2b6cb0}
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <div class="top-nav-left">
+    <span>Question <strong>1-10</strong> of 20</span>
+    <span style="color:#cbd5e0">|</span>
+    <span>Reading &mdash; Module 2</span>
+  </div>
+  <div class="top-nav-right">
+    <span class="user-badge" id="userBadge"></span>
+    <span class="timer-display" id="timerDisplay">12:00</span>
+    <button class="timer-btn" id="timerToggle" onclick="toggleTimer()">Hide Time</button>
+    <button class="review-btn" onclick="openReview()">Review</button>
+  </div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:5%"></div></div>
+
+<div class="main-area">
+  <div class="content-box">
+    <p class="instruction">Fill in the missing letters in the paragraph.</p>
+    <p class="passage" id="passage"></p>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <button class="btn-nav btn-back" id="btnBack" disabled>&#8249; Back</button>
+  <button class="btn-nav btn-next" id="btnNext" onclick="goNext()">Next &#8250; &gt;</button>
+</div>
+
+<!-- REVIEW OVERLAY -->
+<div class="review-overlay" id="reviewOverlay">
+  <div class="review-box">
+    <button class="review-close" onclick="closeReview()">&times;</button>
+    <h2 style="font-size:1.15em;font-weight:700;color:#2d3748;margin-bottom:16px">Review Questions — Module 2</h2>
+    <div id="reviewList"></div>
+  </div>
+</div>
+
+<script>
+/* ===== TIMER (12 minutes for Hard Module 2) ===== */
+var timerSeconds = 12 * 60;
+var timerRunning = true;
+var timerHidden = false;
+var timerInterval = setInterval(function(){
+  if(!timerRunning) return;
+  timerSeconds--;
+  if(timerSeconds <= 0){ clearInterval(timerInterval); timerSeconds = 0; }
+  var m = Math.floor(timerSeconds/60);
+  var s = timerSeconds%60;
+  document.getElementById('timerDisplay').textContent = m+':'+(s<10?'0':'')+s;
+}, 1000);
+
+function toggleTimer(){
+  timerHidden = !timerHidden;
+  document.getElementById('timerDisplay').style.visibility = timerHidden ? 'hidden' : 'visible';
+  document.getElementById('timerToggle').textContent = timerHidden ? 'Show Time' : 'Hide Time';
+}
+
+/* ===== PARAGRAPH WITH BLANKS ===== */
+/* Topic: Cognitive biases in decision-making (higher difficulty) */
+var beforeText = "Cognitive biases represent systematic deviations from rational judgment that ";
+var afterText = " the quality of everyday decisions. Researchers have demonstrated that individuals consistently ";
+
+/* 10 words with blanks — harder vocabulary */
+var words = [
+  { pre:"under", blanks:"mine", post:" " },       /* undermine */
+  { pre:"ov", blanks:"erestimate", post:" " },     /* overestimate */
+  { pre:"pr", blanks:"obabilities", post:" " },    /* probabilities */
+  { pre:"ass", blanks:"ociated", post:" " },       /* associated */
+  { pre:"fam", blanks:"iliar", post:" " },         /* familiar */
+  { pre:"neg", blanks:"lect", post:" " },          /* neglect */
+  { pre:"stat", blanks:"istical", post:" " },      /* statistical */
+  { pre:"pers", blanks:"uasive", post:" " },       /* persuasive */
+  { pre:"rati", blanks:"onal", post:" " },         /* rational */
+  { pre:"prev", blanks:"alent", post:" " }         /* prevalent */
+];
+
+var sentenceParts = [
+  "Cognitive biases represent systematic deviations from rational judgment that ",
+  /*0: undermine*/ " the quality of everyday decisions. Researchers have demonstrated that individuals consistently ",
+  /*1: overestimate*/ " the ",
+  /*2: probabilities*/ " ",
+  /*3: associated*/ " with ",
+  /*4: familiar*/ " outcomes and ",
+  /*5: neglect*/ " crucial ",
+  /*6: statistical*/ " evidence. Even when presented with ",
+  /*7: persuasive*/ " data, people frequently rely on intuition rather than ",
+  /*8: rational*/ " analysis, a tendency that remains remarkably ",
+  /*9: prevalent*/ " across cultures and educational backgrounds."
+];
+
+function buildPassage(){
+  var el = document.getElementById('passage');
+  var html = '';
+  for(var i = 0; i < sentenceParts.length; i++){
+    html += sentenceParts[i];
+    if(i < words.length){
+      var w = words[i];
+      html += '<span class="word-blank">';
+      html += '<span class="given">' + w.pre + '</span>';
+      for(var j = 0; j < w.blanks.length; j++){
+        html += '<input type="text" maxlength="1" data-word="'+i+'" data-pos="'+j+'" data-answer="'+w.blanks[j]+'" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">';
+      }
+      html += '</span>';
+    }
+  }
+  el.innerHTML = html;
+
+  /* Auto-advance on input */
+  var inputs = el.querySelectorAll('input');
+  inputs.forEach(function(inp, idx){
+    inp.addEventListener('input', function(){
+      if(this.value.length === 1 && idx < inputs.length - 1){
+        inputs[idx+1].focus();
+      }
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Backspace' && this.value === '' && idx > 0){
+        inputs[idx-1].focus();
+      }
+    });
+  });
+}
+
+buildPassage();
+
+/* ===== NAVIGATION ===== */
+function goNext(){
+  window.location.href = 'reading-m2h-academic1.html';
+}
+
+/* ===== REVIEW ===== */
+function openReview(){
+  var items = [
+    {no:"1-10", title:"Complete the Words", status:"current"},
+    {no:"11-15", title:"Academic Passage 1 (Q11-Q15)", status:"upcoming"},
+    {no:"16-20", title:"Academic Passage 2 (Q16-Q20)", status:"upcoming"}
+  ];
+  var html = '';
+  items.forEach(function(it){
+    var cls = it.status === 'current' ? 'current' : 'answered';
+    var label = it.status === 'current' ? 'In Progress' : 'Not Started';
+    html += '<div class="review-row"><span class="review-no">'+it.no+'</span><span class="review-q">'+it.title+'</span><span class="review-status '+cls+'">'+label+'</span></div>';
+  });
+  document.getElementById('reviewList').innerHTML = html;
+  document.getElementById('reviewOverlay').classList.add('active');
+}
+function closeReview(){ document.getElementById('reviewOverlay').classList.remove('active'); }
+document.getElementById('reviewOverlay').addEventListener('click', function(e){ if(e.target===this) closeReview(); });
+
+/* ===== AUTH ===== */
+if(typeof Auth !== 'undefined'){ Auth.require(); Auth.showBadge('userBadge'); }
+</script>
+<script src="js/auth.js"></script>
+</body>
+</html>

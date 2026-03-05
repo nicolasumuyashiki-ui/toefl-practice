@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEFL iBT - Read an Academic Passage 1 (Module 2)</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#2d3748;line-height:1.7}
+.top-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+.top-nav-left{display:flex;align-items:center;gap:16px;font-size:.9em;color:#4a5568}
+.top-nav-left strong{color:#2d3748}
+.top-nav-right{display:flex;align-items:center;gap:12px}
+.timer-btn{background:none;border:1px solid #cbd5e0;border-radius:6px;padding:6px 14px;font-size:.85em;color:#4a5568;cursor:pointer;font-family:inherit;transition:all .2s}
+.timer-btn:hover{background:#f7fafc}
+.timer-display{font-family:'Courier New',monospace;font-size:.9em;color:#2d3748;font-weight:600;min-width:60px;text-align:center}
+.review-btn{background:#4a90d9;color:#fff;border:none;border-radius:14px;padding:6px 18px;font-size:.85em;cursor:pointer;font-family:inherit;font-weight:500;transition:all .2s}
+.review-btn:hover{background:#3a7bc8}
+.user-badge{font-size:.8em;color:#718096}
+.progress-bar{height:4px;background:#ebf4ff;width:100%}
+.progress-fill{height:100%;background:#3182ce;border-radius:2px;transition:width .3s}
+.split-main{flex:1;display:flex;padding:0 0 80px 0;overflow:hidden;max-width:1100px;margin:0 auto}
+.passage-panel{flex:1;padding:32px 28px;overflow-y:auto;border-right:1px solid #e2e8f0;background:#f9fafb}
+.question-panel{flex:1;padding:32px 28px;overflow-y:auto}
+.instruction{font-weight:600;font-size:.9em;color:#4a90d9;margin-bottom:16px}
+.passage-title{font-size:1.1em;font-weight:700;color:#2d3748;margin-bottom:16px}
+.passage-content{font-size:.93em;line-height:1.8;color:#2d3748}
+.passage-content p{margin-bottom:14px}
+.question-page{display:none}
+.question-page.active{display:block}
+.question-text{font-weight:600;font-size:.95em;margin-bottom:20px;line-height:1.5}
+.question-number{color:#3182ce;font-weight:700;margin-right:4px}
+.options{display:flex;flex-direction:column;gap:12px}
+.option{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;border:1px solid #e2e8f0;border-radius:8px;cursor:pointer;transition:all .15s;font-size:.93em;line-height:1.5}
+.option:hover{background:#ebf4ff;border-color:#90cdf4}
+.option.selected{background:#ebf4ff;border-color:#3182ce}
+.option input{display:none}
+.option-label{font-weight:600;color:#4a90d9;flex-shrink:0}
+.option-text{color:#2d3748}
+.bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e2e8f0;padding:14px 32px;display:flex;align-items:center;justify-content:flex-end;gap:12px;z-index:50}
+.btn-nav{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-size:.95em;font-family:inherit;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+.btn-back{background:#fff;color:#4a5568;border:1px solid #cbd5e0}.btn-back:hover{background:#f7fafc}
+.btn-next{background:#1a202c;color:#fff}.btn-next:hover{background:#2d3748}
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <div class="top-nav-left">
+    <span>Question <strong id="qLabel">11</strong> of 20</span>
+    <span style="color:#cbd5e0">|</span>
+    <span>Reading &mdash; Module 2</span>
+  </div>
+  <div class="top-nav-right">
+    <span class="user-badge" id="userBadge"></span>
+    <span class="timer-display" id="timerDisplay">12:00</span>
+    <button class="timer-btn" id="timerToggle" onclick="toggleTimer()">Hide Time</button>
+    <button class="review-btn" onclick="openReview()">Review</button>
+  </div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:50%"></div></div>
+
+<div class="split-main">
+
+<div class="passage-panel">
+  <p class="instruction">Read the passage.</p>
+  <h2 class="passage-title">Epigenetics and Inherited Behavior</h2>
+  <div class="passage-content">
+    <p>For decades, biologists assumed that only DNA sequences could be transmitted from one generation to the next. However, a growing body of research in the field of epigenetics has challenged this assumption by demonstrating that environmental factors can alter gene expression in ways that are heritable. Epigenetic modifications, such as DNA methylation and histone acetylation, do not change the underlying genetic code but instead determine which genes are activated or silenced within a cell.</p>
+    <p>One landmark study examined the descendants of individuals who experienced severe famine. Researchers found that the grandchildren of famine survivors exhibited higher rates of metabolic disorders, even though they themselves had never experienced nutritional deprivation. This transgenerational effect suggests that the physiological stress endured by one generation can leave a molecular imprint that persists across subsequent generations. Crucially, these epigenetic markers appear to function as a form of biological memory, encoding information about ancestral environments into the regulatory mechanisms of the genome.</p>
+    <p>Critics have cautioned that many transgenerational studies rely on correlational data and that isolating epigenetic inheritance from other confounding variables remains methodologically difficult. Nevertheless, the implications are profound: if environmental experiences can modify heritable gene expression, then evolution may operate through mechanisms beyond random mutation and natural selection alone.</p>
+  </div>
+</div>
+
+<div class="question-panel">
+
+<!-- Q11: Vocabulary in context -->
+<div class="question-page active" id="page1">
+  <p class="question-text"><span class="question-number">11.</span> The word "heritable" in paragraph 1 is closest in meaning to</p>
+  <div class="options">
+    <label class="option" data-q="q11" data-v="A" onclick="selectOption(this)"><input type="radio" name="q11" value="A"><span class="option-label">(A)</span><span class="option-text">reversible under certain laboratory conditions</span></label>
+    <label class="option" data-q="q11" data-v="B" onclick="selectOption(this)"><input type="radio" name="q11" value="B"><span class="option-label">(B)</span><span class="option-text">capable of being passed down to offspring</span></label>
+    <label class="option" data-q="q11" data-v="C" onclick="selectOption(this)"><input type="radio" name="q11" value="C"><span class="option-label">(C)</span><span class="option-text">harmful to the organism over extended periods</span></label>
+    <label class="option" data-q="q11" data-v="D" onclick="selectOption(this)"><input type="radio" name="q11" value="D"><span class="option-label">(D)</span><span class="option-text">observable only through advanced imaging techniques</span></label>
+  </div>
+</div>
+
+<!-- Q12: Inference -->
+<div class="question-page" id="page2">
+  <p class="question-text"><span class="question-number">12.</span> What can be inferred from the famine study described in paragraph 2?</p>
+  <div class="options">
+    <label class="option" data-q="q12" data-v="A" onclick="selectOption(this)"><input type="radio" name="q12" value="A"><span class="option-label">(A)</span><span class="option-text">The grandchildren inherited the same dietary deficiencies as their grandparents</span></label>
+    <label class="option" data-q="q12" data-v="B" onclick="selectOption(this)"><input type="radio" name="q12" value="B"><span class="option-label">(B)</span><span class="option-text">Metabolic disorders can result from epigenetic changes triggered by an ancestor's experience</span></label>
+    <label class="option" data-q="q12" data-v="C" onclick="selectOption(this)"><input type="radio" name="q12" value="C"><span class="option-label">(C)</span><span class="option-text">Famine survivors deliberately altered their descendants' genetic code</span></label>
+    <label class="option" data-q="q12" data-v="D" onclick="selectOption(this)"><input type="radio" name="q12" value="D"><span class="option-label">(D)</span><span class="option-text">The grandchildren's metabolic disorders were caused by their own poor nutrition</span></label>
+  </div>
+</div>
+
+<!-- Q13: Purpose / Rhetorical -->
+<div class="question-page" id="page3">
+  <p class="question-text"><span class="question-number">13.</span> Why does the author mention "biological memory" in paragraph 2?</p>
+  <div class="options">
+    <label class="option" data-q="q13" data-v="A" onclick="selectOption(this)"><input type="radio" name="q13" value="A"><span class="option-label">(A)</span><span class="option-text">To argue that organisms can consciously recall their ancestors' experiences</span></label>
+    <label class="option" data-q="q13" data-v="B" onclick="selectOption(this)"><input type="radio" name="q13" value="B"><span class="option-label">(B)</span><span class="option-text">To illustrate that epigenetic markers store information about past environmental conditions</span></label>
+    <label class="option" data-q="q13" data-v="C" onclick="selectOption(this)"><input type="radio" name="q13" value="C"><span class="option-label">(C)</span><span class="option-text">To suggest that memory formation and gene expression share identical neural pathways</span></label>
+    <label class="option" data-q="q13" data-v="D" onclick="selectOption(this)"><input type="radio" name="q13" value="D"><span class="option-label">(D)</span><span class="option-text">To contrast epigenetic inheritance with traditional theories of cognitive development</span></label>
+  </div>
+</div>
+
+<!-- Q14: Factual / Negative factual -->
+<div class="question-page" id="page4">
+  <p class="question-text"><span class="question-number">14.</span> According to paragraph 3, which of the following is a limitation of transgenerational epigenetic research?</p>
+  <div class="options">
+    <label class="option" data-q="q14" data-v="A" onclick="selectOption(this)"><input type="radio" name="q14" value="A"><span class="option-label">(A)</span><span class="option-text">It has failed to identify any measurable epigenetic modifications in human subjects</span></label>
+    <label class="option" data-q="q14" data-v="B" onclick="selectOption(this)"><input type="radio" name="q14" value="B"><span class="option-label">(B)</span><span class="option-text">The studies frequently depend on correlational evidence and face difficulty controlling for other variables</span></label>
+    <label class="option" data-q="q14" data-v="C" onclick="selectOption(this)"><input type="radio" name="q14" value="C"><span class="option-label">(C)</span><span class="option-text">The research contradicts all established principles of molecular biology</span></label>
+    <label class="option" data-q="q14" data-v="D" onclick="selectOption(this)"><input type="radio" name="q14" value="D"><span class="option-label">(D)</span><span class="option-text">Epigenetic markers have been shown to disappear entirely within a single generation</span></label>
+  </div>
+</div>
+
+<!-- Q15: Main idea / Summary -->
+<div class="question-page" id="page5">
+  <p class="question-text"><span class="question-number">15.</span> Which of the following best summarizes the main argument of the passage?</p>
+  <div class="options">
+    <label class="option" data-q="q15" data-v="A" onclick="selectOption(this)"><input type="radio" name="q15" value="A"><span class="option-label">(A)</span><span class="option-text">Environmental experiences can produce heritable changes in gene expression, potentially expanding our understanding of evolutionary mechanisms</span></label>
+    <label class="option" data-q="q15" data-v="B" onclick="selectOption(this)"><input type="radio" name="q15" value="B"><span class="option-label">(B)</span><span class="option-text">DNA methylation is the primary cause of all inherited diseases across human populations</span></label>
+    <label class="option" data-q="q15" data-v="C" onclick="selectOption(this)"><input type="radio" name="q15" value="C"><span class="option-label">(C)</span><span class="option-text">Natural selection has been proven to be an outdated and inaccurate model of evolutionary change</span></label>
+    <label class="option" data-q="q15" data-v="D" onclick="selectOption(this)"><input type="radio" name="q15" value="D"><span class="option-label">(D)</span><span class="option-text">Famine is the only environmental factor capable of triggering transgenerational epigenetic effects</span></label>
+  </div>
+</div>
+
+</div>
+</div>
+
+<div class="bottom-nav">
+  <button class="btn-nav btn-back" id="btnBack" onclick="changePage(-1)">&#8249; Back</button>
+  <button class="btn-nav btn-next" id="btnNext" onclick="changePage(1)">Next &#8250;</button>
+</div>
+
+<!-- REVIEW OVERLAY -->
+<div class="review-overlay" id="reviewOverlay">
+  <div class="review-box" style="max-width:700px;padding:28px">
+    <button class="review-close" onclick="closeReview()">&times;</button>
+    <h2 style="font-size:1.15em;font-weight:700;color:#2d3748;margin-bottom:16px">Review Questions — Module 2</h2>
+    <div id="reviewList"></div>
+  </div>
+</div>
+
+<script>
+/* ===== TIMER ===== */
+var timerSeconds = 12 * 60;
+var timerRunning = true;
+var timerHidden = false;
+var timerInterval = setInterval(function(){
+  if(!timerRunning) return;
+  timerSeconds--;
+  if(timerSeconds <= 0){ clearInterval(timerInterval); timerSeconds = 0; }
+  var m = Math.floor(timerSeconds/60);
+  var s = timerSeconds%60;
+  document.getElementById('timerDisplay').textContent = m+':'+(s<10?'0':'')+s;
+}, 1000);
+function toggleTimer(){
+  timerHidden = !timerHidden;
+  document.getElementById('timerDisplay').style.visibility = timerHidden ? 'hidden' : 'visible';
+  document.getElementById('timerToggle').textContent = timerHidden ? 'Show Time' : 'Hide Time';
+}
+
+/* ===== PAGE STATE ===== */
+var currentPage = 1;
+var totalPages = 5;
+var startQ = 11;
+var userAnswers = {};
+
+function changePage(dir){
+  var next = currentPage + dir;
+  if(next < 1){ window.location.href = 'reading-m2h-ctw.html'; return; }
+  if(next > totalPages){ goNext(); return; }
+  document.getElementById('page'+currentPage).classList.remove('active');
+  currentPage = next;
+  document.getElementById('page'+currentPage).classList.add('active');
+  document.getElementById('qLabel').textContent = (startQ + currentPage - 1);
+}
+
+function selectOption(el){
+  var q = el.getAttribute('data-q');
+  var v = el.getAttribute('data-v');
+  document.querySelectorAll('.option[data-q="'+q+'"]').forEach(function(o){ o.classList.remove('selected'); });
+  el.classList.add('selected');
+  userAnswers[q] = v;
+}
+
+function goNext(){
+  window.location.href = 'reading-m2h-academic2.html';
+}
+
+/* ===== REVIEW ===== */
+function openReview(){
+  var items = [
+    {no:"1-10", title:"Complete the Words", status:"done"},
+    {no:"11-15", title:"Academic Passage 1 (Q11-Q15)", status:"current"},
+    {no:"16-20", title:"Academic Passage 2 (Q16-Q20)", status:"upcoming"}
+  ];
+  var html = '';
+  items.forEach(function(it){
+    var cls = it.status === 'current' ? 'current' : 'answered';
+    var label = it.status === 'done' ? 'Completed' : (it.status === 'current' ? 'In Progress' : 'Not Started');
+    html += '<div class="review-row"><span class="review-no">'+it.no+'</span><span class="review-q">'+it.title+'</span><span class="review-status '+cls+'">'+label+'</span></div>';
+  });
+  document.getElementById('reviewList').innerHTML = html;
+  document.getElementById('reviewOverlay').classList.add('active');
+}
+function closeReview(){ document.getElementById('reviewOverlay').classList.remove('active'); }
+document.getElementById('reviewOverlay').addEventListener('click', function(e){ if(e.target===this) closeReview(); });
+
+/* ===== AUTH ===== */
+if(typeof Auth !== 'undefined'){ Auth.require(); Auth.showBadge('userBadge'); }
+</script>
+<script src="js/auth.js"></script>
+</body>
+</html>

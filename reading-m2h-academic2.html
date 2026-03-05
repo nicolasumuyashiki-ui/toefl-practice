@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEFL iBT - Read an Academic Passage 2 (Module 2)</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#2d3748;line-height:1.7}
+.top-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+.top-nav-left{display:flex;align-items:center;gap:16px;font-size:.9em;color:#4a5568}
+.top-nav-left strong{color:#2d3748}
+.top-nav-right{display:flex;align-items:center;gap:12px}
+.timer-btn{background:none;border:1px solid #cbd5e0;border-radius:6px;padding:6px 14px;font-size:.85em;color:#4a5568;cursor:pointer;font-family:inherit;transition:all .2s}
+.timer-btn:hover{background:#f7fafc}
+.timer-display{font-family:'Courier New',monospace;font-size:.9em;color:#2d3748;font-weight:600;min-width:60px;text-align:center}
+.review-btn{background:#4a90d9;color:#fff;border:none;border-radius:14px;padding:6px 18px;font-size:.85em;cursor:pointer;font-family:inherit;font-weight:500;transition:all .2s}
+.review-btn:hover{background:#3a7bc8}
+.user-badge{font-size:.8em;color:#718096}
+.progress-bar{height:4px;background:#ebf4ff;width:100%}
+.progress-fill{height:100%;background:#3182ce;border-radius:2px;transition:width .3s}
+.split-main{flex:1;display:flex;padding:0 0 80px 0;overflow:hidden;max-width:1100px;margin:0 auto}
+.passage-panel{flex:1;padding:32px 28px;overflow-y:auto;border-right:1px solid #e2e8f0;background:#f9fafb}
+.question-panel{flex:1;padding:32px 28px;overflow-y:auto}
+.instruction{font-weight:600;font-size:.9em;color:#4a90d9;margin-bottom:16px}
+.passage-title{font-size:1.1em;font-weight:700;color:#2d3748;margin-bottom:16px}
+.passage-content{font-size:.93em;line-height:1.8;color:#2d3748}
+.passage-content p{margin-bottom:14px}
+.question-page{display:none}
+.question-page.active{display:block}
+.question-text{font-weight:600;font-size:.95em;margin-bottom:20px;line-height:1.5}
+.question-number{color:#3182ce;font-weight:700;margin-right:4px}
+.options{display:flex;flex-direction:column;gap:12px}
+.option{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;border:1px solid #e2e8f0;border-radius:8px;cursor:pointer;transition:all .15s;font-size:.93em;line-height:1.5}
+.option:hover{background:#ebf4ff;border-color:#90cdf4}
+.option.selected{background:#ebf4ff;border-color:#3182ce}
+.option input{display:none}
+.option-label{font-weight:600;color:#4a90d9;flex-shrink:0}
+.option-text{color:#2d3748}
+.bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e2e8f0;padding:14px 32px;display:flex;align-items:center;justify-content:flex-end;gap:12px;z-index:50}
+.btn-nav{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-size:.95em;font-family:inherit;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+.btn-back{background:#fff;color:#4a5568;border:1px solid #cbd5e0}.btn-back:hover{background:#f7fafc}
+.btn-next{background:#1a202c;color:#fff}.btn-next:hover{background:#2d3748}
+/* Completion overlay */
+.complete-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center}
+.complete-overlay.active{display:flex}
+.complete-box{background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.25);width:90%;max-width:500px;padding:40px;text-align:center}
+.complete-icon{font-size:3em;margin-bottom:16px}
+.complete-title{font-size:1.3em;font-weight:700;color:#2d3748;margin-bottom:12px}
+.complete-desc{font-size:.95em;color:#4a5568;line-height:1.7;margin-bottom:24px}
+.btn-finish{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;font-size:1em;font-family:inherit;font-weight:600;color:#fff;background:#38a169;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+.btn-finish:hover{background:#2f855a}
+/* Review */
+.review-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center}
+.review-overlay.active{display:flex}
+.review-box{background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.25);width:90%;max-width:700px;max-height:80vh;overflow-y:auto;padding:28px}
+.review-close{float:right;background:none;border:none;font-size:1.5em;cursor:pointer;color:#718096}.review-close:hover{color:#2d3748}
+.review-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:6px;margin-bottom:6px;font-size:.9em}
+.review-no{font-weight:600;color:#4a5568;min-width:36px}
+.review-q{flex:1;color:#2d3748}
+.review-status{font-size:.8em;padding:3px 10px;border-radius:10px;font-weight:500}
+.review-status.answered{background:#c6f6d5;color:#276749}
+.review-status.current{background:#ebf4ff;color:#2b6cb0}
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <div class="top-nav-left">
+    <span>Question <strong id="qLabel">16</strong> of 20</span>
+    <span style="color:#cbd5e0">|</span>
+    <span>Reading &mdash; Module 2</span>
+  </div>
+  <div class="top-nav-right">
+    <span class="user-badge" id="userBadge"></span>
+    <span class="timer-display" id="timerDisplay">12:00</span>
+    <button class="timer-btn" id="timerToggle" onclick="toggleTimer()">Hide Time</button>
+    <button class="review-btn" onclick="openReview()">Review</button>
+  </div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:75%"></div></div>
+
+<div class="split-main">
+
+<div class="passage-panel">
+  <p class="instruction">Read the passage.</p>
+  <h2 class="passage-title">The Urban Heat Island Effect</h2>
+  <div class="passage-content">
+    <p>Cities tend to be significantly warmer than surrounding rural areas, a phenomenon known as the urban heat island (UHI) effect. This temperature differential arises primarily because urban surfaces such as asphalt, concrete, and rooftops absorb and retain solar radiation far more efficiently than natural landscapes do. Vegetation, which cools the environment through evapotranspiration, is scarce in densely built areas, further amplifying the thermal disparity.</p>
+    <p>The consequences of the UHI effect extend well beyond physical discomfort. Elevated urban temperatures increase energy consumption for air conditioning, contribute to the formation of ground-level ozone, and disproportionately affect vulnerable populations such as the elderly and those with preexisting respiratory conditions. Moreover, research has shown that nighttime temperatures in urban cores can remain several degrees higher than in adjacent suburbs, disrupting sleep patterns and compounding heat-related health risks over consecutive days.</p>
+    <p>Urban planners have proposed several mitigation strategies, including the installation of reflective roofing materials, the expansion of green infrastructure such as parks and tree canopies, and the adoption of permeable pavement systems that allow water to infiltrate rather than accumulate on impervious surfaces. While no single intervention can eliminate the UHI effect entirely, a combination of these approaches has been shown to reduce peak urban temperatures by as much as two to three degrees Celsius in pilot studies.</p>
+  </div>
+</div>
+
+<div class="question-panel">
+
+<!-- Q16: Factual -->
+<div class="question-page active" id="page1">
+  <p class="question-text"><span class="question-number">16.</span> According to the passage, what is the primary cause of the urban heat island effect?</p>
+  <div class="options">
+    <label class="option" data-q="q16" data-v="A" onclick="selectOption(this)"><input type="radio" name="q16" value="A"><span class="option-label">(A)</span><span class="option-text">Vehicle exhaust and industrial emissions within city centers</span></label>
+    <label class="option" data-q="q16" data-v="B" onclick="selectOption(this)"><input type="radio" name="q16" value="B"><span class="option-label">(B)</span><span class="option-text">The absorption and retention of solar energy by urban building materials</span></label>
+    <label class="option" data-q="q16" data-v="C" onclick="selectOption(this)"><input type="radio" name="q16" value="C"><span class="option-label">(C)</span><span class="option-text">Global climate change that disproportionately raises temperatures in populated regions</span></label>
+    <label class="option" data-q="q16" data-v="D" onclick="selectOption(this)"><input type="radio" name="q16" value="D"><span class="option-label">(D)</span><span class="option-text">The concentration of high-rise buildings that block cooling wind patterns</span></label>
+  </div>
+</div>
+
+<!-- Q17: Vocabulary in context -->
+<div class="question-page" id="page2">
+  <p class="question-text"><span class="question-number">17.</span> The word "disparity" in paragraph 1 is closest in meaning to</p>
+  <div class="options">
+    <label class="option" data-q="q17" data-v="A" onclick="selectOption(this)"><input type="radio" name="q17" value="A"><span class="option-label">(A)</span><span class="option-text">similarity</span></label>
+    <label class="option" data-q="q17" data-v="B" onclick="selectOption(this)"><input type="radio" name="q17" value="B"><span class="option-label">(B)</span><span class="option-text">difference</span></label>
+    <label class="option" data-q="q17" data-v="C" onclick="selectOption(this)"><input type="radio" name="q17" value="C"><span class="option-label">(C)</span><span class="option-text">distribution</span></label>
+    <label class="option" data-q="q17" data-v="D" onclick="selectOption(this)"><input type="radio" name="q17" value="D"><span class="option-label">(D)</span><span class="option-text">dependency</span></label>
+  </div>
+</div>
+
+<!-- Q18: Inference -->
+<div class="question-page" id="page3">
+  <p class="question-text"><span class="question-number">18.</span> It can be inferred from paragraph 2 that consecutive days of elevated nighttime temperatures are particularly dangerous because they</p>
+  <div class="options">
+    <label class="option" data-q="q18" data-v="A" onclick="selectOption(this)"><input type="radio" name="q18" value="A"><span class="option-label">(A)</span><span class="option-text">prevent the body from recovering from daytime heat exposure during sleep</span></label>
+    <label class="option" data-q="q18" data-v="B" onclick="selectOption(this)"><input type="radio" name="q18" value="B"><span class="option-label">(B)</span><span class="option-text">cause permanent damage to urban infrastructure and power grids</span></label>
+    <label class="option" data-q="q18" data-v="C" onclick="selectOption(this)"><input type="radio" name="q18" value="C"><span class="option-label">(C)</span><span class="option-text">force rural populations to migrate into cooler city centers</span></label>
+    <label class="option" data-q="q18" data-v="D" onclick="selectOption(this)"><input type="radio" name="q18" value="D"><span class="option-label">(D)</span><span class="option-text">increase the rate of photosynthesis in urban vegetation</span></label>
+  </div>
+</div>
+
+<!-- Q19: Negative factual -->
+<div class="question-page" id="page4">
+  <p class="question-text"><span class="question-number">19.</span> All of the following are mentioned in paragraph 3 as mitigation strategies EXCEPT</p>
+  <div class="options">
+    <label class="option" data-q="q19" data-v="A" onclick="selectOption(this)"><input type="radio" name="q19" value="A"><span class="option-label">(A)</span><span class="option-text">using roofing materials that reflect sunlight</span></label>
+    <label class="option" data-q="q19" data-v="B" onclick="selectOption(this)"><input type="radio" name="q19" value="B"><span class="option-label">(B)</span><span class="option-text">increasing the number of parks and urban tree coverage</span></label>
+    <label class="option" data-q="q19" data-v="C" onclick="selectOption(this)"><input type="radio" name="q19" value="C"><span class="option-label">(C)</span><span class="option-text">restricting vehicle traffic in downtown areas during peak hours</span></label>
+    <label class="option" data-q="q19" data-v="D" onclick="selectOption(this)"><input type="radio" name="q19" value="D"><span class="option-label">(D)</span><span class="option-text">installing pavement that allows rainwater to pass through</span></label>
+  </div>
+</div>
+
+<!-- Q20: Author's purpose / Organization -->
+<div class="question-page" id="page5">
+  <p class="question-text"><span class="question-number">20.</span> How is the passage organized?</p>
+  <div class="options">
+    <label class="option" data-q="q20" data-v="A" onclick="selectOption(this)"><input type="radio" name="q20" value="A"><span class="option-label">(A)</span><span class="option-text">A phenomenon is defined, its consequences are examined, and potential solutions are discussed</span></label>
+    <label class="option" data-q="q20" data-v="B" onclick="selectOption(this)"><input type="radio" name="q20" value="B"><span class="option-label">(B)</span><span class="option-text">Two opposing scientific theories are presented and then reconciled through experimental evidence</span></label>
+    <label class="option" data-q="q20" data-v="C" onclick="selectOption(this)"><input type="radio" name="q20" value="C"><span class="option-label">(C)</span><span class="option-text">A historical event is described in chronological order from cause to resolution</span></label>
+    <label class="option" data-q="q20" data-v="D" onclick="selectOption(this)"><input type="radio" name="q20" value="D"><span class="option-label">(D)</span><span class="option-text">A series of case studies are compared to illustrate regional variations in climate patterns</span></label>
+  </div>
+</div>
+
+</div>
+</div>
+
+<div class="bottom-nav">
+  <button class="btn-nav btn-back" id="btnBack" onclick="changePage(-1)">&#8249; Back</button>
+  <button class="btn-nav btn-next" id="btnNext" onclick="changePage(1)">Next &#8250;</button>
+</div>
+
+<!-- COMPLETION OVERLAY -->
+<div class="complete-overlay" id="completeOverlay">
+  <div class="complete-box">
+    <div class="complete-icon">&#10003;</div>
+    <h2 class="complete-title">Reading Section Complete</h2>
+    <p class="complete-desc">You have finished all questions in the Reading section. Your responses have been recorded.</p>
+    <button class="btn-finish" onclick="window.location.href='reading.html'">Return to Home</button>
+  </div>
+</div>
+
+<!-- REVIEW OVERLAY -->
+<div class="review-overlay" id="reviewOverlay">
+  <div class="review-box">
+    <button class="review-close" onclick="closeReview()">&times;</button>
+    <h2 style="font-size:1.15em;font-weight:700;color:#2d3748;margin-bottom:16px">Review Questions — Module 2</h2>
+    <div id="reviewList"></div>
+  </div>
+</div>
+
+<script>
+/* ===== TIMER ===== */
+var timerSeconds = 12 * 60;
+var timerRunning = true;
+var timerHidden = false;
+var timerInterval = setInterval(function(){
+  if(!timerRunning) return;
+  timerSeconds--;
+  if(timerSeconds <= 0){ clearInterval(timerInterval); timerSeconds = 0; }
+  var m = Math.floor(timerSeconds/60);
+  var s = timerSeconds%60;
+  document.getElementById('timerDisplay').textContent = m+':'+(s<10?'0':'')+s;
+}, 1000);
+function toggleTimer(){
+  timerHidden = !timerHidden;
+  document.getElementById('timerDisplay').style.visibility = timerHidden ? 'hidden' : 'visible';
+  document.getElementById('timerToggle').textContent = timerHidden ? 'Show Time' : 'Hide Time';
+}
+
+/* ===== PAGE STATE ===== */
+var currentPage = 1;
+var totalPages = 5;
+var startQ = 16;
+var userAnswers = {};
+
+function changePage(dir){
+  var next = currentPage + dir;
+  if(next < 1){ window.location.href = 'reading-m2h-academic1.html'; return; }
+  if(next > totalPages){ showComplete(); return; }
+  document.getElementById('page'+currentPage).classList.remove('active');
+  currentPage = next;
+  document.getElementById('page'+currentPage).classList.add('active');
+  document.getElementById('qLabel').textContent = (startQ + currentPage - 1);
+}
+
+function selectOption(el){
+  var q = el.getAttribute('data-q');
+  var v = el.getAttribute('data-v');
+  document.querySelectorAll('.option[data-q="'+q+'"]').forEach(function(o){ o.classList.remove('selected'); });
+  el.classList.add('selected');
+  userAnswers[q] = v;
+}
+
+function showComplete(){
+  clearInterval(timerInterval);
+  document.getElementById('completeOverlay').classList.add('active');
+}
+
+/* ===== REVIEW ===== */
+function openReview(){
+  var items = [
+    {no:"1-10", title:"Complete the Words", status:"done"},
+    {no:"11-15", title:"Academic Passage 1 (Q11-Q15)", status:"done"},
+    {no:"16-20", title:"Academic Passage 2 (Q16-Q20)", status:"current"}
+  ];
+  var html = '';
+  items.forEach(function(it){
+    var cls = it.status === 'current' ? 'current' : 'answered';
+    var label = it.status === 'done' ? 'Completed' : 'In Progress';
+    html += '<div class="review-row"><span class="review-no">'+it.no+'</span><span class="review-q">'+it.title+'</span><span class="review-status '+cls+'">'+label+'</span></div>';
+  });
+  document.getElementById('reviewList').innerHTML = html;
+  document.getElementById('reviewOverlay').classList.add('active');
+}
+function closeReview(){ document.getElementById('reviewOverlay').classList.remove('active'); }
+document.getElementById('reviewOverlay').addEventListener('click', function(e){ if(e.target===this) closeReview(); });
+
+/* ===== AUTH ===== */
+if(typeof Auth !== 'undefined'){ Auth.require(); Auth.showBadge('userBadge'); }
+</script>
+<script src="js/auth.js"></script>
+</body>
+</html>
