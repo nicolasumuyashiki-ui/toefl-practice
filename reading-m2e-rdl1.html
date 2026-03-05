@@ -27,7 +27,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
 .progress-fill{height:100%;background:#3182ce;border-radius:2px;transition:width .3s}
 
 /* ===== SPLIT LAYOUT ===== */
-.split-main{flex:1;display:flex;padding:0 0 80px 0;overflow:hidden}
+.split-main{flex:1;display:flex;padding:0 0 80px 0;overflow:hidden;max-width:1100px;margin:0 auto}
 .passage-panel{flex:1;padding:32px 28px;overflow-y:auto;border-right:1px solid #e2e8f0;background:#f9fafb}
 .question-panel{flex:1;padding:32px 28px;overflow-y:auto}
 .instruction{font-weight:600;font-size:.9em;color:#4a90d9;margin-bottom:16px}
@@ -96,7 +96,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
   <div class="top-nav-left">
     <span>Question <strong id="qLabel">11</strong> of 15</span>
     <span>|</span>
-    <span>Reading — Module 2</span>
+    <span>Reading \u2014 Module 2</span>
   </div>
   <div class="top-nav-right">
     <span class="timer-display" id="timer">7:45</span>
@@ -113,12 +113,12 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
   <div class="passage-panel">
     <p class="instruction">Read a notice.</p>
     <div class="notice-container">
-      <div class="notice-header">CAFÉ HOURS UPDATE</div>
+      <div class="notice-header">CAF\u00c9 HOURS UPDATE</div>
       <div class="notice-body">
-        <p>Starting Monday, April 7, the Student Café will open at 7:30 AM instead of 8:00 AM on weekdays. Weekend hours stay the same (10 AM – 4 PM).</p>
+        <p>Starting Monday, April 7, the Student Caf\u00e9 will open at 7:30 AM instead of 8:00 AM on weekdays. Weekend hours stay the same (10 AM \u2013 4 PM).</p>
         <p>Coffee and tea will be half price before 8:00 AM every morning.</p>
       </div>
-      <div class="notice-footer">Student Café · Building B, First Floor</div>
+      <div class="notice-footer">Student Caf\u00e9 \u00b7 Building B, First Floor</div>
     </div>
   </div>
 
@@ -126,7 +126,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
   <div class="question-panel">
     <!-- Page 1: Q11 -->
     <div class="question-page active" id="page1">
-      <p class="question-text"><span class="question-number">11.</span> What change is being made at the Student Café?</p>
+      <p class="question-text"><span class="question-number">11.</span> What change is being made at the Student Caf\u00e9?</p>
       <div class="options">
         <label class="option" data-q="q11" data-v="A" onclick="selectOption(this)">
           <input type="radio" name="q11" value="A">
@@ -199,7 +199,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
       <div id="reviewList"></div>
     </div>
     <div class="review-right" id="reviewDetail">
-      <div class="detail-label">Reading — Module 2</div>
+      <div class="detail-label">Reading \u2014 Module 2</div>
       <div class="detail-title">Select a question to see details</div>
       <div class="detail-desc">Click on any question in the list to view its description and navigate to it.</div>
     </div>
@@ -217,7 +217,7 @@ var userAnswers = {};
 /* ===== REVIEW DATA ===== */
 var questions = [
   {no:"1-10",  title:"Complete the Words",        desc:"Fill in the missing letters in a paragraph about solar energy.", section:"Reading", page:"reading-m2e-ctw.html"},
-  {no:"11",    title:"Read a Notice (Q11)",        desc:"Read a notice about café hours and answer a factual question.", section:"Reading", page:"reading-m2e-rdl1.html", qPage:1},
+  {no:"11",    title:"Read a Notice (Q11)",        desc:"Read a notice about caf\u00e9 hours and answer a factual question.", section:"Reading", page:"reading-m2e-rdl1.html", qPage:1},
   {no:"12",    title:"Read a Notice (Q12)",        desc:"Read the same notice and answer a detail question.", section:"Reading", page:"reading-m2e-rdl1.html", qPage:2},
   {no:"13",    title:"Read an Email (Q13)",        desc:"Read an email and identify its main purpose.", section:"Reading", page:"reading-m2e-rdl2.html"},
   {no:"14",    title:"Read an Email (Q14)",        desc:"Answer a factual question about the email.", section:"Reading", page:"reading-m2e-rdl2.html"},
