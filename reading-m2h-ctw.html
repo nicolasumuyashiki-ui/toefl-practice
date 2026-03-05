@@ -8,6 +8,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#2d3748;line-height:1.7}
+/* ===== TOP NAV ===== */
 .top-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
 .top-nav-left{display:flex;align-items:center;gap:16px;font-size:.9em;color:#4a5568}
 .top-nav-left strong{color:#2d3748}
@@ -18,189 +19,329 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
 .review-btn{background:#4a90d9;color:#fff;border:none;border-radius:14px;padding:6px 18px;font-size:.85em;cursor:pointer;font-family:inherit;font-weight:500;transition:all .2s}
 .review-btn:hover{background:#3a7bc8}
 .user-badge{font-size:.8em;color:#718096}
+.user-badge strong{color:#2d3748}
+/* ===== PROGRESS BAR ===== */
 .progress-bar{height:4px;background:#ebf4ff;width:100%}
 .progress-fill{height:100%;background:#3182ce;border-radius:2px;transition:width .3s}
-.main-area{flex:1;display:flex;justify-content:center;padding:40px 24px 100px}
-.content-box{width:100%;max-width:780px}
-.instruction{font-weight:600;font-size:.9em;color:#4a90d9;margin-bottom:20px}
-.passage{font-size:1em;line-height:2.1;color:#2d3748}
-.word-blank{display:inline}
-.word-blank .given{font-weight:600;color:#2d3748}
-.word-blank input{border:none;border-bottom:2px solid #cbd5e0;outline:none;font-size:.95em;font-family:inherit;color:#2d3748;width:1.1em;text-align:center;padding:0 1px;margin:0;transition:border-color .2s;background:transparent}
-.word-blank input:focus{border-bottom-color:#3182ce}
-.word-blank input.correct{border-bottom-color:#48bb78;color:#276749;background:#f0fff4}
-.word-blank input.wrong{border-bottom-color:#fc8181;color:#9b2c2c;background:#fff5f5}
-.bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e2e8f0;padding:14px 32px;display:flex;align-items:center;justify-content:flex-end;gap:12px;z-index:50}
+/* ===== MAIN CONTENT ===== */
+.ctw-main{flex:1;max-width:800px;margin:0 auto;padding:40px 32px 100px;width:100%}
+.instruction{font-weight:600;font-size:.95em;color:#4a90d9;margin-bottom:20px}
+.passage{font-size:.95em;line-height:2.2;color:#2d3748;margin-bottom:16px}
+/* ===== WORD BLANKS (1-char boxes like Module 1) ===== */
+.word-blank{display:inline-block;white-space:nowrap}
+.sh{font-size:.95em}
+.bx{display:inline-block;width:1.5em;height:1.9em;border:1px solid #bbb;border-radius:2px;background:#ececec;text-align:center;vertical-align:baseline;margin:0 .5px;position:relative}
+.bx input{width:100%;height:100%;border:none;background:transparent;text-align:center;font-size:1em;font-family:inherit;outline:none;padding:0;color:#2d3748}
+.bx:focus-within{background:#dce8f7;border-color:#4a90d9}
+.bx.correct{background:#d4edda;border-color:#38a169}
+.bx.correct input{color:#22543d}
+.bx.incorrect{background:#fff5f5;border-color:#e53e3e}
+.bx.incorrect input{color:#9b2c2c}
+/* ===== FOOTER NAV ===== */
+.reading-footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e2e8f0;padding:14px 24px;display:flex;justify-content:flex-end;gap:12px;z-index:100}
 .btn-nav{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-size:.95em;font-family:inherit;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
-.btn-back{background:#fff;color:#4a5568;border:1px solid #cbd5e0}.btn-back:hover{background:#f7fafc}
-.btn-next{background:#1a202c;color:#fff}.btn-next:hover{background:#2d3748}
-.btn-nav:disabled{opacity:.4;cursor:not-allowed}
-/* Review overlay */
-.review-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center}
-.review-overlay.active{display:flex}
-.review-box{background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.25);width:90%;max-width:700px;max-height:80vh;overflow-y:auto;padding:28px}
-.review-close{float:right;background:none;border:none;font-size:1.5em;cursor:pointer;color:#718096}.review-close:hover{color:#2d3748}
-.review-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:6px;margin-bottom:6px;font-size:.9em;cursor:pointer;transition:all .15s}
-.review-row:hover{background:#ebf4ff}
-.review-no{font-weight:600;color:#4a5568;min-width:36px}
+.btn-back{color:#4a5568;background:#fff;border:1px solid #e2e8f0}
+.btn-back:hover{background:#f7fafc}
+.btn-back:disabled{opacity:.5;cursor:not-allowed}
+.btn-next{color:#fff;background:#2d3748}
+.btn-next:hover{background:#1a202c}
+.btn-next svg{width:16px;height:16px;fill:currentColor}
+/* ===== REVIEW OVERLAY ===== */
+.overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);z-index:200;justify-content:center;align-items:center}
+.overlay.active{display:flex}
+.review-panel{background:#fff;border-radius:12px;width:90%;max-width:820px;max-height:80vh;display:flex;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.review-left{flex:55%;border-right:1px solid #e2e8f0;overflow-y:auto;padding:0}
+.review-right{flex:45%;padding:28px;overflow-y:auto;background:#f9fafb}
+.review-header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid #e2e8f0;position:sticky;top:0;background:#fff;z-index:1}
+.review-header h3{font-size:1em;color:#2d3748}
+.review-close{background:none;border:none;font-size:1.3em;cursor:pointer;color:#718096;padding:4px 8px;border-radius:4px}
+.review-close:hover{background:#f7fafc}
+.review-row{display:flex;padding:12px 20px;border-bottom:1px solid #f0f0f0;cursor:pointer;align-items:center;font-size:.88em;transition:background .15s}
+.review-row:hover,.review-row.active{background:#ebf4ff}
+.review-no{width:36px;color:#718096;font-weight:500}
 .review-q{flex:1;color:#2d3748}
-.review-status{font-size:.8em;padding:3px 10px;border-radius:10px;font-weight:500}
-.review-status.answered{background:#c6f6d5;color:#276749}
-.review-status.current{background:#ebf4ff;color:#2b6cb0}
+.review-status{font-size:.8em;padding:3px 10px;border-radius:10px;white-space:nowrap}
+.review-status.answered{background:#c6f6d5;color:#22543d}
+.review-status.not-answered{background:#fed7d7;color:#9b2c2c}
+.review-status.coming{background:#e2e8f0;color:#718096}
+.detail-label{display:inline-block;background:#ebf4ff;color:#4a90d9;font-size:.75em;font-weight:600;padding:3px 10px;border-radius:10px;margin-bottom:12px}
+.detail-title{font-size:1.05em;font-weight:700;color:#2d3748;margin-bottom:12px}
+.detail-desc{font-size:.88em;color:#4a5568;line-height:1.65;margin-bottom:20px}
+.btn-goto{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;font-size:.85em;font-family:inherit;font-weight:600;color:#fff;background:#4a90d9;border:none;border-radius:14px;cursor:pointer;transition:all .2s}
+.btn-goto:hover{background:#3a7bc8}
+.btn-goto.disabled{background:#cbd5e0;cursor:not-allowed}
 </style>
 </head>
 <body>
 
+<!-- TOP NAV -->
 <div class="top-nav">
   <div class="top-nav-left">
-    <span>Question <strong>1-10</strong> of 20</span>
-    <span style="color:#cbd5e0">|</span>
+    <span>Question <strong>1&ndash;10</strong> of 20</span>
+    <span>|</span>
     <span>Reading &mdash; Module 2</span>
   </div>
   <div class="top-nav-right">
-    <span class="user-badge" id="userBadge"></span>
-    <span class="timer-display" id="timerDisplay">12:00</span>
-    <button class="timer-btn" id="timerToggle" onclick="toggleTimer()">Hide Time</button>
+    <span class="timer-display" id="timer">12:00</span>
+    <button class="timer-btn" onclick="toggleTimer()">Hide Time</button>
     <button class="review-btn" onclick="openReview()">Review</button>
+    <span class="user-badge" id="userBadge"></span>
   </div>
 </div>
-<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:5%"></div></div>
+<div class="progress-bar"><div class="progress-fill" style="width:5%"></div></div>
 
-<div class="main-area">
-  <div class="content-box">
-    <p class="instruction">Fill in the missing letters in the paragraph.</p>
-    <p class="passage" id="passage"></p>
-  </div>
+<!-- MAIN CONTENT -->
+<div class="ctw-main">
+  <p class="instruction">Fill in the missing letters in the paragraph.</p>
+  <p class="passage" id="passage"></p>
 </div>
 
-<div class="bottom-nav">
-  <button class="btn-nav btn-back" id="btnBack" disabled>&#8249; Back</button>
-  <button class="btn-nav btn-next" id="btnNext" onclick="goNext()">Next &#8250; &gt;</button>
+<!-- FOOTER NAV -->
+<div class="reading-footer">
+  <button class="btn-nav btn-back" disabled>&#8249; Back</button>
+  <button class="btn-nav btn-next" onclick="goNext()">Next &#8250;
+    <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+  </button>
 </div>
 
 <!-- REVIEW OVERLAY -->
-<div class="review-overlay" id="reviewOverlay">
-  <div class="review-box">
-    <button class="review-close" onclick="closeReview()">&times;</button>
-    <h2 style="font-size:1.15em;font-weight:700;color:#2d3748;margin-bottom:16px">Review Questions — Module 2</h2>
-    <div id="reviewList"></div>
+<div class="overlay" id="reviewOverlay">
+  <div class="review-panel">
+    <div class="review-left">
+      <div class="review-header">
+        <h3>Review Questions</h3>
+        <button class="review-close" onclick="closeReview()">&times;</button>
+      </div>
+      <div id="reviewList"></div>
+    </div>
+    <div class="review-right" id="reviewDetail">
+      <div class="detail-label">Reading &mdash; Module 2</div>
+      <div class="detail-title">Select a question to see details</div>
+      <div class="detail-desc">Click on any question in the list to view its description and navigate to it.</div>
+    </div>
   </div>
 </div>
 
 <script>
-/* ===== TIMER (12 minutes for Hard Module 2) ===== */
-var timerSeconds = 12 * 60;
-var timerRunning = true;
-var timerHidden = false;
-var timerInterval = setInterval(function(){
-  if(!timerRunning) return;
-  timerSeconds--;
-  if(timerSeconds <= 0){ clearInterval(timerInterval); timerSeconds = 0; }
-  var m = Math.floor(timerSeconds/60);
-  var s = timerSeconds%60;
-  document.getElementById('timerDisplay').textContent = m+':'+(s<10?'0':'')+s;
-}, 1000);
+/* ===== PASSAGE DATA =====
+   Topic: Cognitive biases in decision-making (higher difficulty than M2E)
+   Pattern: ETS alternating — blank/full every other word in target section
+   10 blanks, 10 full words interleaved
+*/
+var intro = "Cognitive biases represent systematic deviations from rational judgment that affect the quality of everyday decisions.";
 
-function toggleTimer(){
-  timerHidden = !timerHidden;
-  document.getElementById('timerDisplay').style.visibility = timerHidden ? 'hidden' : 'visible';
-  document.getElementById('timerToggle').textContent = timerHidden ? 'Show Time' : 'Hide Time';
-}
-
-/* ===== PARAGRAPH WITH BLANKS ===== */
-/* Topic: Cognitive biases in decision-making (higher difficulty) */
-var beforeText = "Cognitive biases represent systematic deviations from rational judgment that ";
-var afterText = " the quality of everyday decisions. Researchers have demonstrated that individuals consistently ";
-
-/* 10 words with blanks — harder vocabulary */
-var words = [
-  { pre:"under", blanks:"mine", post:" " },       /* undermine */
-  { pre:"ov", blanks:"erestimate", post:" " },     /* overestimate */
-  { pre:"pr", blanks:"obabilities", post:" " },    /* probabilities */
-  { pre:"ass", blanks:"ociated", post:" " },       /* associated */
-  { pre:"fam", blanks:"iliar", post:" " },         /* familiar */
-  { pre:"neg", blanks:"lect", post:" " },          /* neglect */
-  { pre:"stat", blanks:"istical", post:" " },      /* statistical */
-  { pre:"pers", blanks:"uasive", post:" " },       /* persuasive */
-  { pre:"rati", blanks:"onal", post:" " },         /* rational */
-  { pre:"prev", blanks:"alent", post:" " }         /* prevalent */
+var blanks = [
+  {given:"under",  answer:"mine"},       // 1. undermine
+  {given:"over",   answer:"estimate"},    // 2. overestimate
+  {given:"prob",   answer:"abilities"},   // 3. probabilities
+  {given:"assoc",  answer:"iated"},       // 4. associated
+  {given:"fam",    answer:"iliar"},       // 5. familiar
+  {given:"neg",    answer:"lect"},        // 6. neglect
+  {given:"stat",   answer:"istical"},     // 7. statistical
+  {given:"pers",   answer:"uasive"},      // 8. persuasive
+  {given:"rati",   answer:"onal"},        // 9. rational
+  {given:"prev",   answer:"alent"}        // 10. prevalent
 ];
 
-var sentenceParts = [
-  "Cognitive biases represent systematic deviations from rational judgment that ",
-  /*0: undermine*/ " the quality of everyday decisions. Researchers have demonstrated that individuals consistently ",
-  /*1: overestimate*/ " the ",
-  /*2: probabilities*/ " ",
-  /*3: associated*/ " with ",
-  /*4: familiar*/ " outcomes and ",
-  /*5: neglect*/ " crucial ",
-  /*6: statistical*/ " evidence. Even when presented with ",
-  /*7: persuasive*/ " data, people frequently rely on intuition rather than ",
-  /*8: rational*/ " analysis, a tendency that remains remarkably ",
-  /*9: prevalent*/ " across cultures and educational backgrounds."
+var fullWords = [
+  "Researchers",    // after blank 1
+  "consistently",   // after blank 2
+  "the",            // after blank 3
+  "with",           // after blank 4
+  "outcomes",       // after blank 5
+  "crucial",        // after blank 6
+  "evidence.",      // after blank 7
+  "data,",          // after blank 8
+  "analysis,",      // after blank 9
+  "across"          // after blank 10
 ];
+
+var conclusion = "cultures and educational backgrounds.";
+
+/* Surrounding text fragments that connect blanks and full words into natural sentences */
+var fragments = [
+  "Researchers have demonstrated that individuals ",  // before blank 1
+  " the accuracy of their judgments. They consistently ", // between blank 1 → full 2 → blank 2
+  " the ",                                            // before blank 3
+  " ",                                                // before blank 4
+  " with ",                                           // before blank 5 (after full 4)
+  " and ",                                            // before blank 6
+  " ",                                                // before blank 7
+  " Even when presented with ",                       // before blank 8
+  " people frequently rely on intuition rather than ", // before blank 9
+  " a tendency that remains remarkably "              // before blank 10
+];
+
+/* ===== BUILD PASSAGE ===== */
+var inputIdx = 0;
 
 function buildPassage(){
-  var el = document.getElementById('passage');
-  var html = '';
-  for(var i = 0; i < sentenceParts.length; i++){
-    html += sentenceParts[i];
-    if(i < words.length){
-      var w = words[i];
-      html += '<span class="word-blank">';
-      html += '<span class="given">' + w.pre + '</span>';
-      for(var j = 0; j < w.blanks.length; j++){
-        html += '<input type="text" maxlength="1" data-word="'+i+'" data-pos="'+j+'" data-answer="'+w.blanks[j]+'" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">';
-      }
-      html += '</span>';
-    }
-  }
-  el.innerHTML = html;
+  var h = '<span>' + intro + '</span> ';
 
-  /* Auto-advance on input */
-  var inputs = el.querySelectorAll('input');
-  inputs.forEach(function(inp, idx){
+  for(var i = 0; i < 10; i++){
+    var b = blanks[i];
+
+    // Build word-blank: given letters + individual boxes
+    h += '<span class="word-blank"><span class="sh">' + b.given + '</span><span class="boxes">';
+    for(var j = 0; j < b.answer.length; j++){
+      h += '<span class="bx"><input type="text" maxlength="1" '
+        + 'data-idx="' + inputIdx + '" '
+        + 'data-word="' + i + '" '
+        + 'data-char="' + j + '" '
+        + 'data-answer="' + b.answer[j] + '" '
+        + 'autocomplete="off" autocorrect="off" autocapitalize="off" '
+        + 'inputmode="latin" lang="en" spellcheck="false">'
+        + '</span>';
+      inputIdx++;
+    }
+    h += '</span></span> ';
+
+    // Add full word after blank
+    h += fullWords[i] + ' ';
+  }
+
+  h += conclusion;
+  document.getElementById('passage').innerHTML = h;
+}
+
+buildPassage();
+
+/* ===== INPUT HANDLING ===== */
+var allInputs;
+
+function setupInputs(){
+  allInputs = document.querySelectorAll('.bx input');
+  allInputs.forEach(function(inp, idx){
+    // Auto-advance on typing
     inp.addEventListener('input', function(){
-      if(this.value.length === 1 && idx < inputs.length - 1){
-        inputs[idx+1].focus();
+      var val = this.value;
+      if(val.length === 1){
+        // Check correct/incorrect
+        var answer = this.getAttribute('data-answer').toLowerCase();
+        var bxEl = this.parentElement;
+        bxEl.classList.remove('correct','incorrect');
+        if(val.toLowerCase() === answer){
+          bxEl.classList.add('correct');
+        } else {
+          bxEl.classList.add('incorrect');
+        }
+        // Auto-advance to next box
+        if(idx < allInputs.length - 1){
+          allInputs[idx + 1].focus();
+        }
       }
     });
+
+    // Handle backspace and arrow keys
     inp.addEventListener('keydown', function(e){
       if(e.key === 'Backspace' && this.value === '' && idx > 0){
-        inputs[idx-1].focus();
+        e.preventDefault();
+        allInputs[idx - 1].focus();
+        allInputs[idx - 1].value = '';
+        allInputs[idx - 1].parentElement.classList.remove('correct','incorrect');
+      }
+      if(e.key === 'ArrowRight' && idx < allInputs.length - 1){
+        e.preventDefault();
+        allInputs[idx + 1].focus();
+      }
+      if(e.key === 'ArrowLeft' && idx > 0){
+        e.preventDefault();
+        allInputs[idx - 1].focus();
       }
     });
   });
 }
 
-buildPassage();
+setupInputs();
+
+/* ===== TIMER (12 minutes for Hard Module 2) ===== */
+var timeLeft = 12 * 60;
+var timerVisible = true;
+var timerInterval = setInterval(function(){
+  timeLeft--;
+  if(timeLeft <= 0){ clearInterval(timerInterval); timeLeft = 0; }
+  var m = Math.floor(timeLeft / 60);
+  var s = timeLeft % 60;
+  document.getElementById('timer').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+}, 1000);
+
+function toggleTimer(){
+  timerVisible = !timerVisible;
+  document.getElementById('timer').style.visibility = timerVisible ? 'visible' : 'hidden';
+  document.querySelector('.timer-btn').textContent = timerVisible ? 'Hide Time' : 'Show Time';
+}
+
+/* ===== REVIEW DATA ===== */
+var questions = [
+  {no:"1-10", title:"Complete the Words", desc:"Fill in the missing letters in a paragraph about cognitive biases in decision-making.", section:"Reading", page:"reading-m2h-ctw.html"},
+  {no:"11", title:"Academic Passage 1 (Q11)", desc:"Answer a vocabulary question about epigenetics and inherited behavior.", section:"Reading", page:"reading-m2h-academic1.html"},
+  {no:"12", title:"Academic Passage 1 (Q12)", desc:"Answer an inference question about the famine study.", section:"Reading", page:"reading-m2h-academic1.html"},
+  {no:"13", title:"Academic Passage 1 (Q13)", desc:"Identify the rhetorical purpose of a key phrase.", section:"Reading", page:"reading-m2h-academic1.html"},
+  {no:"14", title:"Academic Passage 1 (Q14)", desc:"Identify a limitation of transgenerational research.", section:"Reading", page:"reading-m2h-academic1.html"},
+  {no:"15", title:"Academic Passage 1 (Q15)", desc:"Summarize the main argument of the passage.", section:"Reading", page:"reading-m2h-academic1.html"},
+  {no:"16", title:"Academic Passage 2 (Q16)", desc:"Answer a factual question about linguistic relativity.", section:"Reading", page:"reading-m2h-academic2.html"},
+  {no:"17", title:"Academic Passage 2 (Q17)", desc:"Draw an inference from a cross-linguistic color study.", section:"Reading", page:"reading-m2h-academic2.html"},
+  {no:"18", title:"Academic Passage 2 (Q18)", desc:"Identify the meaning of a word in context.", section:"Reading", page:"reading-m2h-academic2.html"},
+  {no:"19", title:"Academic Passage 2 (Q19)", desc:"Explain the rhetorical purpose of a research detail.", section:"Reading", page:"reading-m2h-academic2.html"},
+  {no:"20", title:"Academic Passage 2 (Q20)", desc:"Identify the author's conclusion about the hypothesis.", section:"Reading", page:"reading-m2h-academic2.html"}
+];
+
+/* ===== REVIEW ===== */
+function openReview(){
+  var html = '';
+  var ctwAnswered = 0;
+  allInputs.forEach(function(inp){ if(inp.value.trim()) ctwAnswered++; });
+  var totalBoxes = allInputs.length;
+
+  questions.forEach(function(q, i){
+    var st, cls;
+    if(q.no === '1-10'){
+      st = ctwAnswered + '/' + totalBoxes + ' Filled';
+      cls = ctwAnswered === totalBoxes ? 'answered' : 'not-answered';
+    } else {
+      st = 'Not Started';
+      cls = 'not-answered';
+    }
+    html += '<div class="review-row" onclick="showDetail('+i+')" data-idx="'+i+'">';
+    html += '<span class="review-no">'+q.no+'</span>';
+    html += '<span class="review-q">'+q.title+'</span>';
+    html += '<span class="review-status '+cls+'">'+st+'</span></div>';
+  });
+  document.getElementById('reviewList').innerHTML = html;
+  document.getElementById('reviewOverlay').classList.add('active');
+  showDetail(0);
+}
+
+function showDetail(idx){
+  var q = questions[idx];
+  document.querySelectorAll('.review-row').forEach(function(r){ r.classList.remove('active'); });
+  var rows = document.querySelectorAll('.review-row');
+  if(rows[idx]) rows[idx].classList.add('active');
+
+  var btn = '<button class="btn-goto" onclick="closeReview()">Go to Question &#8250;</button>';
+  document.getElementById('reviewDetail').innerHTML =
+    '<div class="detail-label">'+q.section+'</div>'+
+    '<div class="detail-title">'+q.title+'</div>'+
+    '<div class="detail-desc">'+q.desc+'</div>'+btn;
+}
+
+function closeReview(){
+  document.getElementById('reviewOverlay').classList.remove('active');
+}
+document.getElementById('reviewOverlay').addEventListener('click', function(e){
+  if(e.target === this) closeReview();
+});
 
 /* ===== NAVIGATION ===== */
 function goNext(){
   window.location.href = 'reading-m2h-academic1.html';
 }
 
-/* ===== REVIEW ===== */
-function openReview(){
-  var items = [
-    {no:"1-10", title:"Complete the Words", status:"current"},
-    {no:"11-15", title:"Academic Passage 1 (Q11-Q15)", status:"upcoming"},
-    {no:"16-20", title:"Academic Passage 2 (Q16-Q20)", status:"upcoming"}
-  ];
-  var html = '';
-  items.forEach(function(it){
-    var cls = it.status === 'current' ? 'current' : 'answered';
-    var label = it.status === 'current' ? 'In Progress' : 'Not Started';
-    html += '<div class="review-row"><span class="review-no">'+it.no+'</span><span class="review-q">'+it.title+'</span><span class="review-status '+cls+'">'+label+'</span></div>';
-  });
-  document.getElementById('reviewList').innerHTML = html;
-  document.getElementById('reviewOverlay').classList.add('active');
-}
-function closeReview(){ document.getElementById('reviewOverlay').classList.remove('active'); }
-document.getElementById('reviewOverlay').addEventListener('click', function(e){ if(e.target===this) closeReview(); });
-
 /* ===== AUTH ===== */
-if(typeof Auth !== 'undefined'){ Auth.require(); Auth.showBadge('userBadge'); }
+if(typeof Auth !== 'undefined'){
+  Auth.require();
+  Auth.showBadge('userBadge');
+}
 </script>
 <script src="js/auth.js"></script>
 </body>
