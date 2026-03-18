@@ -293,6 +293,23 @@ document.getElementById('reviewOverlay').addEventListener('click', function(e){
 });
 
 /* ===== NAVIGATION ===== */
+function goToPage(p){
+  if(typeof totalPages!=='undefined'&&p>=1&&p<=totalPages){
+    document.getElementById('page'+currentPage).classList.remove('active');
+    currentPage=p;
+    document.getElementById('page'+currentPage).classList.add('active');
+    var lbl=document.getElementById('qLabel');
+    if(lbl) lbl.textContent=(startQ+currentPage-1);
+    var bb=document.getElementById('btnBack');
+    if(bb) bb.disabled=(currentPage===1);
+    var bn=document.getElementById('btnNext');
+    if(bn){
+      if(currentPage===totalPages){bn.onclick=function(){goNext();};}
+      else{bn.onclick=function(){changePage(1);};}
+    }
+  }
+}
+
 function goNext(){
   window.location.href = 'reading-rdl1.html';
 }
