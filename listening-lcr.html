@@ -303,19 +303,12 @@ let currentQuestion=0, selectedAnswers=new Array(8).fill(null);
 let currentAudio=null, timerInterval=null, timeLeft=20, timerHidden=false;
 let audioPlayed=new Array(8).fill(false);
 
-let userHasInteracted=false;
-let pendingAudio=null;
-
 function startTest(){
-    userHasInteracted=true;
     document.getElementById('startOverlay').style.display='none';
-    // Pre-create audio for Q1 immediately in click context
-    pendingAudio=new Audio(questions[0].audio);
-    pendingAudio.preload='auto';
-    renderQuestion(0);
+    renderQuestion(0, true); // true = play immediately (in click context)
 }
 
-function renderQuestion(idx){
+function renderQuestion(idx, playNow){
     const q=questions[idx];
     document.getElementById('qNum').textContent=idx+1;
     document.getElementById('progressBar').style.width=((idx+1)/20*100)+'%';
@@ -342,7 +335,12 @@ function renderQuestion(idx){
     updateNextButton();
     
     if(!audioPlayed[idx]){
-        setTimeout(()=>playAudio(idx),1500);
+        if(playNow){
+            // Play immediately (within user click context)
+            playAudio(idx);
+        } else {
+            setTimeout(()=>playAudio(idx),1500);
+        }
     } else {
         unlockOptions(); startTimer();
     }
@@ -352,13 +350,7 @@ function playAudio(idx){
     const q=questions[idx];
     document.getElementById('audioIndicator').classList.add('visible');
     
-    // Use pending audio if available (created in click context), otherwise create new
-    if(pendingAudio){
-        currentAudio=pendingAudio;
-        pendingAudio=null;
-    } else {
-        currentAudio=new Audio(q.audio);
-    }
+    currentAudio=new Audio(q.audio);
     
     currentAudio.addEventListener('ended',()=>{
         document.getElementById('audioIndicator').classList.remove('visible');
@@ -438,12 +430,7 @@ function goNext(){
     if(currentAudio){currentAudio.pause();currentAudio=null;}
     if(currentQuestion<questions.length-1){
         currentQuestion++;
-        // Pre-create audio in click context for next question
-        if(!audioPlayed[currentQuestion]){
-            pendingAudio=new Audio(questions[currentQuestion].audio);
-            pendingAudio.preload='auto';
-        }
-        renderQuestion(currentQuestion);
+        renderQuestion(currentQuestion, true); // play immediately in click context
     }
     else{window.location.href='listening-conv.html';}
 }
