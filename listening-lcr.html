@@ -304,10 +304,14 @@ let currentAudio=null, timerInterval=null, timeLeft=20, timerHidden=false;
 let audioPlayed=new Array(8).fill(false);
 
 let userHasInteracted=false;
+let pendingAudio=null;
 
 function startTest(){
     userHasInteracted=true;
     document.getElementById('startOverlay').style.display='none';
+    // Pre-create audio for Q1 immediately in click context
+    pendingAudio=new Audio(questions[0].audio);
+    pendingAudio.preload='auto';
     renderQuestion(0);
 }
 
@@ -318,6 +322,9 @@ function renderQuestion(idx){
     
     // Set speaker image
     document.getElementById('speakerImg').src=speakerImages[q.imageKey][q.imageIdx];
+    // Reset audio indicator
+    document.getElementById('audioIndicator').innerHTML=
+        '<div class="wave-bars"><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div></div><span>Playing audio...</span>';
     document.getElementById('audioIndicator').classList.remove('visible');
     
     timeLeft=20; updateTimerDisplay();
@@ -344,7 +351,15 @@ function renderQuestion(idx){
 function playAudio(idx){
     const q=questions[idx];
     document.getElementById('audioIndicator').classList.add('visible');
-    currentAudio=new Audio(q.audio);
+    
+    // Use pending audio if available (created in click context), otherwise create new
+    if(pendingAudio){
+        currentAudio=pendingAudio;
+        pendingAudio=null;
+    } else {
+        currentAudio=new Audio(q.audio);
+    }
+    
     currentAudio.addEventListener('ended',()=>{
         document.getElementById('audioIndicator').classList.remove('visible');
         audioPlayed[idx]=true; unlockOptions(); startTimer();
@@ -358,9 +373,8 @@ function playAudio(idx){
         console.log('Q'+(idx+1)+' playing');
     }).catch((e)=>{
         console.error('Play blocked:', e);
-        // Show a click-to-play fallback
         document.getElementById('audioIndicator').innerHTML=
-            '<span style="cursor:pointer" onclick="retryPlay('+idx+')">🔇 Click here to play audio</span>';
+            '<span style="cursor:pointer;text-decoration:underline" onclick="retryPlay('+idx+')">🔇 Click here to play audio</span>';
         document.getElementById('audioIndicator').classList.add('visible');
     });
 }
@@ -371,7 +385,6 @@ function retryPlay(idx){
             document.getElementById('audioIndicator').innerHTML=
                 '<div class="wave-bars"><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div></div><span>Playing audio...</span>';
         }).catch(()=>{
-            // Still blocked - unlock options anyway
             document.getElementById('audioIndicator').classList.remove('visible');
             audioPlayed[idx]=true; unlockOptions(); startTimer();
         });
@@ -423,7 +436,15 @@ function toggleTimer(){
 function goNext(){
     clearInterval(timerInterval);
     if(currentAudio){currentAudio.pause();currentAudio=null;}
-    if(currentQuestion<questions.length-1){currentQuestion++;renderQuestion(currentQuestion);}
+    if(currentQuestion<questions.length-1){
+        currentQuestion++;
+        // Pre-create audio in click context for next question
+        if(!audioPlayed[currentQuestion]){
+            pendingAudio=new Audio(questions[currentQuestion].audio);
+            pendingAudio.preload='auto';
+        }
+        renderQuestion(currentQuestion);
+    }
     else{window.location.href='listening-conv.html';}
 }
 
