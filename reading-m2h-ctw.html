@@ -318,7 +318,7 @@ function showDetail(idx){
   var rows = document.querySelectorAll('.review-row');
   if(rows[idx]) rows[idx].classList.add('active');
 
-  var if(q.qPage!==undefined&&q.page==='reading-m2h-ctw.html'){btn='<button class="btn-goto" onclick="closeReview();goToPage('+q.qPage+')">Go to Question &#8250;<\/button>';}else if(q.page&&q.page!=='reading-m2h-ctw.html'){btn='<button class="btn-goto" onclick="window.location.href=\''+q.page+'\'">Go to Question &#8250;<\/button>';}else{btn='<button class="btn-goto" onclick="closeReview()">Go to Question &#8250;<\/button>';}
+  var btn; if(q.qPage!==undefined&&q.page==='reading-m2h-ctw.html'){btn='<button class="btn-goto" onclick="closeReview();goToPage('+q.qPage+')">Go to Question &#8250;<\/button>';}else if(q.page&&q.page!=='reading-m2h-ctw.html'){btn='<button class="btn-goto" onclick="window.location.href=\''+q.page+'\'">Go to Question &#8250;<\/button>';}else{btn='<button class="btn-goto" onclick="closeReview()">Go to Question &#8250;<\/button>';}
   document.getElementById('reviewDetail').innerHTML =
     '<div class="detail-label">'+q.section+'</div>'+
     '<div class="detail-title">'+q.title+'</div>'+
