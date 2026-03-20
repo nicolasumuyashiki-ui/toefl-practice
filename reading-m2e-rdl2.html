@@ -116,7 +116,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
     <div class="email-container">
       <div class="email-subject">Subject: Book Club Meeting — New Date</div>
       <div class="email-meta">
-        <span><strong>From:</strong> Campus Book Club &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5c7cacacec6c9d0c7e5d2c0d6d1c3ccc0c9c18bc0c1d0">[email&#160;protected]</a>&gt;</span>
+        <span><strong>From:</strong> Campus Book Club &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="33515c5c58505f46517344564047555a565f571d565746">[email&#160;protected]</a>&gt;</span>
         <span><strong>To:</strong> All Members</span>
         <span><strong>Date:</strong> April 2, 2026</span>
       </div>
@@ -275,11 +275,6 @@ function changePage(dir){
   }
 }
 
-/* ===== FINAL NAVIGATION ===== */
-function goNext(){
-  window.location.href = 'reading-end.html';
-}
-
 /* ===== OPTION SELECT ===== */
 function selectOption(el){
   var q = el.getAttribute('data-q');
@@ -355,4 +350,15 @@ function closeReview(){ document.getElementById('reviewOverlay').classList.remov
 document.getElementById('reviewOverlay').addEventListener('click', function(e){ if(e.target===this) closeReview(); });
 
 /* ===== NAVIGATION ===== */
-function goToPage(p){if(typeof totalPages!=='undefined'&&p>=1&&p<=totalPages){document.getElementById('page'+currentPage).classList.remove('active');currentPage=p;document.getElementById('page'+currentPage).classList.add('active');var l=document.getElementById('qLabel');if(l)l.textContent=(startQ+currentPage-1);var b=document.getElementById('btnBack');if(b)b.disabled=(currentPage===1);var n=document.getElementById('btnNext');if(n){if(cur
+function goToPage(p){if(typeof totalPages!=='undefined'&&p>=1&&p<=totalPages){document.getElementById('page'+currentPage).classList.remove('active');currentPage=p;document.getElementById('page'+currentPage).classList.add('active');var l=document.getElementById('qLabel');if(l)l.textContent=(startQ+currentPage-1);var b=document.getElementById('btnBack');if(b)b.disabled=(currentPage===1);var n=document.getElementById('btnNext');if(n){if(currentPage===totalPages){n.onclick=function(){goNext();};}else{n.onclick=function(){changePage(1);};}}}}
+
+function goNext(){ window.location.href = 'reading-end.html'; }
+
+/* ===== AUTH ===== */
+if(typeof Auth !== 'undefined'){
+  Auth.require();
+  Auth.showBadge('userBadge');
+}
+</script>
+</body>
+</html>
