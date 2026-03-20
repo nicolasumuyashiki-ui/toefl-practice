@@ -275,14 +275,13 @@ function changePage(dir){
   }
 }
 
-/* ===== OPTION SELECT ===== */
-function selectOption(el){
-
 /* ===== FINAL NAVIGATION ===== */
 function goNext(){
   window.location.href = 'reading-end.html';
 }
 
+/* ===== OPTION SELECT ===== */
+function selectOption(el){
   var q = el.getAttribute('data-q');
   var v = el.getAttribute('data-v');
   userAnswers[q] = v;
