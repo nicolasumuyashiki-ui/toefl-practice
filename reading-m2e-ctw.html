@@ -280,7 +280,7 @@ function showDetail(idx){
   document.querySelectorAll('.review-row').forEach(function(r){r.classList.remove('active')});
   var rows = document.querySelectorAll('.review-row');
   if(rows[idx]) rows[idx].classList.add('active');
-  var btn = '<button class="btn-goto" onclick="closeReview()">Go to Question &#8250;</button>';
+  var if(q.qPage!==undefined&&q.page==='reading-m2e-ctw.html'){btn='<button class="btn-goto" onclick="closeReview();goToPage('+q.qPage+')">Go to Question &#8250;<\/button>';}else if(q.page&&q.page!=='reading-m2e-ctw.html'){btn='<button class="btn-goto" onclick="window.location.href=\''+q.page+'\'">Go to Question &#8250;<\/button>';}else{btn='<button class="btn-goto" onclick="closeReview()">Go to Question &#8250;<\/button>';}
   document.getElementById('reviewDetail').innerHTML =
     '<div class="detail-label">'+q.section+'</div>'+
     '<div class="detail-title">'+q.title+'</div>'+
@@ -291,6 +291,8 @@ function closeReview(){ document.getElementById('reviewOverlay').classList.remov
 document.getElementById('reviewOverlay').addEventListener('click', function(e){ if(e.target===this) closeReview(); });
 
 /* ===== NAVIGATION ===== */
+function goToPage(p){if(typeof totalPages!=='undefined'&&p>=1&&p<=totalPages){document.getElementById('page'+currentPage).classList.remove('active');currentPage=p;document.getElementById('page'+currentPage).classList.add('active');var l=document.getElementById('qLabel');if(l)l.textContent=(startQ+currentPage-1);var b=document.getElementById('btnBack');if(b)b.disabled=(currentPage===1);var n=document.getElementById('btnNext');if(n){if(currentPage===totalPages){n.onclick=function(){goNext();};}else{n.onclick=function(){changePage(1);};}}}}
+
 function goNext(){ window.location.href = 'reading-m2e-rdl1.html'; }
 
 /* ===== AUTH ===== */
