@@ -356,7 +356,6 @@ function openReview(){
   document.getElementById('reviewList').innerHTML = html;
   document.getElementById('reviewOverlay').classList.add('active');
   showDetail(0);
-});
 }
 
 function showDetail(idx){var q=(window._rq||questions)[idx];document.querySelectorAll('.review-row').forEach(function(r){r.classList.remove('active')});var rows=document.querySelectorAll('.review-row');if(rows[idx])rows[idx].classList.add('active');var btn;if(q.qPage!==undefined&&q.page==='reading-academic.html'){btn='<button class="btn-goto" onclick="closeReview();goToPage('+q.qPage+')">Go to Question &#8250;<\/button>';}else if(q.page&&q.page!=='reading-academic.html'){btn='<button class="btn-goto" onclick="window.location.href=\''+q.page+'\'">Go to Question &#8250;<\/button>';}else if(q.page){btn='<button class="btn-goto" onclick="closeReview()">Go to Question &#8250;<\/button>';}else{btn='<button class="btn-goto disabled" disabled>Coming Soon<\/button>';}document.getElementById('reviewDetail').innerHTML='<div class="detail-label">Reading<\/div><div class="detail-title">'+q.title+'<\/div><div class="detail-desc">'+q.desc+'<\/div>'+btn;}
