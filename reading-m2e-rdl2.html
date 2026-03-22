@@ -314,10 +314,8 @@ function openReview(){
       cls = userAnswers[key] ? 'answered' : 'not-answered';
     } else if(q.no === '1-10' || q.no === '11' || q.no === '12'){
       st = 'Completed'; cls = 'answered';
-    } else if(q.page){
-      st = 'Not Started'; cls = 'not-answered';
     } else {
-      st = 'Coming Soon'; cls = 'coming';
+      st = 'Not Started'; cls = 'not-answered';
     }
     html += '<div class="review-row" onclick="showDetail('+i+')" data-idx="'+i+'">';
     html += '<span class="review-no">'+q.no+'</span>';

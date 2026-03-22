@@ -157,11 +157,11 @@ var D = {
 /* ===== REVIEW DATA ===== */
 var questions = [
   {no:"1-10", title:"Complete the Words", desc:"Fill in the missing letters in the paragraph about the science of earthquakes.", section:"Reading", page:"reading-ctw.html"},
-  {no:"11",   title:"Read a Notice (Q11)", desc:"Read a notice and answer a multiple choice question.", section:"Reading", page:null},
-  {no:"12",   title:"Read a Notice (Q12)", desc:"Read the same notice and answer a second multiple choice question.", section:"Reading", page:null},
-  {no:"13",   title:"Read in Daily Life (Q13)", desc:"Read an everyday text and answer a question.", section:"Reading", page:null},
-  {no:"14",   title:"Read in Daily Life (Q14)", desc:"Read the same text and answer a second question.", section:"Reading", page:null},
-  {no:"15",   title:"Read in Daily Life (Q15)", desc:"Read the same text and answer a third question.", section:"Reading", page:null},
+  {no:"11",   title:"Read a Notice (Q11)", desc:"Read a notice and answer a multiple choice question.", section:"Reading", page:"reading-rdl1.html", qPage:1},
+  {no:"12",   title:"Read a Notice (Q12)", desc:"Read the same notice and answer a second multiple choice question.", section:"Reading", page:"reading-rdl1.html", qPage:2},
+  {no:"13",   title:"Read in Daily Life (Q13)", desc:"Read an everyday text and answer a question.", section:"Reading", page:"reading-rdl2.html", qPage:1},
+  {no:"14",   title:"Read in Daily Life (Q14)", desc:"Read the same text and answer a second question.", section:"Reading", page:"reading-rdl2.html", qPage:2},
+  {no:"15",   title:"Read in Daily Life (Q15)", desc:"Read the same text and answer a third question.", section:"Reading", page:"reading-rdl2.html", qPage:3},
   {no:"16",    title:"Academic Passage (Q16)",    desc:"Identify the main idea.", section:"Reading", page:"reading-academic.html", qPage:1},
   {no:"17",    title:"Academic Passage (Q17)",    desc:"Answer a factual question.", section:"Reading", page:"reading-academic.html", qPage:2},
   {no:"18",    title:"Academic Passage (Q18)",    desc:"Make an inference.", section:"Reading", page:"reading-academic.html", qPage:3},
@@ -247,12 +247,9 @@ function openReview(){
     if(i === 0){
       st = status.answered + '/' + status.total + ' Answered';
       cls = status.answered === status.total ? 'answered' : 'not-answered';
-    } else if(q.page){
+    } else {
       st = 'Not Started';
       cls = 'not-answered';
-    } else {
-      st = 'Coming Soon';
-      cls = 'coming';
     }
     html += '<div class="review-row" onclick="showDetail('+i+')" data-idx="'+i+'">';
     html += '<span class="review-no">'+q.no+'</span>';
@@ -271,7 +268,9 @@ function showDetail(idx){
   var rows = document.querySelectorAll('.review-row');
   if(rows[idx]) rows[idx].classList.add('active');
   var btnHtml;
-  if(q.page){
+  if(q.page && q.page !== 'reading-ctw.html'){
+    btnHtml = '<button class="btn-goto" onclick="window.location.href=\''+q.page+'\'">Go to Question &#8250;</button>';
+  } else if(q.page){
     btnHtml = '<button class="btn-goto" onclick="closeReview()">Go to Question &#8250;</button>';
   } else {
     btnHtml = '<button class="btn-goto disabled" disabled>Coming Soon</button>';
