@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TOEFL iBT - Complete the Words</title>h
+<title>TOEFL iBT - Complete the Words</title>
 <link rel="stylesheet" href="css/common.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',Tahoma,Geneva,Verhhdana,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#2d3748;line-height:1.7}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#2d3748;line-height:1.7}
 
 /* ===== TOP NAV ===== */
 .top-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
@@ -309,7 +309,29 @@ function goToPage(p){
   }
 }
 
+/* Compute correct count from inputs and persist to localStorage so
+   reading-m2-select.html can route to the Easier or Harder Module 2.
+   Each blank has D.target[i].a (expected letters); inputs are ordered
+   by data-idx within each .word-blank box. */
+function saveM1CTWScore(){
+  var blanks = D.target.filter(function(t){return t.a !== null;});
+  var correct = 0;
+  var inputs = document.querySelectorAll('.bx input');
+  var idx = 0;
+  blanks.forEach(function(b){
+    var typed = '';
+    for(var j = 0; j < b.a.length; j++){
+      typed += (inputs[idx] ? inputs[idx].value : '');
+      idx++;
+    }
+    if(typed.toLowerCase() === b.a.toLowerCase()) correct++;
+  });
+  localStorage.setItem('m1_ctw_correct', String(correct));
+  localStorage.setItem('m1_ctw_total',   String(blanks.length));
+}
+
 function goNext(){
+  saveM1CTWScore();
   window.location.href = 'reading-rdl1.html';
 }
 

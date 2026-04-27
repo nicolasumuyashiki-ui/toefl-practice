@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEFL iBT - End of Listening</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#2d3748;line-height:1.6}
+.listening-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:12px 24px;display:flex;align-items:center;gap:14px}
+.listening-nav-label{font-size:.95em;color:#4a5568;font-weight:500}
+.listening-progress{height:4px;background:#ebf4ff;width:100%;flex-shrink:0}
+.listening-progress-fill{height:100%;width:100%;background:#3182ce;border-radius:2px}
+.listening-body{flex:1;display:flex;justify-content:center;align-items:center;padding:60px 24px 120px}
+.listening-content{width:100%;max-width:640px}
+.listening-content h2{font-size:1.35em;font-weight:700;color:#1a202c;margin-bottom:16px}
+.listening-content p{font-size:.95em;color:#4a5568;line-height:1.7;margin-bottom:20px}
+.user-badge{font-size:.85em;color:#718096;margin-left:auto}
+.user-badge strong{color:#2d3748}
+.listening-footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e2e8f0;padding:14px 24px;display:flex;justify-content:flex-end}
+.btn-start{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-size:.95em;font-family:inherit;font-weight:600;color:#fff;background:#2d3748;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+.btn-start:hover{background:#1a202c}
+.btn-start svg{width:16px;height:16px;fill:currentColor}
+.note{margin-top:12px;padding:14px 18px;background:#fef5e7;border-left:3px solid #ed8936;border-radius:4px;font-size:.85em;color:#744210}
+</style>
+</head>
+<body>
+
+<div class="listening-nav">
+  <span class="listening-nav-label">Listening</span>
+  <span class="user-badge" id="userBadge"></span>
+</div>
+<div class="listening-progress"><div class="listening-progress-fill"></div></div>
+
+<div class="listening-body">
+  <div class="listening-content">
+    <h2>Listening Section Complete</h2>
+    <p>You have finished the Listening section. Great work staying focused through the audio passages.</p>
+    <p>リスニングセクションが終了しました。集中して取り組んでいただき、ありがとうございました。</p>
+    <div class="note">Writing and Speaking sections are coming soon. For now, this concludes the practice test.</div>
+  </div>
+</div>
+
+<div class="listening-footer">
+  <button class="btn-start" onclick="goNext()">
+    End Practice
+    <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+  </button>
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+if (typeof Auth !== 'undefined') {
+  Auth.require();
+  Auth.showBadge('userBadge');
+}
+function goNext() {
+  window.location.href = 'reading-end.html';
+}
+</script>
+</body>
+</html>
