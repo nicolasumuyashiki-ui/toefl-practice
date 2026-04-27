@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TOEFL iBT - Listen to an Announcement</title>
+<link rel="stylesheet" href="css/common.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#ebf4ff;color:#2d3748;display:flex;flex-direction:column;height:100vh;overflow:hidden;}
@@ -373,14 +374,14 @@ function goNext(){
 }
 
 function finishSection(){
-    const stored = JSON.parse(sessionStorage.getItem('mocktest2_answers')||'{}');
+    const stored = JSON.parse(sessionStorage.getItem('practice_listening_answers')||'{}');
     pages.forEach((pg,i)=>{
         stored['q'+pg.questionNum] = {
             selected: selectedAnswers[i],
             correct: pg.answer
         };
     });
-    sessionStorage.setItem('mocktest2_answers', JSON.stringify(stored));
+    sessionStorage.setItem('practice_listening_answers', JSON.stringify(stored));
     window.location.href='listening-academic.html';
 }
 

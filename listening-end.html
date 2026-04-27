@@ -56,7 +56,9 @@ if (typeof Auth !== 'undefined') {
   Auth.showBadge('userBadge');
 }
 function goNext() {
-  window.location.href = 'reading-end.html';
+  // Final stop until Writing/Speaking sections exist. Bouncing back to
+  // reading-end.html created an infinite Reading↔Listening loop.
+  window.location.href = 'index.html';
 }
 </script>
 </body>
