@@ -7,69 +7,69 @@
 <link rel="stylesheet" href="css/common.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f0f2f5;min-height:100vh;display:flex;flex-direction:column;}
-.top-nav{background:#2d3748;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:10px 24px;font-size:14px;flex-shrink:0;}
+body{font-family:'Manrope','Zen Kaku Gothic New','Noto Sans JP',system-ui,sans-serif;background:#FBF6EC;min-height:100vh;display:flex;flex-direction:column;}
+.top-nav{background:#002817;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:10px 24px;font-size:14px;flex-shrink:0;}
 .nav-left{display:flex;align-items:center;gap:12px;}
 .nav-left .section-label{font-weight:700;font-size:15px;}
-.nav-left .divider{color:#718096;}
-.nav-left .task-label{color:#a0aec0;}
+.nav-left .divider{color:#5A6861;}
+.nav-left .task-label{color:#D6DAD7;}
 .nav-right{display:flex;align-items:center;gap:16px;}
 .timer-display{font-family:'Courier New',monospace;font-size:16px;font-weight:700;}
-.timer-display.warning{color:#fc8181;animation:blink .5s infinite;}
+.timer-display.warning{color:#B85C3C;animation:blink .5s infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
-.finish-btn{padding:7px 18px;background:#38a169;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;}
-.finish-btn:hover{background:#2f855a;}
-.user-badge{font-size:13px;color:#a0aec0;}
+.finish-btn{padding:7px 18px;background:#007646;color:#fff;border:none;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.02em;}
+.finish-btn:hover{background:#004D2E;box-shadow:0 4px 12px rgba(0,118,70,.22);}
+.user-badge{font-size:13px;color:#D6DAD7;}
 .user-badge strong{color:#fff;}
-.progress-bar{height:4px;background:#e2e8f0;flex-shrink:0;}
-.progress-fill{height:100%;background:#4a90d9;transition:width .3s;}
+.progress-bar{height:4px;background:#F5E9D3;flex-shrink:0;}
+.progress-fill{height:100%;background:#007646;transition:width .3s;}
 
 .instruction-page{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
 .instruction-card{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.08);max-width:680px;width:100%;padding:40px;}
-.instruction-card h1{font-size:22px;color:#2d3748;margin-bottom:6px;font-style:italic;text-decoration:underline;text-decoration-color:#4a90d9;text-underline-offset:4px;}
-.instruction-card p{color:#4a5568;font-size:14px;line-height:1.7;margin-bottom:16px;}
+.instruction-card h1{font-size:22px;color:#002817;margin-bottom:6px;font-style:italic;text-decoration:underline;text-decoration-color:#007646;text-underline-offset:4px;}
+.instruction-card p{color:#5A6861;font-size:14px;line-height:1.7;margin-bottom:16px;}
 .task-table{width:100%;border-collapse:collapse;margin:16px 0;}
-.task-table th{background:#81d4d4;color:#fff;padding:10px 14px;text-align:left;font-size:13px;}
-.task-table td{padding:10px 14px;border-bottom:1px solid #e2e8f0;font-size:13px;color:#4a5568;}
-.warning-box{background:#fffbeb;border-left:4px solid #ecc94b;padding:12px 16px;border-radius:4px;margin:16px 0;font-size:13px;color:#744210;}
-.btn-start{display:block;margin:20px auto 0;background:#4a90d9;color:#fff;border:none;padding:14px 36px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;}
-.btn-start:hover{background:#3a7cc0;}
+.task-table th{background:#4A90B8;color:#fff;padding:10px 14px;text-align:left;font-size:13px;}
+.task-table td{padding:10px 14px;border-bottom:1px solid #F5E9D3;font-size:13px;color:#5A6861;}
+.warning-box{background:#FDF7E8;border-left:4px solid #C9A961;padding:12px 16px;border-radius:4px;margin:16px 0;font-size:13px;color:#8A6D2A;}
+.btn-start{display:block;margin:20px auto 0;background:#007646;color:#fff;border:none;padding:14px 36px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;}
+.btn-start:hover{background:#004D2E;}
 
 .quiz-page{flex:1;display:none;padding:24px;overflow-y:auto;}
 .quiz-card{max-width:800px;margin:0 auto;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);padding:28px 32px;}
 .prompt-section{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
-.speaker-avatar{width:56px;height:56px;border-radius:50%;border:2px solid #e2e8f0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px;background:#f7fafc;}
-.prompt-bubble{background:#f7fafc;padding:14px 18px;border-radius:12px;border:1px solid #e2e8f0;font-size:14px;color:#2d3748;line-height:1.6;flex:1;}
-.answer-area{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:20px;background:#fff;border:2px dashed #e2e8f0;border-radius:10px;margin-bottom:20px;min-height:60px;}
-.fixed-word{padding:8px 14px;background:#ebf4ff;border:2px solid #4a90d9;border-radius:8px;font-size:14px;font-weight:600;color:#2b6cb0;cursor:default;}
-.blank-slot{min-width:90px;height:42px;border:2px dashed #cbd5e0;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#a0aec0;transition:all .15s;cursor:pointer;}
-.blank-slot.has-word{border-style:solid;border-color:#4a90d9;background:#ebf4ff;color:#2d3748;font-weight:600;font-size:14px;cursor:pointer;}
-.blank-slot.drag-over{border-color:#4a90d9;background:#ebf4ff;}
-.word-bank{display:flex;flex-wrap:wrap;gap:8px;padding:20px;background:#f7fafc;border-radius:10px;border:1px solid #e2e8f0;}
-.word-item{padding:8px 16px;background:#fff;border:2px solid #cbd5e0;border-radius:8px;font-size:14px;color:#4a5568;cursor:grab;transition:all .15s;user-select:none;}
-.word-item:hover{border-color:#4a90d9;background:#ebf4ff;}
+.speaker-avatar{width:56px;height:56px;border-radius:50%;border:2px solid #F5E9D3;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px;background:#FBF6EC;}
+.prompt-bubble{background:#FBF6EC;padding:14px 18px;border-radius:12px;border:1px solid #F5E9D3;font-size:14px;color:#002817;line-height:1.6;flex:1;}
+.answer-area{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:20px;background:#fff;border:2px dashed #F5E9D3;border-radius:10px;margin-bottom:20px;min-height:60px;}
+.fixed-word{padding:8px 14px;background:#F5E9D3;border:2px solid #007646;border-radius:8px;font-size:14px;font-weight:600;color:#004D2E;cursor:default;}
+.blank-slot{min-width:90px;height:42px;border:2px dashed #D6DAD7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#D6DAD7;transition:all .15s;cursor:pointer;}
+.blank-slot.has-word{border-style:solid;border-color:#007646;background:#F5E9D3;color:#002817;font-weight:600;font-size:14px;cursor:pointer;}
+.blank-slot.drag-over{border-color:#007646;background:#F5E9D3;}
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;padding:20px;background:#FBF6EC;border-radius:10px;border:1px solid #F5E9D3;}
+.word-item{padding:8px 16px;background:#fff;border:2px solid #D6DAD7;border-radius:8px;font-size:14px;color:#5A6861;cursor:grab;transition:all .15s;user-select:none;}
+.word-item:hover{border-color:#007646;background:#F5E9D3;}
 .word-item.used{opacity:.3;pointer-events:none;}
 .word-item:active{cursor:grabbing;}
 .quiz-nav{display:flex;justify-content:space-between;margin-top:24px;max-width:800px;margin-left:auto;margin-right:auto;}
 .btn-prev,.btn-next-q{padding:10px 24px;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;}
-.btn-prev{background:#edf2f7;color:#4a5568;}
+.btn-prev{background:#FBF6EC;color:#5A6861;}
 .btn-prev:disabled{opacity:.4;cursor:not-allowed;}
-.btn-next-q{background:#4a90d9;color:#fff;}
-.btn-next-q:hover{background:#3a7cc0;}
+.btn-next-q{background:#007646;color:#fff;}
+.btn-next-q:hover{background:#004D2E;}
 
 .completion-page{flex:1;display:none;align-items:center;justify-content:center;padding:40px 20px;}
 .completion-card{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.08);max-width:700px;width:100%;padding:40px;text-align:center;}
-.score-display{font-size:48px;font-weight:700;color:#4a90d9;margin:16px 0;}
-.btn-next{display:inline-block;margin-top:16px;padding:14px 36px;background:#2d3748;color:#fff;border-radius:8px;font-size:15px;font-weight:600;text-decoration:none;border:none;cursor:pointer;}
-.btn-next:hover{background:#1a202c;}
+.score-display{font-size:48px;font-weight:700;color:#007646;margin:16px 0;}
+.btn-next{display:inline-block;margin-top:16px;padding:14px 36px;background:#002817;color:#fff;border-radius:8px;font-size:15px;font-weight:600;text-decoration:none;border:none;cursor:pointer;}
+.btn-next:hover{background:#002817;}
 
 .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);display:none;justify-content:center;align-items:center;z-index:1000;}
 .modal-overlay.active{display:flex;}
 .modal-content{background:#fff;border-radius:12px;padding:32px;max-width:420px;width:90%;text-align:center;}
 .modal-buttons{display:flex;gap:12px;justify-content:center;margin-top:20px;}
 .modal-btn{padding:10px 24px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;border:none;}
-.modal-btn.cancel{background:#edf2f7;color:#4a5568;}
-.modal-btn.confirm{background:#38a169;color:#fff;}
+.modal-btn.cancel{background:#FBF6EC;color:#5A6861;}
+.modal-btn.confirm{background:#007646;color:#fff;}
 </style>
 </head>
 <body>
@@ -114,7 +114,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f0f2f5;
     <div style="font-size:48px">✅</div>
     <h2>Build a Sentence — Complete</h2>
     <div class="score-display" id="scoreDisplay">0 / 16</div>
-    <p style="color:#718096;font-size:14px;margin-bottom:8px">Your score has been saved. Continue to the next Writing task.</p>
+    <p style="color:#5A6861;font-size:14px;margin-bottom:8px">Your score has been saved. Continue to the next Writing task.</p>
     <button class="btn-next" onclick="goNext()">Next: Write an Email →</button>
   </div>
 </div>
@@ -122,8 +122,8 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f0f2f5;
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-content">
     <div style="font-size:40px;margin-bottom:12px">⚠️</div>
-    <h3 style="font-size:18px;color:#2d3748;margin-bottom:8px">Finish Quiz?</h3>
-    <p style="font-size:14px;color:#718096;line-height:1.6">Are you sure? You will not be able to change your answers after submitting.</p>
+    <h3 style="font-size:18px;color:#002817;margin-bottom:8px">Finish Quiz?</h3>
+    <p style="font-size:14px;color:#5A6861;line-height:1.6">Are you sure? You will not be able to change your answers after submitting.</p>
     <div class="modal-buttons">
       <button class="modal-btn cancel" onclick="hideModal()">Cancel</button>
       <button class="modal-btn confirm" onclick="finishQuiz()">Yes, Finish</button>

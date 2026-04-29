@@ -6,38 +6,38 @@
 <title>TOEFL iBT - Microphone Check</title>
 <link rel="stylesheet" href="css/common.css">
 <style>
-.mic-icon-circle{width:52px;height:52px;background:#3182ce;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mic-icon-circle{width:52px;height:52px;background:#007646;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .mic-icon-circle svg{width:24px;height:24px;fill:#fff}
-.card-header-text h2{font-size:1.15em;font-weight:600;color:#2d3748}
-.card-header-text p{font-size:.85em;color:#718096;margin-top:2px}
+.card-header-text h2{font-size:1.15em;font-weight:600;color:#002817}
+.card-header-text p{font-size:.85em;color:#5A6861;margin-top:2px}
 .steps{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:28px}h
-.step-dot{width:10px;height:10px;border-radius:50%;background:#e2e8f0;transition:background .3s}
-.step-dot.active{background:#3182ce}.step-dot.done{background:#38a169}
-.step-connector{width:40px;height:2px;background:#e2e8f0;transition:background .3s}.step-connector.done{background:#38a169}
-.form-label{font-size:.85em;font-weight:600;color:#4a5568;margin-bottom:6px;display:block}
-.mic-select{width:100%;padding:10px 38px 10px 14px;font-size:.95em;font-family:inherit;border:1px solid #e2e8f0;border-radius:6px;background:#fff;color:#2d3748;appearance:none;cursor:pointer;outline:none;background-image:url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'%3E%3Cpath fill=\'%23718096\' d=\'M6 8L1 3h10z\'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-.mic-select:focus{border-color:#3182ce;box-shadow:0 0 0 2px rgba(49,130,206,.2)}
-.prompt-box{background:#f7fafc;border:1px solid #e2e8f0;border-radius:6px;padding:18px 20px;text-align:center;margin-bottom:20px}
-.prompt-label{font-size:.8em;text-transform:uppercase;letter-spacing:1px;color:#718096;margin-bottom:8px}
-.prompt-sentence{font-size:1.1em;font-weight:600;color:#2d3748}
-.listen-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:6px 16px;font-size:.85em;font-family:inherit;font-weight:500;color:#3182ce;background:transparent;border:1px solid #3182ce;border-radius:20px;cursor:pointer;transition:all .2s}
+.step-dot{width:10px;height:10px;border-radius:50%;background:#F5E9D3;transition:background .3s}
+.step-dot.active{background:#007646}.step-dot.done{background:#007646}
+.step-connector{width:40px;height:2px;background:#F5E9D3;transition:background .3s}.step-connector.done{background:#007646}
+.form-label{font-size:.85em;font-weight:600;color:#5A6861;margin-bottom:6px;display:block}
+.mic-select{width:100%;padding:10px 38px 10px 14px;font-size:.95em;font-family:inherit;border:1px solid #F5E9D3;border-radius:6px;background:#fff;color:#002817;appearance:none;cursor:pointer;outline:none;background-image:url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'%3E%3Cpath fill=\'%23718096\' d=\'M6 8L1 3h10z\'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.mic-select:focus{border-color:#007646;box-shadow:0 0 0 2px rgba(49,130,206,.2)}
+.prompt-box{background:#FBF6EC;border:1px solid #F5E9D3;border-radius:6px;padding:18px 20px;text-align:center;margin-bottom:20px}
+.prompt-label{font-size:.8em;text-transform:uppercase;letter-spacing:1px;color:#5A6861;margin-bottom:8px}
+.prompt-sentence{font-size:1.1em;font-weight:600;color:#002817}
+.listen-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:6px 16px;font-size:.85em;font-family:inherit;font-weight:500;color:#007646;background:transparent;border:1px solid #007646;border-radius:20px;cursor:pointer;transition:all .2s}
 .listen-btn:hover{background:#ebf8ff}
-.listen-btn:disabled{color:#a0aec0;border-color:#e2e8f0;cursor:not-allowed;background:transparent}
+.listen-btn:disabled{color:#D6DAD7;border-color:#F5E9D3;cursor:not-allowed;background:transparent}
 .listen-btn svg{width:14px;height:14px;fill:currentColor}
 .meter-section{margin-bottom:20px}
-.meter-track{position:relative;height:28px;background:#edf2f7;border-radius:14px;overflow:hidden;margin-bottom:4px}
-.meter-fill{height:100%;width:0%;background:linear-gradient(90deg,#38a169,#3182ce);border-radius:14px;transition:width .08s}
-.meter-fill.over{background:linear-gradient(90deg,#38a169,#3182ce,#e53e3e)}
-.meter-recommended{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#2d3748;z-index:2}
-.meter-recommended::after{content:\'\25BC\';position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:8px;color:#2d3748}
-.meter-labels{display:flex;justify-content:space-between;font-size:.75em;color:#a0aec0;padding:0 4px}
-.meter-labels .rec-label{color:#2d3748;font-weight:600}
-.rec-badge{display:none;align-items:center;justify-content:center;gap:6px;font-size:.8em;font-weight:600;color:#e53e3e;margin-bottom:14px}
+.meter-track{position:relative;height:28px;background:#FBF6EC;border-radius:14px;overflow:hidden;margin-bottom:4px}
+.meter-fill{height:100%;width:0%;background:linear-gradient(90deg,#007646,#007646);border-radius:14px;transition:width .08s}
+.meter-fill.over{background:linear-gradient(90deg,#007646,#007646,#B85C3C)}
+.meter-recommended{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#002817;z-index:2}
+.meter-recommended::after{content:\'\25BC\';position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:8px;color:#002817}
+.meter-labels{display:flex;justify-content:space-between;font-size:.75em;color:#D6DAD7;padding:0 4px}
+.meter-labels .rec-label{color:#002817;font-weight:600}
+.rec-badge{display:none;align-items:center;justify-content:center;gap:6px;font-size:.8em;font-weight:600;color:#B85C3C;margin-bottom:14px}
 .rec-badge.active{display:flex}
-.rec-badge-dot{width:8px;height:8px;background:#e53e3e;border-radius:50%;animation:blink 1s infinite}
+.rec-badge-dot{width:8px;height:8px;background:#B85C3C;border-radius:50%;animation:blink 1s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-.status{text-align:center;font-size:.85em;min-height:22px;margin-bottom:16px;color:#38a169;font-weight:500}
-.status.info{color:#718096;font-weight:400}.status.error{color:#e53e3e;font-weight:500}
+.status{text-align:center;font-size:.85em;min-height:22px;margin-bottom:16px;color:#007646;font-weight:500}
+.status.info{color:#5A6861;font-weight:400}.status.error{color:#B85C3C;font-weight:500}
 </style>
 </head>
 <body>
@@ -80,9 +80,9 @@
    </div>
    <div id="step3" class="hidden">
     <div style="text-align:center;padding:20px 0;">
-     <div style="width:56px;height:56px;background:#c6f6d5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><svg width="28" height="28" fill="#38a169" viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4.09 14.1 9 19 20.71 7.29 19.3 5.88z"/></svg></div>
-     <h3 style="color:#2d3748;font-size:1.1em;margin-bottom:6px;">Microphone is ready</h3>
-     <p style="color:#718096;font-size:.9em;margin-bottom:24px;">Your audio input is working correctly.<br>You may now begin the practice test.</p>
+     <div style="width:56px;height:56px;background:#c6f6d5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><svg width="28" height="28" fill="#007646" viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4.09 14.1 9 19 20.71 7.29 19.3 5.88z"/></svg></div>
+     <h3 style="color:#002817;font-size:1.1em;margin-bottom:6px;">Microphone is ready</h3>
+     <p style="color:#5A6861;font-size:.9em;margin-bottom:24px;">Your audio input is working correctly.<br>You may now begin the practice test.</p>
      <button class="btn-primary" onclick="(function(){var n=sessionStorage.getItem('mic_check_next');sessionStorage.removeItem('mic_check_next');window.location.href=n||'reading-intro.html';})()">Begin Practice</button>
     </div>
    </div>

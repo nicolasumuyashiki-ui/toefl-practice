@@ -7,35 +7,35 @@
 <link rel="stylesheet" href="css/common.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#2d3748;line-height:1.7}
-.top-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
-.top-nav-left{display:flex;align-items:center;gap:16px;font-size:.9em;color:#4a5568}
-.top-nav-left strong{color:#2d3748}
+body{font-family:'Manrope','Zen Kaku Gothic New','Noto Sans JP',system-ui,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#002817;line-height:1.7}
+.top-nav{background:#fff;border-bottom:1px solid #F5E9D3;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+.top-nav-left{display:flex;align-items:center;gap:16px;font-size:.9em;color:#5A6861}
+.top-nav-left strong{color:#002817}
 .top-nav-right{display:flex;align-items:center;gap:12px}
-.user-badge{font-size:.8em;color:#718096}
+.user-badge{font-size:.8em;color:#5A6861}
 .main-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;text-align:center}
 .hidden{display:none!important}
 
 .instruction-page{max-width:640px}
-.instruction-page h2{font-size:1.3em;font-weight:700;margin-bottom:16px;color:#2d3748;font-style:italic;text-decoration:underline}
-.instruction-page p{font-size:.95em;color:#4a5568;margin-bottom:12px;line-height:1.7}
-.warning-text{color:#e53e3e;font-weight:700}
+.instruction-page h2{font-size:1.3em;font-weight:700;margin-bottom:16px;color:#002817;font-style:italic;text-decoration:underline}
+.instruction-page p{font-size:.95em;color:#5A6861;margin-bottom:12px;line-height:1.7}
+.warning-text{color:#B85C3C;font-weight:700}
 .task-table{width:100%;border-collapse:collapse;margin:20px 0;text-align:left}
-.task-table th,.task-table td{border:1px solid #e2e8f0;padding:12px 16px;font-size:.9em}
-.task-table th{background:#f7fafc;font-weight:600;color:#2d3748}
-.btn-start{background:#2d3748;color:#fff;border:none;border-radius:8px;padding:14px 40px;font-size:1em;font-weight:600;cursor:pointer;font-family:inherit;margin-top:20px;transition:all .2s}
-.btn-start:hover{background:#4a5568}
+.task-table th,.task-table td{border:1px solid #F5E9D3;padding:12px 16px;font-size:.9em}
+.task-table th{background:#FBF6EC;font-weight:600;color:#002817}
+.btn-start{background:#002817;color:#fff;border:none;border-radius:8px;padding:14px 40px;font-size:1em;font-weight:600;cursor:pointer;font-family:inherit;margin-top:20px;transition:all .2s}
+.btn-start:hover{background:#5A6861}
 
 .task-page{display:none;width:100%;max-width:700px}
-.task-instruction{font-size:.95em;font-weight:500;color:#4a5568;margin-bottom:20px}
+.task-instruction{font-size:.95em;font-weight:500;color:#5A6861;margin-bottom:20px}
 .q-dots{display:flex;gap:8px;justify-content:center;margin-bottom:16px}
-.q-dot{width:10px;height:10px;border-radius:50%;background:#e2e8f0}
+.q-dot{width:10px;height:10px;border-radius:50%;background:#F5E9D3}
 .q-dot.active{background:#e8912d}
 .q-dot.done{background:#48bb78}
 .interviewer-container{display:flex;flex-direction:column;align-items:center;margin:24px 0}
-.interviewer-frame{width:260px;height:260px;border-radius:12px;overflow:hidden;border:3px solid #e2e8f0;box-shadow:0 4px 20px rgba(0,0,0,.1);background:#f0f4f8;display:flex;align-items:center;justify-content:center}
-.interviewer-frame .placeholder{font-size:4em;color:#a0aec0}
-.interviewer-name{font-size:.9em;font-weight:600;color:#4a5568;margin-top:10px}
+.interviewer-frame{width:260px;height:260px;border-radius:12px;overflow:hidden;border:3px solid #F5E9D3;box-shadow:0 4px 20px rgba(0,0,0,.1);background:#FBF6EC;display:flex;align-items:center;justify-content:center}
+.interviewer-frame .placeholder{font-size:4em;color:#D6DAD7}
+.interviewer-name{font-size:.9em;font-weight:600;color:#5A6861;margin-top:10px}
 .audio-status{display:none;align-items:center;justify-content:center;gap:10px;margin:16px auto;padding:10px 20px;background:rgba(0,0,0,.75);color:#fff;border-radius:25px;width:fit-content;font-size:.9em}
 .audio-status.playing{display:flex}
 .audio-wave{display:flex;align-items:center;gap:3px;height:16px}
@@ -46,7 +46,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
 .audio-wave span:nth-child(4){height:12px;animation-delay:.3s}
 .audio-wave span:nth-child(5){height:6px;animation-delay:.4s}
 @keyframes wave{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.4)}}
-.response-timer{display:none;background:#1a202c;border-radius:12px;padding:20px 40px;margin:20px auto;text-align:center}
+.response-timer{display:none;background:#002817;border-radius:12px;padding:20px 40px;margin:20px auto;text-align:center}
 .response-timer.active{display:block}
 .timer-label{font-size:.7em;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:3px;margin-bottom:10px}
 .timer-display{display:flex;align-items:center;justify-content:center;gap:12px}
@@ -54,10 +54,10 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
 .countdown{font-family:'Courier New',monospace;font-size:2em;font-weight:700;color:#4ecdc4}
 
 .complete-page{display:none;max-width:500px}
-.complete-page h2{font-size:1.3em;font-weight:700;margin-bottom:12px;color:#2d3748}
-.complete-page p{font-size:.95em;color:#4a5568;margin-bottom:20px}
-.btn-next-section{background:#2d3748;color:#fff;border:none;border-radius:8px;padding:14px 40px;font-size:1em;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
-.btn-next-section:hover{background:#4a5568}
+.complete-page h2{font-size:1.3em;font-weight:700;margin-bottom:12px;color:#002817}
+.complete-page p{font-size:.95em;color:#5A6861;margin-bottom:20px}
+.btn-next-section{background:#002817;color:#fff;border:none;border-radius:8px;padding:14px 40px;font-size:1em;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-next-section:hover{background:#5A6861}
 </style>
 </head>
 <body>
