@@ -223,7 +223,25 @@ function selectOption(el){
   userAnswers[q] = v;
 }
 
+function saveM2hAcademic2Score(){
+  var correctAnswers = {q16:'B', q17:'B', q18:'C', q19:'B', q20:'A'};
+  var correct = 0;
+  var total = 0;
+  for(var k in correctAnswers){
+    total++;
+    if(userAnswers[k] === correctAnswers[k]) correct++;
+  }
+  localStorage.setItem('m2h_academic2_correct', String(correct));
+  localStorage.setItem('m2h_academic2_total',   String(total));
+}
+
+function goNext(){
+  saveM2hAcademic2Score();
+  window.location.href = 'reading-end.html';
+}
+
 function showComplete(){
+  saveM2hAcademic2Score();
   clearInterval(timerInterval);
   document.getElementById('completeOverlay').classList.add('active');
 }

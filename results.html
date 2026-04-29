@@ -286,7 +286,13 @@ function estimateWritingScaled(sentencePct){
 /* ============================================================
    Read raw answers from this practice-test session
    ============================================================ */
-function gi(k){var v=parseInt(localStorage.getItem(k));return isNaN(v)?null:v;}
+function gi(k){
+  var raw=localStorage.getItem(k);
+  // Fallback: M1 live keys are wiped on Module 2 entry; the snapshot under
+  // results_m1_* (written by reading-m2-select.html) preserves them for this page.
+  if(raw==null && k.indexOf('m1_')===0){ raw=localStorage.getItem('results_'+k); }
+  var v=parseInt(raw);return isNaN(v)?null:v;
+}
 
 function collectReading(){
   // Module 1 keys (set by reading-ctw / reading-rdl1 / reading-rdl2 / reading-academic).

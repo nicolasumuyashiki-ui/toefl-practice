@@ -62,6 +62,7 @@ body{font-family:'Manrope','Zen Kaku Gothic New','Noto Sans JP',system-ui,sans-s
 <script>
 /* ===== SCORE CALCULATION ===== */
 var assignedPath = 'easy';
+var m1Pct = 0;
 
 function calculateScore(){
   var totalCorrect = 0;
@@ -98,12 +99,34 @@ function calculateScore(){
   }
 
   var pct = (totalCorrect / totalQuestions) * 100;
+  m1Pct = pct;
 
   /* 60% threshold */
   assignedPath = (pct >= 60) ? 'hard' : 'easy';
 }
 
+function snapshotM1Results(){
+  /* Snapshot M1 results so results.html can still display Module 1 stats */
+  ['m1_ctw','m1_rdl1','m1_rdl2','m1_academic'].forEach(function(k){
+    ['_correct','_total'].forEach(function(suffix){
+      var v = localStorage.getItem(k+suffix);
+      if (v != null) localStorage.setItem('results_'+k+suffix, v);
+    });
+  });
+  /* Also snapshot academic answers/insertion in case results page wants them */
+  var acAns = localStorage.getItem('m1_academic_answers');
+  if (acAns != null) localStorage.setItem('results_m1_academic_answers', acAns);
+  var acIns = localStorage.getItem('m1_academic_insertion');
+  if (acIns != null) localStorage.setItem('results_m1_academic_insertion', acIns);
+
+  localStorage.setItem('results_path', assignedPath);
+  localStorage.setItem('results_m1_pct', String(m1Pct.toFixed(1)));
+}
+
 function startModule2(){
+  /* Snapshot before wiping */
+  snapshotM1Results();
+
   /* Clean up M1 scores */
   localStorage.removeItem('m1_academic_correct');
   localStorage.removeItem('m1_academic_total');

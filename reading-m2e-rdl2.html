@@ -350,7 +350,15 @@ document.getElementById('reviewOverlay').addEventListener('click', function(e){ 
 /* ===== NAVIGATION ===== */
 function goToPage(p){if(typeof totalPages!=='undefined'&&p>=1&&p<=totalPages){document.getElementById('page'+currentPage).classList.remove('active');currentPage=p;document.getElementById('page'+currentPage).classList.add('active');var l=document.getElementById('qLabel');if(l)l.textContent=(startQ+currentPage-1);var b=document.getElementById('btnBack');if(b)b.disabled=(currentPage===1);var n=document.getElementById('btnNext');if(n){if(currentPage===totalPages){n.onclick=function(){goNext();};}else{n.onclick=function(){changePage(1);};}}}}
 
-function goNext(){ window.location.href = 'reading-end.html'; }
+function saveM2eRDL2Score(){
+  var correct = 0;
+  var total = 0;
+  for (var k in answers){ total++; if(userAnswers[k] === answers[k]) correct++; }
+  localStorage.setItem('m2e_rdl2_correct', String(correct));
+  localStorage.setItem('m2e_rdl2_total',   String(total));
+}
+
+function goNext(){ saveM2eRDL2Score(); window.location.href = 'reading-end.html'; }
 
 /* ===== AUTH ===== */
 if(typeof Auth !== 'undefined'){

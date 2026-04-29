@@ -293,7 +293,19 @@ document.getElementById('reviewOverlay').addEventListener('click', function(e){ 
 /* ===== NAVIGATION ===== */
 function goToPage(p){if(typeof totalPages!=='undefined'&&p>=1&&p<=totalPages){document.getElementById('page'+currentPage).classList.remove('active');currentPage=p;document.getElementById('page'+currentPage).classList.add('active');var l=document.getElementById('qLabel');if(l)l.textContent=(startQ+currentPage-1);var b=document.getElementById('btnBack');if(b)b.disabled=(currentPage===1);var n=document.getElementById('btnNext');if(n){if(currentPage===totalPages){n.onclick=function(){goNext();};}else{n.onclick=function(){changePage(1);};}}}}
 
-function goNext(){ window.location.href = 'reading-m2e-rdl1.html'; }
+function saveM2eCTWScore(){
+  var correct = 0;
+  for(var i=0;i<blanks.length;i++){
+    var inputs = document.querySelectorAll('input[data-word="'+i+'"]');
+    var typed = '';
+    for(var j=0;j<inputs.length;j++){ typed += inputs[j].value; }
+    if(typed.toLowerCase() === blanks[i].answer.toLowerCase()) correct++;
+  }
+  localStorage.setItem('m2e_ctw_correct', String(correct));
+  localStorage.setItem('m2e_ctw_total',   String(blanks.length));
+}
+
+function goNext(){ saveM2eCTWScore(); window.location.href = 'reading-m2e-rdl1.html'; }
 
 /* ===== AUTH ===== */
 if(typeof Auth !== 'undefined'){

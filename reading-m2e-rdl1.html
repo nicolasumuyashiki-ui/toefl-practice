@@ -327,7 +327,16 @@ function closeReview(){
 document.getElementById('reviewOverlay').addEventListener('click', function(e){ if(e.target===this) closeReview(); });
 
 /* ===== NAVIGATION ===== */
+function saveM2eRDL1Score(){
+  var correct = 0;
+  var total = 0;
+  for (var k in answers){ total++; if(userAnswers[k] === answers[k]) correct++; }
+  localStorage.setItem('m2e_rdl1_correct', String(correct));
+  localStorage.setItem('m2e_rdl1_total',   String(total));
+}
+
 function goNext(){
+  saveM2eRDL1Score();
   window.location.href = 'reading-m2e-rdl2.html';
 }
 

@@ -335,7 +335,20 @@ document.getElementById('reviewOverlay').addEventListener('click', function(e){
 /* ===== NAVIGATION ===== */
 function goToPage(p){if(typeof totalPages!=='undefined'&&p>=1&&p<=totalPages){document.getElementById('page'+currentPage).classList.remove('active');currentPage=p;document.getElementById('page'+currentPage).classList.add('active');var l=document.getElementById('qLabel');if(l)l.textContent=(startQ+currentPage-1);var b=document.getElementById('btnBack');if(b)b.disabled=(currentPage===1);var n=document.getElementById('btnNext');if(n){if(currentPage===totalPages){n.onclick=function(){goNext();};}else{n.onclick=function(){changePage(1);};}}}}
 
+function saveM2hCTWScore(){
+  var correct = 0;
+  for(var i=0;i<blanks.length;i++){
+    var inputs = document.querySelectorAll('input[data-word="'+i+'"]');
+    var typed = '';
+    for(var j=0;j<inputs.length;j++){ typed += inputs[j].value; }
+    if(typed.toLowerCase() === blanks[i].answer.toLowerCase()) correct++;
+  }
+  localStorage.setItem('m2h_ctw_correct', String(correct));
+  localStorage.setItem('m2h_ctw_total',   String(blanks.length));
+}
+
 function goNext(){
+  saveM2hCTWScore();
   window.location.href = 'reading-m2h-academic1.html';
 }
 

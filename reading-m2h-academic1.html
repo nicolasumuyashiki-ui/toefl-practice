@@ -193,7 +193,20 @@ function selectOption(el){
 
 function goToPage(p){if(typeof totalPages!=='undefined'&&p>=1&&p<=totalPages){document.getElementById('page'+currentPage).classList.remove('active');currentPage=p;document.getElementById('page'+currentPage).classList.add('active');var l=document.getElementById('qLabel');if(l)l.textContent=(startQ+currentPage-1);var b=document.getElementById('btnBack');if(b)b.disabled=(currentPage===1);var n=document.getElementById('btnNext');if(n){if(currentPage===totalPages){n.onclick=function(){goNext();};}else{n.onclick=function(){changePage(1);};}}}}
 
+function saveM2hAcademic1Score(){
+  var correctAnswers = {q11:'B', q12:'B', q13:'B', q14:'B', q15:'A'};
+  var correct = 0;
+  var total = 0;
+  for(var k in correctAnswers){
+    total++;
+    if(userAnswers[k] === correctAnswers[k]) correct++;
+  }
+  localStorage.setItem('m2h_academic1_correct', String(correct));
+  localStorage.setItem('m2h_academic1_total',   String(total));
+}
+
 function goNext(){
+  saveM2hAcademic1Score();
   window.location.href = 'reading-m2h-academic2.html';
 }
 
