@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEFL iBT - Take an Interview</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#2d3748;line-height:1.7}
+.top-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+.top-nav-left{display:flex;align-items:center;gap:16px;font-size:.9em;color:#4a5568}
+.top-nav-left strong{color:#2d3748}
+.top-nav-right{display:flex;align-items:center;gap:12px}
+.user-badge{font-size:.8em;color:#718096}
+.main-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;text-align:center}
+.hidden{display:none!important}
+
+.instruction-page{max-width:640px}
+.instruction-page h2{font-size:1.3em;font-weight:700;margin-bottom:16px;color:#2d3748;font-style:italic;text-decoration:underline}
+.instruction-page p{font-size:.95em;color:#4a5568;margin-bottom:12px;line-height:1.7}
+.warning-text{color:#e53e3e;font-weight:700}
+.task-table{width:100%;border-collapse:collapse;margin:20px 0;text-align:left}
+.task-table th,.task-table td{border:1px solid #e2e8f0;padding:12px 16px;font-size:.9em}
+.task-table th{background:#f7fafc;font-weight:600;color:#2d3748}
+.btn-start{background:#2d3748;color:#fff;border:none;border-radius:8px;padding:14px 40px;font-size:1em;font-weight:600;cursor:pointer;font-family:inherit;margin-top:20px;transition:all .2s}
+.btn-start:hover{background:#4a5568}
+
+.task-page{display:none;width:100%;max-width:700px}
+.task-instruction{font-size:.95em;font-weight:500;color:#4a5568;margin-bottom:20px}
+.q-dots{display:flex;gap:8px;justify-content:center;margin-bottom:16px}
+.q-dot{width:10px;height:10px;border-radius:50%;background:#e2e8f0}
+.q-dot.active{background:#e8912d}
+.q-dot.done{background:#48bb78}
+.interviewer-container{display:flex;flex-direction:column;align-items:center;margin:24px 0}
+.interviewer-frame{width:260px;height:260px;border-radius:12px;overflow:hidden;border:3px solid #e2e8f0;box-shadow:0 4px 20px rgba(0,0,0,.1);background:#f0f4f8;display:flex;align-items:center;justify-content:center}
+.interviewer-frame .placeholder{font-size:4em;color:#a0aec0}
+.interviewer-name{font-size:.9em;font-weight:600;color:#4a5568;margin-top:10px}
+.audio-status{display:none;align-items:center;justify-content:center;gap:10px;margin:16px auto;padding:10px 20px;background:rgba(0,0,0,.75);color:#fff;border-radius:25px;width:fit-content;font-size:.9em}
+.audio-status.playing{display:flex}
+.audio-wave{display:flex;align-items:center;gap:3px;height:16px}
+.audio-wave span{display:block;width:3px;background:#4ecdc4;border-radius:2px;animation:wave 1s ease-in-out infinite}
+.audio-wave span:nth-child(1){height:6px;animation-delay:0s}
+.audio-wave span:nth-child(2){height:12px;animation-delay:.1s}
+.audio-wave span:nth-child(3){height:16px;animation-delay:.2s}
+.audio-wave span:nth-child(4){height:12px;animation-delay:.3s}
+.audio-wave span:nth-child(5){height:6px;animation-delay:.4s}
+@keyframes wave{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.4)}}
+.response-timer{display:none;background:#1a202c;border-radius:12px;padding:20px 40px;margin:20px auto;text-align:center}
+.response-timer.active{display:block}
+.timer-label{font-size:.7em;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:3px;margin-bottom:10px}
+.timer-display{display:flex;align-items:center;justify-content:center;gap:12px}
+.timer-icon{font-size:1.3em}
+.countdown{font-family:'Courier New',monospace;font-size:2em;font-weight:700;color:#4ecdc4}
+
+.complete-page{display:none;max-width:500px}
+.complete-page h2{font-size:1.3em;font-weight:700;margin-bottom:12px;color:#2d3748}
+.complete-page p{font-size:.95em;color:#4a5568;margin-bottom:20px}
+.btn-next-section{background:#2d3748;color:#fff;border:none;border-radius:8px;padding:14px 40px;font-size:1em;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-next-section:hover{background:#4a5568}
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <div class="top-nav-left">
+    <span><strong>Speaking</strong></span>
+    <span>|</span>
+    <span id="qIndicator">Take an Interview</span>
+  </div>
+  <div class="top-nav-right">
+    <span class="user-badge" id="userBadge"></span>
+  </div>
+</div>
+
+<div class="main-area" id="instructionPage">
+  <div class="instruction-page">
+    <h2>Take an Interview</h2>
+    <p>An interviewer will ask you questions. Answer the questions and be sure to say as much as you can in the time allowed.</p>
+    <p class="warning-text">No time for preparation will be provided.</p>
+    <table class="task-table">
+      <tr><th>Task</th><th>Number of Questions</th><th>Response Time</th></tr>
+      <tr><td>Take an Interview</td><td>4 questions</td><td>45 seconds each</td></tr>
+    </table>
+    <button class="btn-start" onclick="startTask()">Start Interview</button>
+  </div>
+</div>
+
+<div class="main-area" id="taskPage" style="display:none">
+  <div class="task-page" style="display:block">
+    <div class="task-instruction">Please answer the interviewer&#39;s questions.</div>
+    <div class="q-dots" id="qDots"></div>
+    <div class="interviewer-container">
+      <div class="interviewer-frame">
+        <div class="placeholder">&#128100;</div>
+      </div>
+      <div class="interviewer-name">Dr. Rivera</div>
+    </div>
+    <div class="audio-status" id="audioStatus">
+      <div class="audio-wave"><span></span><span></span><span></span><span></span><span></span></div>
+      <span id="audioLabel">Playing audio...</span>
+    </div>
+    <div class="response-timer" id="responseTimer">
+      <div class="timer-label">Response Time</div>
+      <div class="timer-display">
+        <span class="timer-icon">&#x1F399;&#xFE0F;</span>
+        <span class="countdown" id="countdown">00:00:45</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main-area" id="completePage" style="display:none">
+  <div class="complete-page" style="display:block">
+    <h2>Take an Interview — Complete</h2>
+    <p>You have completed this task. Continue to finish the practice test.</p>
+    <button class="btn-next-section" onclick="goNext()">Continue &#8594;</button>
+  </div>
+</div>
+
+<script>
+var audioFiles = {
+  narrator: "audio/ti/practice-1/narrator.mp3",
+  1: "audio/ti/practice-1/audio_1.mp3",
+  2: "audio/ti/practice-1/audio_2.mp3",
+  3: "audio/ti/practice-1/audio_3.mp3",
+  4: "audio/ti/practice-1/audio_4.mp3"
+};
+var RESPONSE_TIME = 45;
+var totalQuestions = 4;
+var currentQuestion = 0;
+var currentAudio = null;
+var countdownInterval = null;
+
+function startTask(){
+  document.getElementById('instructionPage').style.display='none';
+  document.getElementById('taskPage').style.display='';
+  buildDots();
+  playNarrator();
+}
+function buildDots(){
+  var dots=document.getElementById('qDots');dots.innerHTML='';
+  for(var i=0;i<totalQuestions;i++){
+    var d=document.createElement('div');d.className='q-dot';d.id='dot'+i;dots.appendChild(d);
+  }
+}
+function playNarrator(){
+  document.getElementById('qIndicator').textContent='Narrator';
+  document.getElementById('audioLabel').textContent='Playing narrator audio...';
+  showAudio(true);
+  document.getElementById('responseTimer').classList.remove('active');
+  playAudioFile(audioFiles.narrator,function(){
+    showAudio(false);
+    setTimeout(function(){playQuestion(1);},1000);
+  });
+}
+function playQuestion(qNum){
+  if(qNum>totalQuestions){showComplete();return;}
+  currentQuestion=qNum;
+  document.getElementById('qIndicator').textContent='Question '+qNum+' of '+totalQuestions;
+  document.getElementById('audioLabel').textContent='Interviewer is speaking...';
+  for(var i=0;i<totalQuestions;i++){
+    var dot=document.getElementById('dot'+i);
+    if(i<qNum-1) dot.className='q-dot done';
+    else if(i===qNum-1) dot.className='q-dot active';
+    else dot.className='q-dot';
+  }
+  showAudio(true);
+  document.getElementById('responseTimer').classList.remove('active');
+  playAudioFile(audioFiles[qNum],function(){
+    showAudio(false);
+    setTimeout(function(){startCountdown(qNum);},1000);
+  });
+}
+function playAudioFile(src,onEnd){
+  if(currentAudio){currentAudio.pause();currentAudio=null;}
+  if(!src){setTimeout(onEnd,1500);return;}
+  try{
+    currentAudio=new Audio(src);
+    currentAudio.onended=onEnd;
+    currentAudio.onerror=function(){setTimeout(onEnd,3000);};
+    currentAudio.play().catch(function(){setTimeout(onEnd,3000);});
+  }catch(e){setTimeout(onEnd,3000);}
+}
+function startCountdown(qNum){
+  var timer=document.getElementById('responseTimer');
+  timer.classList.add('active');
+  var remaining=RESPONSE_TIME;
+  updateCountdown(remaining);
+  countdownInterval=setInterval(function(){
+    remaining--;
+    if(remaining<=0){
+      clearInterval(countdownInterval);
+      updateCountdown(0);
+      timer.classList.remove('active');
+      setTimeout(function(){playQuestion(qNum+1);},2000);
+      return;
+    }
+    updateCountdown(remaining);
+  },1000);
+}
+function updateCountdown(sec){
+  document.getElementById('countdown').textContent='00:00:'+(sec<10?'0':'')+sec;
+}
+function showAudio(show){
+  var el=document.getElementById('audioStatus');
+  if(show) el.classList.add('playing'); else el.classList.remove('playing');
+}
+function showComplete(){
+  document.getElementById('taskPage').style.display='none';
+  document.getElementById('completePage').style.display='';
+  document.getElementById('qIndicator').textContent='Complete';
+  localStorage.setItem('practice_speaking_ti_completed','1');
+}
+function goNext(){window.location.href='speaking-end.html';}
+
+if(typeof Auth!=='undefined'){Auth.require();Auth.showBadge('userBadge');}
+</script>
+<script src="js/auth.js"></script>
+</body>
+</html>

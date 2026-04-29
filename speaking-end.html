@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEFL iBT - End of Practice Test</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#2d3748;line-height:1.6}
+.section-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:12px 24px;display:flex;align-items:center;gap:14px}
+.section-nav-label{font-size:.95em;color:#4a5568;font-weight:500}
+.section-progress{height:4px;background:#ebf4ff;width:100%;flex-shrink:0}
+.section-progress-fill{height:100%;width:100%;background:#48bb78;border-radius:2px}
+.section-body{flex:1;display:flex;justify-content:center;align-items:center;padding:60px 24px 120px}
+.section-content{width:100%;max-width:640px;text-align:center}
+.section-content h2{font-size:1.5em;font-weight:700;color:#1a202c;margin-bottom:16px}
+.section-content p{font-size:.95em;color:#4a5568;line-height:1.7;margin-bottom:20px}
+.user-badge{font-size:.85em;color:#718096;margin-left:auto}
+.section-footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e2e8f0;padding:14px 24px;display:flex;justify-content:flex-end}
+.btn-start{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-size:.95em;font-family:inherit;font-weight:600;color:#fff;background:#2d3748;border:none;border-radius:8px;cursor:pointer}
+.btn-start:hover{background:#1a202c}
+.success-icon{font-size:3em;margin-bottom:12px}
+</style>
+</head>
+<body>
+<div class="section-nav">
+  <span class="section-nav-label">Practice Test</span>
+  <span class="user-badge" id="userBadge"></span>
+</div>
+<div class="section-progress"><div class="section-progress-fill"></div></div>
+<div class="section-body">
+  <div class="section-content">
+    <div class="success-icon">🎉</div>
+    <h2>Practice Test Complete</h2>
+    <p>You have completed all four sections — Reading, Listening, Writing, and Speaking. Great work.</p>
+    <p>練習テストお疲れ様でした。すべてのセクションが完了しました。</p>
+  </div>
+</div>
+<div class="section-footer">
+  <button class="btn-start" onclick="window.location.href='index.html'">Return to Home</button>
+</div>
+<script src="js/auth.js"></script>
+<script>
+if(typeof Auth!=='undefined'){Auth.require();Auth.showBadge('userBadge');}
+</script>
+</body>
+</html>

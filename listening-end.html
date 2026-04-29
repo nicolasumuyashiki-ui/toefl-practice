@@ -37,14 +37,14 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
   <div class="listening-content">
     <h2>Listening Section Complete</h2>
     <p>You have finished the Listening section. Great work staying focused through the audio passages.</p>
-    <p>リスニングセクションが終了しました。集中して取り組んでいただき、ありがとうございました。</p>
-    <div class="note">Writing and Speaking sections are coming soon. For now, this concludes the practice test.</div>
+    <p>リスニングセクションが終了しました。次はWritingセクションです。</p>
+    <div class="note">Continue to the Writing section to complete the practice test.</div>
   </div>
 </div>
 
 <div class="listening-footer">
   <button class="btn-start" onclick="goNext()">
-    End Practice
+    Continue to Writing
     <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
   </button>
 </div>
@@ -56,9 +56,7 @@ if (typeof Auth !== 'undefined') {
   Auth.showBadge('userBadge');
 }
 function goNext() {
-  // Final stop until Writing/Speaking sections exist. Bouncing back to
-  // reading-end.html created an infinite Reading↔Listening loop.
-  window.location.href = 'index.html';
+  window.location.href = 'writing-intro.html';
 }
 </script>
 </body>

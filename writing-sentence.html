@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEFL iBT - Build a Sentence</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f0f2f5;min-height:100vh;display:flex;flex-direction:column;}
+.top-nav{background:#2d3748;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:10px 24px;font-size:14px;flex-shrink:0;}
+.nav-left{display:flex;align-items:center;gap:12px;}
+.nav-left .section-label{font-weight:700;font-size:15px;}
+.nav-left .divider{color:#718096;}
+.nav-left .task-label{color:#a0aec0;}
+.nav-right{display:flex;align-items:center;gap:16px;}
+.timer-display{font-family:'Courier New',monospace;font-size:16px;font-weight:700;}
+.timer-display.warning{color:#fc8181;animation:blink .5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.finish-btn{padding:7px 18px;background:#38a169;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;}
+.finish-btn:hover{background:#2f855a;}
+.user-badge{font-size:13px;color:#a0aec0;}
+.user-badge strong{color:#fff;}
+.progress-bar{height:4px;background:#e2e8f0;flex-shrink:0;}
+.progress-fill{height:100%;background:#4a90d9;transition:width .3s;}
+
+.instruction-page{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+.instruction-card{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.08);max-width:680px;width:100%;padding:40px;}
+.instruction-card h1{font-size:22px;color:#2d3748;margin-bottom:6px;font-style:italic;text-decoration:underline;text-decoration-color:#4a90d9;text-underline-offset:4px;}
+.instruction-card p{color:#4a5568;font-size:14px;line-height:1.7;margin-bottom:16px;}
+.task-table{width:100%;border-collapse:collapse;margin:16px 0;}
+.task-table th{background:#81d4d4;color:#fff;padding:10px 14px;text-align:left;font-size:13px;}
+.task-table td{padding:10px 14px;border-bottom:1px solid #e2e8f0;font-size:13px;color:#4a5568;}
+.warning-box{background:#fffbeb;border-left:4px solid #ecc94b;padding:12px 16px;border-radius:4px;margin:16px 0;font-size:13px;color:#744210;}
+.btn-start{display:block;margin:20px auto 0;background:#4a90d9;color:#fff;border:none;padding:14px 36px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;}
+.btn-start:hover{background:#3a7cc0;}
+
+.quiz-page{flex:1;display:none;padding:24px;overflow-y:auto;}
+.quiz-card{max-width:800px;margin:0 auto;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);padding:28px 32px;}
+.prompt-section{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+.speaker-avatar{width:56px;height:56px;border-radius:50%;border:2px solid #e2e8f0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px;background:#f7fafc;}
+.prompt-bubble{background:#f7fafc;padding:14px 18px;border-radius:12px;border:1px solid #e2e8f0;font-size:14px;color:#2d3748;line-height:1.6;flex:1;}
+.answer-area{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:20px;background:#fff;border:2px dashed #e2e8f0;border-radius:10px;margin-bottom:20px;min-height:60px;}
+.fixed-word{padding:8px 14px;background:#ebf4ff;border:2px solid #4a90d9;border-radius:8px;font-size:14px;font-weight:600;color:#2b6cb0;cursor:default;}
+.blank-slot{min-width:90px;height:42px;border:2px dashed #cbd5e0;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#a0aec0;transition:all .15s;cursor:pointer;}
+.blank-slot.has-word{border-style:solid;border-color:#4a90d9;background:#ebf4ff;color:#2d3748;font-weight:600;font-size:14px;cursor:pointer;}
+.blank-slot.drag-over{border-color:#4a90d9;background:#ebf4ff;}
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;padding:20px;background:#f7fafc;border-radius:10px;border:1px solid #e2e8f0;}
+.word-item{padding:8px 16px;background:#fff;border:2px solid #cbd5e0;border-radius:8px;font-size:14px;color:#4a5568;cursor:grab;transition:all .15s;user-select:none;}
+.word-item:hover{border-color:#4a90d9;background:#ebf4ff;}
+.word-item.used{opacity:.3;pointer-events:none;}
+.word-item:active{cursor:grabbing;}
+.quiz-nav{display:flex;justify-content:space-between;margin-top:24px;max-width:800px;margin-left:auto;margin-right:auto;}
+.btn-prev,.btn-next-q{padding:10px 24px;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;}
+.btn-prev{background:#edf2f7;color:#4a5568;}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed;}
+.btn-next-q{background:#4a90d9;color:#fff;}
+.btn-next-q:hover{background:#3a7cc0;}
+
+.completion-page{flex:1;display:none;align-items:center;justify-content:center;padding:40px 20px;}
+.completion-card{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.08);max-width:700px;width:100%;padding:40px;text-align:center;}
+.score-display{font-size:48px;font-weight:700;color:#4a90d9;margin:16px 0;}
+.btn-next{display:inline-block;margin-top:16px;padding:14px 36px;background:#2d3748;color:#fff;border-radius:8px;font-size:15px;font-weight:600;text-decoration:none;border:none;cursor:pointer;}
+.btn-next:hover{background:#1a202c;}
+
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);display:none;justify-content:center;align-items:center;z-index:1000;}
+.modal-overlay.active{display:flex;}
+.modal-content{background:#fff;border-radius:12px;padding:32px;max-width:420px;width:90%;text-align:center;}
+.modal-buttons{display:flex;gap:12px;justify-content:center;margin-top:20px;}
+.modal-btn{padding:10px 24px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;border:none;}
+.modal-btn.cancel{background:#edf2f7;color:#4a5568;}
+.modal-btn.confirm{background:#38a169;color:#fff;}
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <div class="nav-left"><span class="section-label">Writing</span><span class="divider">|</span><span class="task-label">Build a Sentence</span></div>
+  <div class="nav-right">
+    <span class="timer-display" id="timer">07:00</span>
+    <button class="finish-btn" id="btnFinish" onclick="showModal()" style="display:none">Finish</button>
+    <span class="user-badge" id="userBadge"></span>
+  </div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+
+<div class="instruction-page" id="instrPage">
+  <div class="instruction-card">
+    <h1>Build a Sentence</h1>
+    <p>In this task, you will arrange words and phrases in the correct order to form a grammatically correct response to a given statement or question.</p>
+    <table class="task-table">
+      <thead><tr><th>Detail</th><th>Info</th></tr></thead>
+      <tbody>
+        <tr><td>Questions</td><td>16</td></tr>
+        <tr><td>Time Limit</td><td>7 minutes</td></tr>
+        <tr><td>Format</td><td>Drag words from the Word Bank into the blank slots</td></tr>
+      </tbody>
+    </table>
+    <div class="warning-box">⏱️ You have <strong>7 minutes</strong>. Click "Start" to begin. The timer cannot be paused.</div>
+    <button class="btn-start" onclick="startQuiz()">Start</button>
+  </div>
+</div>
+
+<div class="quiz-page" id="quizPage">
+  <div class="quiz-card" id="quizCard"></div>
+  <div class="quiz-nav">
+    <button class="btn-prev" id="btnPrev" onclick="navQ(-1)" disabled>← Previous</button>
+    <button class="btn-next-q" id="btnNextQ" onclick="navQ(1)">Next →</button>
+  </div>
+</div>
+
+<div class="completion-page" id="completionPage">
+  <div class="completion-card">
+    <div style="font-size:48px">✅</div>
+    <h2>Build a Sentence — Complete</h2>
+    <div class="score-display" id="scoreDisplay">0 / 16</div>
+    <p style="color:#718096;font-size:14px;margin-bottom:8px">Your score has been saved. Continue to the next Writing task.</p>
+    <button class="btn-next" onclick="goNext()">Next: Write an Email →</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-content">
+    <div style="font-size:40px;margin-bottom:12px">⚠️</div>
+    <h3 style="font-size:18px;color:#2d3748;margin-bottom:8px">Finish Quiz?</h3>
+    <p style="font-size:14px;color:#718096;line-height:1.6">Are you sure? You will not be able to change your answers after submitting.</p>
+    <div class="modal-buttons">
+      <button class="modal-btn cancel" onclick="hideModal()">Cancel</button>
+      <button class="modal-btn confirm" onclick="finishQuiz()">Yes, Finish</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+if(typeof Auth!=='undefined'){Auth.require();Auth.showBadge('userBadge');}
+
+const speakerAvatars=['👩','👨','👩‍🦰','👨‍🦱','👩‍🦳','👨‍🦰','👧','🧑','👩‍🦱','👨‍🦳','👩‍💼','👨‍💼','👩‍🎓','👨‍🎓','🧑‍🦰','🧑‍🦱'];
+
+const questions=[
+{id:1,prompt:"What time does the library close tonight?",fixedStart:"I",fixedEnd:"",blanks:["think","it","closes","at","nine o'clock."],answer:["think","it","closes","at","nine o'clock."]},
+{id:2,prompt:"Have you finished the assignment for tomorrow?",fixedStart:"No,",fixedEnd:"yet.",blanks:["I","have not","started","it"],answer:["I","have not","started","it"]},
+{id:3,prompt:"Why did you choose to study psychology?",fixedStart:"",fixedEnd:"",blanks:["I","have always","been","interested in","how people","think."],answer:["I","have always","been","interested in","how people","think."]},
+{id:4,prompt:"Do you know where the science building is?",fixedStart:"",fixedEnd:"the cafeteria.",blanks:["It is","the tall","building","right behind"],answer:["It is","the tall","building","right behind"]},
+{id:5,prompt:"What do you think about the new professor?",fixedStart:"She",fixedEnd:"",blanks:["explains","difficult","concepts","in a way","that is","easy to understand."],answer:["explains","difficult","concepts","in a way","that is","easy to understand."]},
+{id:6,prompt:"Can I borrow your notes from last week?",fixedStart:"Sure,",fixedEnd:"",blanks:["but","I need","them back","by Friday."],answer:["but","I need","them back","by Friday."]},
+{id:7,prompt:"How did you do on the midterm exam?",fixedStart:"I",fixedEnd:"expected.",blanks:["did","much better","than","I had"],answer:["did","much better","than","I had"]},
+{id:8,prompt:"Are you going to the study group tonight?",fixedStart:"Actually,",fixedEnd:"",blanks:["I","was planning","to study","on my own","at the library."],answer:["I","was planning","to study","on my own","at the library."]},
+{id:9,prompt:"What kind of job are you looking for after graduation?",fixedStart:"I",fixedEnd:"",blanks:["would like","to find","a job","where I can","use my","language skills."],answer:["would like","to find","a job","where I can","use my","language skills."]},
+{id:10,prompt:"Did you hear that the field trip was canceled?",fixedStart:"Yes,",fixedEnd:"",blanks:["that is","really","disappointing","because","I was","looking forward to it."],answer:["that is","really","disappointing","because","I was","looking forward to it."]},
+{id:11,prompt:"Why didn't you sign up for the workshop?",fixedStart:"I",fixedEnd:"",blanks:["did not","know","about it","until","the deadline","had passed."],answer:["did not","know","about it","until","the deadline","had passed."]},
+{id:12,prompt:"What should we get the professor as a thank-you gift?",fixedStart:"",fixedEnd:"",blanks:["How about","a book","that is","related to","her research?"],answer:["How about","a book","that is","related to","her research?"]},
+{id:13,prompt:"Do you think online classes are better than in-person classes?",fixedStart:"It",fixedEnd:"",blanks:["depends on","the subject","and","how well","the professor","uses technology."],answer:["depends on","the subject","and","how well","the professor","uses technology."]},
+{id:14,prompt:"Could you tell me what the homework is for tomorrow?",fixedStart:"We",fixedEnd:"chapter five.",blanks:["need to","read","and","summarize"],answer:["need to","read","and","summarize"],altAnswers:[["need to","summarize","and","read"]]},
+{id:15,prompt:"How do you manage your time between work and school?",fixedStart:"I",fixedEnd:"",blanks:["make","a schedule","every week","so that","I do not","fall behind."],answer:["make","a schedule","every week","so that","I do not","fall behind."]},
+{id:16,prompt:"What would you do if you failed the final exam?",fixedStart:"I",fixedEnd:"",blanks:["would talk","to the professor","about","what I could","do to","improve my grade."],answer:["would talk","to the professor","about","what I could","do to","improve my grade."]}
+];
+
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+let currentQ=0,userAnswers=[],timerInterval=null,secondsLeft=420,isActive=false;
+const totalTime=420;
+questions.forEach(()=>userAnswers.push([]));
+
+function startQuiz(){
+  document.getElementById('instrPage').style.display='none';
+  document.getElementById('quizPage').style.display='block';
+  document.getElementById('btnFinish').style.display='inline-block';
+  isActive=true;renderQ(0);startTimer();
+}
+function startTimer(){
+  updateTimer();
+  timerInterval=setInterval(()=>{
+    secondsLeft--;updateTimer();
+    document.getElementById('progressFill').style.width=((totalTime-secondsLeft)/totalTime*100)+'%';
+    if(secondsLeft<=60)document.getElementById('timer').classList.add('warning');
+    if(secondsLeft<=0){clearInterval(timerInterval);finishQuiz();}
+  },1000);
+}
+function updateTimer(){
+  const m=Math.floor(secondsLeft/60),s=secondsLeft%60;
+  document.getElementById('timer').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+function renderQ(idx){
+  currentQ=idx;
+  const q=questions[idx];
+  const ua=userAnswers[idx];
+  const wb=shuffle(q.blanks);
+  let html='<div class="prompt-section"><div class="speaker-avatar">'+speakerAvatars[idx%speakerAvatars.length]+'</div><div class="prompt-bubble">'+q.prompt+'</div></div>';
+  html+='<div class="answer-area" id="answerArea">';
+  if(q.fixedStart) html+='<span class="fixed-word">'+q.fixedStart+'</span>';
+  for(let i=0;i<q.blanks.length;i++){
+    const word=ua[i]||'';
+    const cls=word?'blank-slot has-word':'blank-slot';
+    html+='<div class="'+cls+'" data-idx="'+i+'" ondrop="dropWord(event,'+i+')" ondragover="event.preventDefault();this.classList.add(\'drag-over\')" ondragleave="this.classList.remove(\'drag-over\')" onclick="returnWord('+i+')">'+(word||'')+'</div>';
+  }
+  if(q.fixedEnd) html+='<span class="fixed-word">'+q.fixedEnd+'</span>';
+  html+='</div>';
+  html+='<div class="word-bank" id="wordBank">';
+  wb.forEach(w=>{
+    const used=ua.includes(w);
+    html+='<div class="word-item'+(used?' used':'')+'" draggable="true" ondragstart="dragWord(event,\''+w.replace(/'/g,"\\'")+'\')" data-word="'+w+'">'+w+'</div>';
+  });
+  html+='</div>';
+  document.getElementById('quizCard').innerHTML=html;
+  document.getElementById('btnPrev').disabled=(idx===0);
+  document.getElementById('btnNextQ').textContent=(idx===questions.length-1)?'Finish →':'Next →';
+}
+function dragWord(e,word){e.dataTransfer.setData('text',word);}
+function dropWord(e,slotIdx){
+  e.preventDefault();
+  e.target.classList.remove('drag-over');
+  const word=e.dataTransfer.getData('text');
+  const q=questions[currentQ];
+  const ua=userAnswers[currentQ];
+  for(let i=0;i<ua.length;i++){if(ua[i]===word)ua[i]='';}
+  ua[slotIdx]=word;
+  while(ua.length<q.blanks.length) ua.push('');
+  renderQ(currentQ);
+}
+function returnWord(slotIdx){
+  const ua=userAnswers[currentQ];
+  if(ua[slotIdx]){ua[slotIdx]='';renderQ(currentQ);}
+}
+function navQ(dir){
+  if(currentQ===questions.length-1 && dir===1){showModal();return;}
+  const next=currentQ+dir;
+  if(next>=0 && next<questions.length) renderQ(next);
+}
+function showModal(){document.getElementById('modalOverlay').classList.add('active');}
+function hideModal(){document.getElementById('modalOverlay').classList.remove('active');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')hideModal();});
+
+function finishQuiz(){
+  if(!isActive)return;
+  isActive=false;clearInterval(timerInterval);hideModal();
+  let correct=0;
+  questions.forEach((q,i)=>{
+    const ua=userAnswers[i];
+    let isCorrect=JSON.stringify(ua)===JSON.stringify(q.answer);
+    if(!isCorrect && q.altAnswers){isCorrect=q.altAnswers.some(a=>JSON.stringify(ua)===JSON.stringify(a));}
+    if(isCorrect)correct++;
+  });
+  document.getElementById('scoreDisplay').textContent=correct+' / '+questions.length;
+  localStorage.setItem('practice_writing_sentence_correct',String(correct));
+  localStorage.setItem('practice_writing_sentence_total',String(questions.length));
+  document.getElementById('quizPage').style.display='none';
+  document.getElementById('completionPage').style.display='flex';
+  document.getElementById('btnFinish').style.display='none';
+  document.getElementById('timer').textContent='00:00';
+  document.getElementById('timer').classList.remove('warning');
+  document.getElementById('progressFill').style.width='100%';
+}
+
+function goNext(){window.location.href='writing-email.html';}
+</script>
+</body>
+</html>

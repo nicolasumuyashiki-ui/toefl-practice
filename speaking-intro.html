@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEFL iBT - Speaking Section</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#2d3748;line-height:1.6}
+.section-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:12px 24px;display:flex;align-items:center;gap:14px}
+.section-nav-label{font-size:.95em;color:#4a5568;font-weight:500}
+.section-progress{height:4px;background:#ebf4ff;width:100%;flex-shrink:0}
+.section-progress-fill{height:100%;width:0%;background:#3182ce;border-radius:2px}
+.section-body{flex:1;display:flex;justify-content:center;padding:60px 24px 120px}
+.section-content{width:100%;max-width:640px}
+.section-content h2{font-size:1.35em;font-weight:700;color:#1a202c;margin-bottom:16px}
+.section-content p{font-size:.95em;color:#4a5568;line-height:1.7;margin-bottom:20px}
+.task-table{width:100%;border-collapse:collapse;border:1px solid #e2e8f0;overflow:hidden}
+.task-table thead th{background:#ebf4ff;color:#2d3748;font-size:.85em;font-weight:600;text-align:left;padding:12px 18px;border-bottom:1px solid #d0dcea}
+.task-table tbody td{padding:14px 18px;font-size:.9em;color:#4a5568;border-bottom:1px solid #f0f0f0;vertical-align:top}
+.task-table tbody tr:last-child td{border-bottom:none}
+.user-badge{font-size:.85em;color:#718096;margin-left:auto}
+.note{margin-top:12px;padding:14px 18px;background:#fef5e7;border-left:3px solid #ed8936;border-radius:4px;font-size:.85em;color:#744210}
+.section-footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e2e8f0;padding:14px 24px;display:flex;justify-content:flex-end}
+.btn-start{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-size:.95em;font-family:inherit;font-weight:600;color:#fff;background:#2d3748;border:none;border-radius:8px;cursor:pointer}
+.btn-start:hover{background:#1a202c}
+.btn-start svg{width:16px;height:16px;fill:currentColor}
+</style>
+</head>
+<body>
+
+<div class="section-nav">
+  <span class="section-nav-label">Speaking</span>
+  <span class="user-badge" id="userBadge"></span>
+</div>
+<div class="section-progress"><div class="section-progress-fill"></div></div>
+
+<div class="section-body">
+  <div class="section-content">
+    <h2>Speaking Section</h2>
+    <p>The Speaking section measures your ability to speak English in academic and everyday situations. You will complete two tasks. Audio will play automatically and the response timer will start after each prompt.</p>
+    <table class="task-table">
+      <thead><tr><th>Task Type</th><th>What You'll Do</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Listen and Repeat</strong></td><td>Listen to 7 sentences and repeat each one within 8–12 seconds.</td></tr>
+        <tr><td><strong>Take an Interview</strong></td><td>Answer 4 interviewer questions, 45 seconds each.</td></tr>
+      </tbody>
+    </table>
+    <div class="note">🎤 Before you start, you will run a quick microphone check.</div>
+  </div>
+</div>
+
+<div class="section-footer">
+  <button class="btn-start" onclick="goNext()">
+    Continue to Mic Check
+    <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+  </button>
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+if(typeof Auth!=='undefined'){Auth.require();Auth.showBadge('userBadge');}
+function goNext(){
+  // Mic check is shared with Reading bootstrap; flag that we came from Speaking so it routes to speaking-lr.html
+  sessionStorage.setItem('mic_check_next','speaking-lr.html');
+  window.location.href='mic-check.html';
+}
+</script>
+</body>
+</html>

@@ -83,7 +83,7 @@
      <div style="width:56px;height:56px;background:#c6f6d5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><svg width="28" height="28" fill="#38a169" viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4.09 14.1 9 19 20.71 7.29 19.3 5.88z"/></svg></div>
      <h3 style="color:#2d3748;font-size:1.1em;margin-bottom:6px;">Microphone is ready</h3>
      <p style="color:#718096;font-size:.9em;margin-bottom:24px;">Your audio input is working correctly.<br>You may now begin the practice test.</p>
-     <button class="btn-primary" onclick="window.location.href='reading-intro.html'">Begin Practice</button>
+     <button class="btn-primary" onclick="(function(){var n=sessionStorage.getItem('mic_check_next');sessionStorage.removeItem('mic_check_next');window.location.href=n||'reading-intro.html';})()">Begin Practice</button>
     </div>
    </div>
   </div>
