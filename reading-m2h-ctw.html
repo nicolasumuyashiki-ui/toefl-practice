@@ -72,7 +72,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
 .btn-goto.disabled{background:#cbd5e0;cursor:not-allowed}
 </style>
 </head>
-<body>
+<body data-difficulty="harder">
 
 <!-- TOP NAV -->
 <div class="top-nav">
@@ -345,6 +345,7 @@ if(typeof Auth !== 'undefined'){
   Auth.showBadge('userBadge');
 }
 </script>
+<script src="js/difficulty-badge.js"></script>
 <script src="js/auth.js"></script>
 </body>
 </html>

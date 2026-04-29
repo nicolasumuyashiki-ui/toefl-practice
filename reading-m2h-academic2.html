@@ -65,7 +65,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#fff;min
 .review-panel{background:#fff;border-radius:12px;width:90%;max-width:820px;max-height:80vh;display:flex;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.2)}.review-left{flex:55%;border-right:1px solid #e2e8f0;overflow-y:auto;padding:0}.review-right{flex:45%;padding:28px;overflow-y:auto;background:#f9fafb}.review-header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid #e2e8f0;position:sticky;top:0;background:#fff;z-index:1}.review-header h3{font-size:1em;color:#2d3748}.review-close{background:none;border:none;font-size:1.3em;cursor:pointer;color:#718096;padding:4px 8px;border-radius:4px}.review-close:hover{background:#f7fafc}.review-row{display:flex;padding:12px 20px;border-bottom:1px solid #f0f0f0;cursor:pointer;align-items:center;font-size:.88em;transition:background .15s}.review-row:hover,.review-row.active{background:#ebf4ff}.review-no{width:36px;color:#718096;font-weight:500}.review-q{flex:1;color:#2d3748}.review-status{font-size:.8em;padding:3px 10px;border-radius:10px;white-space:nowrap}.review-status.answered{background:#c6f6d5;color:#22543d}.review-status.not-answered{background:#fed7d7;color:#9b2c2c}.review-status.coming{background:#e2e8f0;color:#718096}.detail-label{display:inline-block;background:#ebf4ff;color:#4a90d9;font-size:.75em;font-weight:600;padding:3px 10px;border-radius:10px;margin-bottom:12px}.detail-title{font-size:1.05em;font-weight:700;color:#2d3748;margin-bottom:12px}.detail-desc{font-size:.88em;color:#4a5568;line-height:1.65;margin-bottom:20px}.btn-goto{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;font-size:.85em;font-family:inherit;font-weight:600;color:#fff;background:#4a90d9;border:none;border-radius:14px;cursor:pointer;transition:all .2s}.btn-goto:hover{background:#3a7bc8}.btn-goto.disabled{background:#cbd5e0;cursor:not-allowed}
 </style>
 </head>
-<body>
+<body data-difficulty="harder">
 
 <div class="top-nav">
   <div class="top-nav-left">
@@ -239,6 +239,7 @@ document.getElementById('reviewOverlay').addEventListener('click', function(e){ 
 /* ===== AUTH ===== */
 if(typeof Auth !== 'undefined'){ Auth.require(); Auth.showBadge('userBadge'); }
 </script>
+<script src="js/difficulty-badge.js"></script>
 <script src="js/auth.js"></script>
 </body>
 </html>
