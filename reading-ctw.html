@@ -340,6 +340,29 @@ if(typeof Auth !== 'undefined'){
   Auth.require();
   Auth.showBadge('userBadge');
 }
+
+/* IME / non-ASCII input lock — TOEFL is English-only, so block
+   composition events and strip non-ASCII chars on input/paste.
+   Multi-layer defense for cross-browser coverage. */
+(function(){
+  var nodes = document.querySelectorAll('.bx input');
+  function strip(s){ return String(s||'').replace(/[^\x20-\x7E]/g, ''); }
+  nodes.forEach(function(el){
+    el.addEventListener('compositionstart', function(e){ e.preventDefault(); try{el.blur();el.focus();}catch(e2){} });
+    el.addEventListener('beforeinput', function(e){
+      var t = e.inputType||'', d = e.data;
+      if (d && /[^\x20-\x7E]/.test(d) && (t==='insertText'||t==='insertCompositionText'||t==='insertFromPaste'||t==='insertFromDrop')) e.preventDefault();
+    });
+    el.addEventListener('input', function(){
+      var c = strip(el.value);
+      if (c !== el.value) el.value = c;
+    });
+    el.addEventListener('paste', function(e){
+      var t = (e.clipboardData||window.clipboardData).getData('text');
+      if (/[^\x20-\x7E]/.test(t)){ e.preventDefault(); el.value = strip(t); }
+    });
+  });
+})();
 </script>
 <script src="js/auth.js"></script>
 </body>
