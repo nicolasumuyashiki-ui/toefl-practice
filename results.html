@@ -166,8 +166,8 @@ body{font-family:var(--font-en),var(--font-jp);background:var(--cream);min-heigh
 
 <div id="m2Notice" class="notice" style="display:none">
   <div class="notice-inner">
-    <span class="jp"><strong>※ Module 2 のスコアについて</strong>：Reading Module 2（適応モジュール）の各問題ページは現状、回答結果を保存していません。本ページの Reading スコアは Module 1 の正答率のみから算出しています。Module 2 を含む厳密なスコアリングは将来のアップデートで対応予定です。</span>
-    <span class="en"><strong>About Module 2</strong>: The Reading Module 2 (adaptive) pages do not currently persist their answers. The Reading score below is computed from Module 1 results only. Full Module 2 scoring is planned for a future update.</span>
+    <span class="jp"><strong>※ Module 2 結果が見つかりません</strong> — Practice Test を最後まで完了してください。</span>
+    <span class="en"><strong>Module 2 results not found</strong> — please complete the Practice Test in full.</span>
   </div>
 </div>
 
@@ -300,8 +300,8 @@ function collectReading(){
   // this page renders they are typically gone. We still try — if a learner lands
   // here directly without going through Module 2 (unlikely in normal flow),
   // we'll show their M1 score.
-  // Module 2 result pages (reading-m2[eh]-*) currently do NOT persist any
-  // score keys. We surface a notice in the UI.
+  // Module 2 result pages (reading-m2[eh]-*) DO persist their scores via
+  // m2e_*_correct/total and m2h_*_correct/total live keys, which we read below.
   var parts=[
     {k:'ctw', label:'Complete the Words', c:gi('m1_ctw_correct'), t:gi('m1_ctw_total')},
     {k:'rdl1',label:'Read in Daily Life 1',c:gi('m1_rdl1_correct'),t:gi('m1_rdl1_total')},
@@ -401,8 +401,10 @@ function render(){
   if(reading.path==='easier'){pp.style.display='inline-block';pp.innerHTML='<span class="jp">適応パス：Easier モジュール</span><span class="en">Adaptive path: Easier module</span>';}
   else if(reading.path==='harder'){pp.style.display='inline-block';pp.innerHTML='<span class="jp">適応パス：Harder モジュール</span><span class="en">Adaptive path: Harder module</span>';}
 
-  // Show M2 notice if reading data is present but no m2 keys (reflects current code state)
-  if(reading.hasData&&!reading.anyM2){
+  // Edge case: learner reached results with an assigned adaptive path but no
+  // M2 score keys (e.g. abandoned the practice test partway). Surface a notice.
+  var assignedPath=localStorage.getItem('results_path');
+  if(assignedPath && !reading.anyM2){
     document.getElementById('m2Notice').style.display='block';
   }
 
@@ -421,8 +423,8 @@ function render(){
       scaled:readingScaled, pct:readingPct!==null?Math.round(readingPct):null,
       correctTotal:reading.hasData?(reading.correct+'/'+reading.total):null,
       kind:'official',
-      noteJp:'CTW + RDL + Academic + Module 2 の正答率を ETS 公式換算表に照らしたもの。'+(reading.hasData&&!reading.anyM2?'（現状 Module 2 の結果は保存されていないため Module 1 のみで計算しています。）':''),
-      noteEn:'Mapped from CTW + RDL + Academic + Module 2 accuracy via the ETS official conversion table.'+(reading.hasData&&!reading.anyM2?' (Module 2 results are not currently persisted, so this score is computed from Module 1 only.)':'')
+      noteJp:'CTW + RDL + Academic + Module 2 の正答率を ETS 公式換算表に照らしたもの。'+(reading.hasData&&!reading.anyM2?'（Module 2 の結果が見つからないため Module 1 のみで計算しています。）':''),
+      noteEn:'Mapped from CTW + RDL + Academic + Module 2 accuracy via the ETS official conversion table.'+(reading.hasData&&!reading.anyM2?' (Module 2 results not found, so this score is computed from Module 1 only.)':'')
     },
     {
       key:'listening', name:'Listening',

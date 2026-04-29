@@ -306,7 +306,15 @@ function autoAdvance(){
         currentPage++;
         renderPage(currentPage, true);
     } else {
-        // Last question — go to next section
+        // Last question — persist answers before leaving
+        const stored = JSON.parse(sessionStorage.getItem('practice_listening_answers')||'{}');
+        pages.forEach((pg,i)=>{
+            stored['q'+pg.questionNum] = {
+                selected: selectedAnswers[i],
+                correct: pg.answer
+            };
+        });
+        sessionStorage.setItem('practice_listening_answers', JSON.stringify(stored));
         window.location.href='listening-announce.html';
     }
 }

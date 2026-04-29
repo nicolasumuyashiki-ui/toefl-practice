@@ -433,7 +433,18 @@ function goNext(){
         currentQuestion++;
         renderQuestion(currentQuestion, true); // play immediately in click context
     }
-    else{window.location.href='listening-conv.html';}
+    else{
+        // Persist answers to sessionStorage before navigating
+        const stored = JSON.parse(sessionStorage.getItem('practice_listening_answers')||'{}');
+        questions.forEach((q,i)=>{
+            stored['q'+(i+1)] = {
+                selected: selectedAnswers[i],
+                correct: q.answer
+            };
+        });
+        sessionStorage.setItem('practice_listening_answers', JSON.stringify(stored));
+        window.location.href='listening-conv.html';
+    }
 }
 
 // Init: wait for user to click "Start Listening" button
