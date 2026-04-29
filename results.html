@@ -208,10 +208,13 @@ body{font-family:var(--font-en),var(--font-jp);background:var(--cream);min-heigh
     <span class="en">Estimates follow ETS's <em>TOEFL iBT Interactive Sampler</em> raw-to-scaled tables. Reading and Listening derive from section accuracy mapped to the official curve. Writing uses Build a Sentence accuracy as a proxy (Email and Discussion need holistic grading). Speaking is intentionally not numerically scored. For detailed Writing and Speaking feedback, see our <a href="https://apps.tckworkshop.co.jp/toefl-task-training/private-coaching.html" target="_blank" rel="noopener">paid Private Coaching option</a>.</span>
   </p>
   <ul>
-    <li><span class="jp">Reading: 公式換算表（Raw 0-20 → Scaled 0-30）に準拠</span><span class="en">Reading: official Raw 0-20 → Scaled 0-30 table</span></li>
-    <li><span class="jp">Listening: 公式換算表（Raw 0-28 → Scaled 0-30）に準拠</span><span class="en">Listening: official Raw 0-28 → Scaled 0-30 table</span></li>
+    <li><span class="jp">Reading: 公式換算表（Raw 0-20 → Scaled 0-30）に準拠。Harder Module 問題は 1.5 倍重み付け。Easier 分岐は上限 26。</span><span class="en">Reading: official Raw 0-20 → Scaled 0-30 table. Harder-Module items weighted 1.5x; Easier-branch capped at 26.</span></li>
+    <li><span class="jp">Listening: 公式換算表（Raw 0-28 → Scaled 0-30）に準拠。Harder 質問（Conv Q3-4 / LCR Q6-8 / Talk Q5-8）は 1.5 倍重み付け。</span><span class="en">Listening: official Raw 0-28 → Scaled 0-30 table. Harder questions (Conv Q3-4 / LCR Q6-8 / Talk Q5-8) weighted 1.5x.</span></li>
+    <li><span class="jp">バンドスコア: 各セクションのバンドを平均し 0.5 単位で四捨五入（ETS 2026 方式）。</span><span class="en">Band: average of section bands rounded to nearest 0.5 (ETS 2026 method).</span></li>
     <li><span class="jp">Writing / Speaking: 実スコアは TCK 講師の採点セッションで確定</span><span class="en">Writing / Speaking: actual scores confirmed in your coach's grading session</span></li>
   </ul>
+  <p id="legacyBandFootnote" style="margin-top:10px;font-size:.92em;opacity:.85"></p>
+  <p style="margin-top:6px"><span class="jp">詳細は <a href="docs/score-methodology.md">スコア算出方法ドキュメント</a> をご覧ください。</span><span class="en">See <a href="docs/score-methodology.md">score methodology doc</a> for full details.</span></p>
 </div>
 
 <script src="js/auth.js"></script>
@@ -295,43 +298,61 @@ function gi(k){
 }
 
 function collectReading(){
-  // Module 1 keys (set by reading-ctw / reading-rdl1 / reading-rdl2 / reading-academic).
-  // NOTE: reading-m2-select.html clears these on Module 2 entry, so by the time
-  // this page renders they are typically gone. We still try — if a learner lands
-  // here directly without going through Module 2 (unlikely in normal flow),
-  // we'll show their M1 score.
-  // Module 2 result pages (reading-m2[eh]-*) DO persist their scores via
-  // m2e_*_correct/total and m2h_*_correct/total live keys, which we read below.
+  // Reading buckets. m2h_* keys = Harder Module content (1.5x weighted).
+  // m2e_* = Easier Module (NOT Harder, no weighting). m1_* are the
+  // routing-module questions, treated as standard difficulty.
   var parts=[
-    {k:'ctw', label:'Complete the Words', c:gi('m1_ctw_correct'), t:gi('m1_ctw_total')},
-    {k:'rdl1',label:'Read in Daily Life 1',c:gi('m1_rdl1_correct'),t:gi('m1_rdl1_total')},
-    {k:'rdl2',label:'Read in Daily Life 2',c:gi('m1_rdl2_correct'),t:gi('m1_rdl2_total')},
-    {k:'academic',label:'Academic Passage',c:gi('m1_academic_correct'),t:gi('m1_academic_total')},
-    // Easier path
-    {k:'m2e_ctw',label:'M2 (Easier) CTW',c:gi('m2e_ctw_correct'),t:gi('m2e_ctw_total')},
-    {k:'m2e_rdl1',label:'M2 (Easier) Read 1',c:gi('m2e_rdl1_correct'),t:gi('m2e_rdl1_total')},
-    {k:'m2e_rdl2',label:'M2 (Easier) Read 2',c:gi('m2e_rdl2_correct'),t:gi('m2e_rdl2_total')},
-    // Harder path
-    {k:'m2h_ctw',label:'M2 (Harder) CTW',c:gi('m2h_ctw_correct'),t:gi('m2h_ctw_total')},
-    {k:'m2h_academic1',label:'M2 (Harder) Academic 1',c:gi('m2h_academic1_correct'),t:gi('m2h_academic1_total')},
-    {k:'m2h_academic2',label:'M2 (Harder) Academic 2',c:gi('m2h_academic2_correct'),t:gi('m2h_academic2_total')}
+    {k:'ctw', label:'Complete the Words', c:gi('m1_ctw_correct'), t:gi('m1_ctw_total'), harder:false},
+    {k:'rdl1',label:'Read in Daily Life 1',c:gi('m1_rdl1_correct'),t:gi('m1_rdl1_total'), harder:false},
+    {k:'rdl2',label:'Read in Daily Life 2',c:gi('m1_rdl2_correct'),t:gi('m1_rdl2_total'), harder:false},
+    {k:'academic',label:'Academic Passage',c:gi('m1_academic_correct'),t:gi('m1_academic_total'), harder:false},
+    // Easier path — standard weighting (not Harder)
+    {k:'m2e_ctw',label:'M2 (Easier) CTW',c:gi('m2e_ctw_correct'),t:gi('m2e_ctw_total'), harder:false},
+    {k:'m2e_rdl1',label:'M2 (Easier) Read 1',c:gi('m2e_rdl1_correct'),t:gi('m2e_rdl1_total'), harder:false},
+    {k:'m2e_rdl2',label:'M2 (Easier) Read 2',c:gi('m2e_rdl2_correct'),t:gi('m2e_rdl2_total'), harder:false},
+    // Harder path — Enhancement A: ALL m2h_* questions weight 1.5x
+    {k:'m2h_ctw',label:'M2 (Harder) CTW',c:gi('m2h_ctw_correct'),t:gi('m2h_ctw_total'), harder:true},
+    {k:'m2h_academic1',label:'M2 (Harder) Academic 1',c:gi('m2h_academic1_correct'),t:gi('m2h_academic1_total'), harder:true},
+    {k:'m2h_academic2',label:'M2 (Harder) Academic 2',c:gi('m2h_academic2_correct'),t:gi('m2h_academic2_total'), harder:true}
   ];
   var present=parts.filter(p=>p.c!==null&&p.t!==null&&p.t>0);
-  var totalC=present.reduce((a,p)=>a+p.c,0);
-  var totalT=present.reduce((a,p)=>a+p.t,0);
+  // Enhancement A: split into standard vs harder pools, then combine with 1.5x.
+  var stdC=0,stdT=0,hC=0,hT=0;
+  present.forEach(function(p){
+    if(p.harder){hC+=p.c;hT+=p.t;} else {stdC+=p.c;stdT+=p.t;}
+  });
+  var totalC=stdC+hC;       // raw correct (for display)
+  var totalT=stdT+hT;       // raw total (for display)
+  var wC=stdC + hC*1.5;     // weighted correct
+  var wT=stdT + hT*1.5;     // weighted total
   var anyM2=parts.some(p=>p.k.indexOf('m2')===0&&p.c!==null);
   var path=null;
   if(parts.find(p=>p.k.startsWith('m2e_')&&p.c!==null))path='easier';
   if(parts.find(p=>p.k.startsWith('m2h_')&&p.c!==null))path='harder';
-  return {parts:present, correct:totalC, total:totalT, hasData:totalT>0, anyM2:anyM2, path:path};
+  return {
+    parts:present, correct:totalC, total:totalT,
+    weightedCorrect:wC, weightedTotal:wT,
+    harderCorrect:hC, harderTotal:hT,
+    hasData:totalT>0, anyM2:anyM2, path:path
+  };
 }
+
+// Enhancement A: per-question Harder identification.
+// Listening pages share a global q1..q24 namespace:
+//   LCR     q1-q8   (Harder = Q6-8 within section → q6,q7,q8)
+//   Conv    q9-q12  (Harder = Q3-4 within section → q11,q12)
+//   Announce q13-q16 (Harder = NONE per Module 2 convention)
+//   Talk    q17-q24 (Harder = Q5-8 within section → q21-q24)
+var LISTENING_HARDER_QS = {q6:1,q7:1,q8:1, q11:1,q12:1, q21:1,q22:1,q23:1,q24:1};
+// Section count target = 24. Anything below means the learner skipped some.
+var LISTENING_FULL_TOTAL = 24;
 
 function collectListening(){
   var raw=sessionStorage.getItem('practice_listening_answers');
-  if(!raw)return {hasData:false, parts:[], correct:0, total:0};
-  var data;try{data=JSON.parse(raw)||{};}catch(e){return {hasData:false, parts:[], correct:0, total:0};}
+  if(!raw)return {hasData:false, parts:[], correct:0, total:0, weightedCorrect:0, weightedTotal:0, harderCorrect:0, harderTotal:0, incomplete:false};
+  var data;try{data=JSON.parse(raw)||{};}catch(e){return {hasData:false, parts:[], correct:0, total:0, weightedCorrect:0, weightedTotal:0, harderCorrect:0, harderTotal:0, incomplete:false};}
   var keys=Object.keys(data);
-  var correct=0,total=0;
+  var correct=0,total=0,hC=0,hT=0,stdC=0,stdT=0;
   keys.forEach(function(k){
     var item=data[k];if(!item)return;
     total++;
@@ -339,8 +360,24 @@ function collectListening(){
     if(typeof item.isCorrect==='boolean')isCorrect=item.isCorrect;
     else if(item.selected!==undefined&&item.correct!==undefined)isCorrect=String(item.selected)===String(item.correct);
     if(isCorrect)correct++;
+    // Enhancement A: weight Harder q-indices 1.5x
+    if(LISTENING_HARDER_QS[k]){
+      hT++; if(isCorrect)hC++;
+    } else {
+      stdT++; if(isCorrect)stdC++;
+    }
   });
-  return {hasData:total>0, correct:correct, total:total, parts:[{label:'Listening (combined)', c:correct, t:total}]};
+  // Enhancement D: flag incomplete sections so we can show a notice
+  // and refrain from extrapolating up to 24.
+  var incomplete = total>0 && total<LISTENING_FULL_TOTAL;
+  return {
+    hasData:total>0, correct:correct, total:total,
+    weightedCorrect: stdC + hC*1.5,
+    weightedTotal:   stdT + hT*1.5,
+    harderCorrect:hC, harderTotal:hT,
+    incomplete:incomplete,
+    parts:[{label:'Listening (combined)', c:correct, t:total}]
+  };
 }
 
 function collectWriting(){
@@ -390,10 +427,32 @@ function render(){
   var writing=collectWriting();
   var speaking=collectSpeaking();
 
-  var readingPct=reading.hasData?(reading.correct/reading.total*100):null;
-  var listeningPct=listening.hasData?(listening.correct/listening.total*100):null;
+  // Enhancement A: use weighted correct/total so Harder items count 1.5x.
+  // Backwards-compat: when no Harder data exists, weighted == raw.
+  var readingPct=reading.hasData?(reading.weightedCorrect/reading.weightedTotal*100):null;
+  var listeningPct=listening.hasData?(listening.weightedCorrect/listening.weightedTotal*100):null;
+  // Display percentages (raw, for the "X% accuracy" badge — keeps numbers
+  // intuitive for learners; weighting is an internal scoring detail).
+  var readingDisplayPct=reading.hasData?(reading.correct/reading.total*100):null;
+  var listeningDisplayPct=listening.hasData?(listening.correct/listening.total*100):null;
   var readingScaled=readingPct!==null?percentToScaled(readingPct,READING_TABLE):null;
   var listeningScaled=listeningPct!==null?percentToScaled(listeningPct,LISTENING_TABLE):null;
+
+  // Enhancement B: Adaptive-path scaling for Reading.
+  // The ETS adaptive engine effectively caps Easier-branch reading scores
+  // because the hardest items are gated behind the Harder Module. We mirror
+  // that with a soft 0.92x multiplier AND a hard ceiling of 26. Listening
+  // branching isn't implemented yet, so leave it untouched.
+  // No M2 data at all → assume Easier-branch (conservative).
+  var pathForScaling = reading.path || (reading.anyM2 ? null : 'easier');
+  var readingPathAdjusted = false;
+  if(readingScaled!==null && pathForScaling==='easier'){
+    var soft=Math.round(readingScaled*0.92);
+    var capped=Math.min(soft,26);
+    if(capped!==readingScaled){readingPathAdjusted=true;}
+    readingScaled=capped;
+  }
+
   var writingScaled=writing.hasSentence?estimateWritingScaled(writing.sentencePct):null;
 
   // Path indicator
@@ -408,31 +467,62 @@ function render(){
     document.getElementById('m2Notice').style.display='block';
   }
 
-  // Total = R + L + W (out of 90); project to 120-equivalent for band lookup
+  // Total = R + L + W (out of 90).
   var partsForTotal=[readingScaled,listeningScaled,writingScaled];
   var allKnown=partsForTotal.every(function(s){return s!==null;});
   var total=allKnown?partsForTotal.reduce(function(a,s){return a+s;},0):null;
   document.getElementById('totalScore').textContent=(total!==null&&total>0)?total:'—';
+
+  // Enhancement C: ETS 2026 says overall band = average of section bands
+  // rounded to nearest 0.5. Compute each known section's band, average,
+  // then round. Skip Speaking (unscored). Falls back to the legacy
+  // total*4/3 projection only if no sections have produced a band yet.
+  var sectionBands=[
+    sectionToBand(readingScaled),
+    sectionToBand(listeningScaled),
+    sectionToBand(writingScaled)
+  ].filter(function(b){return b!==null && b!==undefined;});
+  var avgBand=null;
+  if(sectionBands.length){
+    var sum=sectionBands.reduce(function(a,b){return a+b;},0);
+    var raw=sum/sectionBands.length;
+    avgBand=Math.round(raw*2)/2;  // round to nearest 0.5
+  }
   var projected120=(total!==null&&total>0)?Math.round(total*4/3):null;
-  document.getElementById('totalBand').textContent=projected120!==null?formatBand(totalToBand(projected120)):'—';
+  var projectedBand=projected120!==null?totalToBand(projected120):null;
+  document.getElementById('totalBand').textContent=avgBand!==null?formatBand(avgBand):(projectedBand!==null?formatBand(projectedBand):'—');
+  // Stash the legacy projection for the disclaimer footnote.
+  window.__projected120=projected120;
+  window.__projectedBand=projectedBand;
+  window.__avgBand=avgBand;
 
   // Section cards
+  // Build supplementary notes (Enhancements A/B/D).
+  var rHarderNoteJp = reading.harderTotal>0 ? ' Harder Module の '+reading.harderTotal+' 問は 1.5 倍で重み付けしています。' : '';
+  var rHarderNoteEn = reading.harderTotal>0 ? ' Harder-Module questions ('+reading.harderTotal+') are weighted 1.5x.' : '';
+  var rPathNoteJp = readingPathAdjusted ? '<br><strong>※ Easier 分岐の上限調整</strong>：適応試験では Easier 分岐に上限があるため、26 を上限としています。' : '';
+  var rPathNoteEn = readingPathAdjusted ? '<br><strong>Easier-branch cap applied</strong>: the adaptive engine caps Easier-branch reading at 26.' : '';
+  var lHarderNoteJp = listening.harderTotal>0 ? ' Conv Q3-4 / LCR Q6-8 / Talk Q5-8（計 '+listening.harderTotal+' 問）は 1.5 倍で重み付けしています。' : '';
+  var lHarderNoteEn = listening.harderTotal>0 ? ' Conv Q3-4 / LCR Q6-8 / Talk Q5-8 ('+listening.harderTotal+' total) are weighted 1.5x.' : '';
+  var lIncompleteJp = listening.incomplete ? '<br><strong>※ 未完了</strong>：'+listening.total+'/'+LISTENING_FULL_TOTAL+' 問のみ回答されています。スコアは回答済みの範囲のみを反映しています（補完推定はしていません）。' : '';
+  var lIncompleteEn = listening.incomplete ? '<br><strong>Section incomplete</strong> — score reflects only answered questions ('+listening.total+'/'+LISTENING_FULL_TOTAL+'). No extrapolation applied.' : '';
+
   var sections=[
     {
       key:'reading', name:'Reading',
-      scaled:readingScaled, pct:readingPct!==null?Math.round(readingPct):null,
+      scaled:readingScaled, pct:readingDisplayPct!==null?Math.round(readingDisplayPct):null,
       correctTotal:reading.hasData?(reading.correct+'/'+reading.total):null,
       kind:'official',
-      noteJp:'CTW + RDL + Academic + Module 2 の正答率を ETS 公式換算表に照らしたもの。'+(reading.hasData&&!reading.anyM2?'（Module 2 の結果が見つからないため Module 1 のみで計算しています。）':''),
-      noteEn:'Mapped from CTW + RDL + Academic + Module 2 accuracy via the ETS official conversion table.'+(reading.hasData&&!reading.anyM2?' (Module 2 results not found, so this score is computed from Module 1 only.)':'')
+      noteJp:'CTW + RDL + Academic + Module 2 の正答率を ETS 公式換算表に照らしたもの。'+rHarderNoteJp+(reading.hasData&&!reading.anyM2?'（Module 2 の結果が見つからないため Module 1 のみで計算しています。）':'')+rPathNoteJp,
+      noteEn:'Mapped from CTW + RDL + Academic + Module 2 accuracy via the ETS official conversion table.'+rHarderNoteEn+(reading.hasData&&!reading.anyM2?' (Module 2 results not found, so this score is computed from Module 1 only.)':'')+rPathNoteEn
     },
     {
       key:'listening', name:'Listening',
-      scaled:listeningScaled, pct:listeningPct!==null?Math.round(listeningPct):null,
+      scaled:listeningScaled, pct:listeningDisplayPct!==null?Math.round(listeningDisplayPct):null,
       correctTotal:listening.hasData?(listening.correct+'/'+listening.total):null,
       kind:'official',
-      noteJp:'LCR + Conversation + Announcement + Academic Talk の正答率を ETS 公式換算表に照らしたもの。',
-      noteEn:'Mapped from LCR + Conversation + Announcement + Academic Talk accuracy via the ETS official conversion table.'
+      noteJp:'LCR + Conversation + Announcement + Academic Talk の正答率を ETS 公式換算表に照らしたもの。'+lHarderNoteJp+lIncompleteJp,
+      noteEn:'Mapped from LCR + Conversation + Announcement + Academic Talk accuracy via the ETS official conversion table.'+lHarderNoteEn+lIncompleteEn
     },
     {
       key:'writing', name:'Writing',
@@ -507,6 +597,16 @@ function render(){
   rows.push({section:'Writing', label:'Academic Discussion', score:writing.discussionSubmitted?(writing.discussionWords+' words'):'—', grade:writing.discussionSubmitted?'submitted':'skipped'});
   rows.push({section:'Speaking', label:'Listen & Repeat', score:'—', grade:speaking.lr?'submitted':'skipped'});
   rows.push({section:'Speaking', label:'Take an Interview', score:'—', grade:speaking.ti?'submitted':'skipped'});
+
+  // Legacy projection footnote — transparency for the old total*4/3 method.
+  var foot=document.getElementById('legacyBandFootnote');
+  if(foot){
+    if(window.__avgBand!==null && window.__projectedBand!==null && window.__projectedBand!==undefined){
+      foot.innerHTML='<span class="jp">参考：旧方式（合計×4/3 → バンド換算）では Band '+formatBand(window.__projectedBand)+'。新方式（セクション平均）では Band '+formatBand(window.__avgBand)+'。</span><span class="en">Reference: legacy projection (total×4/3 → band lookup) gives Band '+formatBand(window.__projectedBand)+'; the new section-average method gives Band '+formatBand(window.__avgBand)+'.</span>';
+    } else {
+      foot.textContent='';
+    }
+  }
 
   var tbody=document.getElementById('activityBody');
   tbody.innerHTML=rows.map(function(r){
