@@ -48,6 +48,34 @@ const API = {
   }
 };
 
+/* JSONP helper for cross-origin GAS calls (login/recover/results work
+   fine via script-tag injection because they're GET-only and small). */
+function _ptJsonp(url) {
+  return new Promise(function(resolve, reject){
+    var cb = '_ptCb_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
+    var to = setTimeout(function(){
+      delete window[cb];
+      if (s.parentNode) s.parentNode.removeChild(s);
+      reject(new Error('timeout'));
+    }, 15000);
+    window[cb] = function(data){
+      clearTimeout(to);
+      delete window[cb];
+      if (s.parentNode) s.parentNode.removeChild(s);
+      resolve(data);
+    };
+    var s = document.createElement('script');
+    s.src = url + '&callback=' + cb;
+    s.onerror = function(){
+      clearTimeout(to);
+      delete window[cb];
+      if (s.parentNode) s.parentNode.removeChild(s);
+      reject(new Error('network'));
+    };
+    document.head.appendChild(s);
+  });
+}
+
 /* Lower-case `Api` mirror — speaking-recorder-hook.js looks for this name.
    Uses hidden iframe form-submit POST to bypass the GAS 302 → CORS issue
    that causes plain fetch to lose the body. Same pattern as Task Training. */
@@ -102,5 +130,35 @@ var Api = {
       setTimeout(function(){ cleanup({ success: true, timeout: true }); }, 30000);
       form.submit();
     });
+  },
+
+  /* Save the current Practice Test result (every attempt — no dedup) */
+  savePtResult: function(payload){
+    var u = JSON.parse(sessionStorage.getItem('kickstart_user') || '{}');
+    var qs = '?action=savePtResult'
+      + '&userId='   + encodeURIComponent(u.userId   || '')
+      + '&userName=' + encodeURIComponent(u.userName || '')
+      + '&sessionId='+ encodeURIComponent(payload.sessionId || '')
+      + '&readingCorrect='   + encodeURIComponent(payload.readingCorrect   || 0)
+      + '&readingTotal='     + encodeURIComponent(payload.readingTotal     || 0)
+      + '&readingScaled='    + encodeURIComponent(payload.readingScaled    || 0)
+      + '&listeningCorrect=' + encodeURIComponent(payload.listeningCorrect || 0)
+      + '&listeningTotal='   + encodeURIComponent(payload.listeningTotal   || 0)
+      + '&listeningScaled='  + encodeURIComponent(payload.listeningScaled  || 0)
+      + '&writingSentCorrect=' + encodeURIComponent(payload.writingSentCorrect || 0)
+      + '&writingSentTotal='   + encodeURIComponent(payload.writingSentTotal   || 0)
+      + '&writingScaled='      + encodeURIComponent(payload.writingScaled || 0)
+      + '&speakingLr=' + (payload.speakingLr ? 'true' : 'false')
+      + '&speakingTi=' + (payload.speakingTi ? 'true' : 'false')
+      + '&total=' + encodeURIComponent(payload.total || 0)
+      + '&band='  + encodeURIComponent(payload.band  || '')
+      + '&readingPath=' + encodeURIComponent(payload.readingPath || '');
+    return _ptJsonp(API_URL + qs);
+  },
+
+  /* Fetch all past Practice Test results for the current user */
+  listPtResults: function(){
+    var u = JSON.parse(sessionStorage.getItem('kickstart_user') || '{}');
+    return _ptJsonp(API_URL + '?action=listPtResults&userId=' + encodeURIComponent(u.userId || ''));
   }
 };

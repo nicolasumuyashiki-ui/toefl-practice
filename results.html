@@ -217,7 +217,30 @@ body{font-family:var(--font-en),var(--font-jp);background:var(--cream);min-heigh
   <p style="margin-top:6px"><span class="jp">詳細は <a href="docs/score-methodology.md">スコア算出方法ドキュメント</a> をご覧ください。</span><span class="en">See <a href="docs/score-methodology.md">score methodology doc</a> for full details.</span></p>
 </div>
 
+<!-- ===== Past attempts history ===== -->
+<section class="card-section" id="historySection" style="display:none">
+  <h2><span class="jp">過去の受験履歴</span><span class="en">Past attempts</span></h2>
+  <p class="section-sub"><span class="jp">あなたの過去の模試スコアです。受験のたびに記録され、上達の推移を確認できます。</span><span class="en">All your past Practice Test scores. Each attempt is recorded so you can track progress over time.</span></p>
+  <div class="table-wrap">
+    <table id="historyTable" style="width:100%;border-collapse:collapse">
+      <thead>
+        <tr style="background:var(--paper);font-size:.82em">
+          <th style="padding:10px 12px;text-align:left"><span class="jp">回</span><span class="en">#</span></th>
+          <th style="padding:10px 12px;text-align:left;white-space:nowrap"><span class="jp">日時</span><span class="en">Date</span></th>
+          <th style="padding:10px 12px;text-align:right">Reading</th>
+          <th style="padding:10px 12px;text-align:right">Listening</th>
+          <th style="padding:10px 12px;text-align:right">Writing</th>
+          <th style="padding:10px 12px;text-align:right;white-space:nowrap"><span class="jp">合計 / 90</span><span class="en">Total/90</span></th>
+          <th style="padding:10px 12px;text-align:right">Band</th>
+        </tr>
+      </thead>
+      <tbody id="historyBody"></tbody>
+    </table>
+  </div>
+</section>
+
 <script src="js/auth.js"></script>
+<script src="js/api.js"></script>
 <script>
 /* ===== Language toggle (mirrors my-score.html) ===== */
 (function(){
@@ -620,6 +643,114 @@ function render(){
 }
 
 render();
+
+/* ============================================================
+   Save current attempt to GAS + fetch + render history.
+   Runs once after render() so we have computed scaled scores.
+   ============================================================ */
+(function(){
+  if (typeof Api === 'undefined' || typeof Api.savePtResult !== 'function') {
+    console.warn('[pt-results] Api.savePtResult missing — history disabled');
+    return;
+  }
+
+  // Stable session id so reloading results.html in the same tab doesn't
+  // double-save. Persist for this PT session in sessionStorage.
+  var sessionId = sessionStorage.getItem('practice_test_session_id');
+  if (!sessionId) {
+    sessionId = 'pt_' + new Date().toISOString().replace(/[^0-9]/g,'').slice(0,14)
+              + '_' + Math.random().toString(36).slice(2,7);
+    sessionStorage.setItem('practice_test_session_id', sessionId);
+  }
+
+  var reading   = collectReading();
+  var listening = collectListening();
+  var writing   = collectWriting();
+  var speaking  = collectSpeaking();
+
+  // Read scaled scores back from the DOM (set by render()).
+  // We only know the "total" attribute reliably from the DOM.
+  function num(id){ var v = (document.getElementById(id)||{}).textContent || ''; v = v.replace(/[^0-9.]/g,''); return v ? Number(v) : null; }
+
+  // Reverse-engineer scaled per section from the rendered cards. Each
+  // .skill-score .pred has the scaled score; pick by section title.
+  var scaledBySection = {};
+  document.querySelectorAll('.skill-card').forEach(function(card){
+    var label = (card.querySelector('.skill-name') || {}).textContent || '';
+    var pred  = card.querySelector('.skill-score .pred');
+    if (!pred) return;
+    var n = parseInt((pred.textContent || '').replace(/[^0-9]/g,''), 10);
+    if (isNaN(n)) return;
+    if (/Reading|リーディング/i.test(label))  scaledBySection.reading = n;
+    if (/Listening|リスニング/i.test(label))  scaledBySection.listening = n;
+    if (/Writing|ライティング/i.test(label))  scaledBySection.writing = n;
+  });
+
+  var saveAttemptCount = 0;
+  function saveAttempt() {
+    if (saveAttemptCount++ > 0) return;  // only once
+    var payload = {
+      sessionId:          sessionId,
+      readingCorrect:     reading.correct || 0,
+      readingTotal:       reading.total   || 0,
+      readingScaled:      scaledBySection.reading || 0,
+      listeningCorrect:   listening.correct || 0,
+      listeningTotal:     listening.total   || 0,
+      listeningScaled:    scaledBySection.listening || 0,
+      writingSentCorrect: writing.sentenceCorrect || 0,
+      writingSentTotal:   writing.sentenceTotal   || 0,
+      writingScaled:      scaledBySection.writing || 0,
+      speakingLr:         !!speaking.lr,
+      speakingTi:         !!speaking.ti,
+      total:              num('totalScore') || 0,
+      band:               (document.getElementById('totalBand') || {}).textContent || '',
+      readingPath:        reading.path || ''
+    };
+    Api.savePtResult(payload).then(function(r){
+      console.log('[pt-results] save:', r);
+      fetchHistory();
+    }).catch(function(err){
+      console.warn('[pt-results] save failed:', err);
+      fetchHistory();
+    });
+  }
+
+  function fetchHistory() {
+    Api.listPtResults().then(function(r){
+      if (!r || !r.success || !r.results || !r.results.length) return;
+      renderHistory(r.results);
+    }).catch(function(err){
+      console.warn('[pt-results] fetch history failed:', err);
+    });
+  }
+
+  function renderHistory(results) {
+    document.getElementById('historySection').style.display = 'block';
+    var tbody = document.getElementById('historyBody');
+    // Oldest first for "1回目, 2回目..." numbering, but display newest first
+    // with attempt# annotated.
+    var ordered = results.slice().sort(function(a,b){ return (a.timestamp || '').localeCompare(b.timestamp || ''); });
+    var lookup = {};
+    ordered.forEach(function(r, idx){ lookup[r.timestamp] = idx + 1; });
+    var rowsDesc = results.slice().sort(function(a,b){ return (b.timestamp || '').localeCompare(a.timestamp || ''); });
+    tbody.innerHTML = rowsDesc.map(function(r){
+      var attemptN = lookup[r.timestamp] || '?';
+      var dt = r.timestamp ? new Date(r.timestamp).toLocaleString('ja-JP', { hour12:false }) : '';
+      return '<tr style="border-bottom:1px solid var(--paper);font-size:.85em">'
+        + '<td style="padding:10px 12px"><strong>' + attemptN + '</strong></td>'
+        + '<td style="padding:10px 12px;white-space:nowrap">' + dt + '</td>'
+        + '<td style="padding:10px 12px;text-align:right;font-family:var(--font-en);font-weight:600">' + (r.readingScaled || '—') + '</td>'
+        + '<td style="padding:10px 12px;text-align:right;font-family:var(--font-en);font-weight:600">' + (r.listeningScaled || '—') + '</td>'
+        + '<td style="padding:10px 12px;text-align:right;font-family:var(--font-en);font-weight:600">' + (r.writingScaled  || '—') + '</td>'
+        + '<td style="padding:10px 12px;text-align:right;font-family:var(--font-en);font-weight:700;color:var(--green-deep)">' + (r.total || '—') + '</td>'
+        + '<td style="padding:10px 12px;text-align:right;font-family:var(--font-en);font-weight:600">' + (r.band || '—') + '</td>'
+        + '</tr>';
+    }).join('');
+  }
+
+  // Save attempt slightly after render() so DOM has been populated.
+  setTimeout(saveAttempt, 200);
+})();
 </script>
 </body>
 </html>
