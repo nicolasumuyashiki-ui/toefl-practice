@@ -220,7 +220,12 @@ function showComplete(){
 function goNext(){window.location.href='speaking-ti.html';}
 
 if(typeof Auth!=='undefined'){Auth.require();Auth.showBadge('userBadge');}
+window.PRACTICE_TASK = 'lr';
+window.PRACTICE_SET = sessionStorage.getItem('practice_test_session_id') || '0';
 </script>
 <script src="js/auth.js"></script>
+<script src="js/recorder.js"></script>
+<script src="js/api.js"></script>
+<script src="js/speaking-recorder-hook.js"></script>
 </body>
 </html>
