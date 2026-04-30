@@ -114,7 +114,22 @@ body{justify-content:flex-start}
       const result = await API.login(uid, pass);
       if(result.success){
         Auth.save({ id: result.userId, name: result.userName });
-        location.href = 'mic-check.html';
+        // Dev/staff skip: ?goto=speaking-lr / speaking-ti / writing-sentence / etc.
+        // Lets reviewers jump past the long Reading + Listening flow when
+        // testing late-stage features. URL param survives login redirect.
+        var qs = new URLSearchParams(location.search);
+        var skipTo = qs.get('goto');
+        var ALLOWED_SKIP = {
+          'mic-check': 'mic-check.html',
+          'reading': 'reading-intro.html',
+          'listening': 'listening-intro.html',
+          'writing': 'writing-intro.html',
+          'speaking': 'speaking-intro.html',
+          'speaking-lr': 'speaking-lr.html',
+          'speaking-ti': 'speaking-ti.html',
+          'results': 'results.html'
+        };
+        location.href = (skipTo && ALLOWED_SKIP[skipTo]) || 'mic-check.html';
       } else {
         err.classList.add('show');
         errT.textContent = result.message || 'Login failed.';
