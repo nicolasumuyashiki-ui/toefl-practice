@@ -83,6 +83,7 @@ body{font-family:'Manrope','Zen Kaku Gothic New','Noto Sans JP',system-ui,sans-s
 .modal-btn.cancel{background:#FBF6EC;color:#5A6861;}
 .modal-btn.confirm{background:#007646;color:#fff;}
 </style>
+<!-- Start of HubSpot Embed Code --><script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/242729130.js"></script><!-- End of HubSpot Embed Code -->
 </head>
 <body>
 
@@ -163,16 +164,10 @@ body{font-family:'Manrope','Zen Kaku Gothic New','Noto Sans JP',system-ui,sans-s
 </div>
 
 <div class="completion-page" id="completionPage">
-  <div class="completion-card">
-    <div class="completion-icon" id="completionIcon">✅</div>
-    <h2 id="completionTitle">Discussion Posted</h2>
-    <p class="subtitle" id="completionSubtitle">Your response has been saved.</p>
-    <div class="stats-row">
-      <div class="stat-item"><div class="stat-value" id="statWords">0</div><div class="stat-label">Words</div></div>
-      <div class="stat-item"><div class="stat-value" id="statTime">0:00</div><div class="stat-label">Time Used</div></div>
-    </div>
-    <div class="preview-box"><div class="preview-text" id="previewText"></div></div>
-    <button class="btn-next" onclick="goNext()">Continue →</button>
+  <div class="completion-card" style="text-align:left;box-shadow:none;background:transparent;padding:0">
+    <h2 id="completionTitle" style="font-size:1.35em;font-weight:700;color:#002817;margin-bottom:16px">End of Academic Discussion</h2>
+    <p id="completionSubtitle" style="font-size:.95em;color:#5A6861;line-height:1.7;margin-bottom:0">You have finished the Writing section. Continue to the next section.</p>
+    <div style="margin-top:32px"><button class="btn-next" onclick="goNext()">Continue →</button></div>
   </div>
 </div>
 
@@ -242,13 +237,10 @@ function finishWriting(method){
   const used=totalSeconds-secondsLeft;
   const m=Math.floor(used/60),s=used%60;
   if(method==='timeout'){
-    document.getElementById('completionIcon').textContent='⏰';
     document.getElementById('completionTitle').textContent="Time's Up";
     document.getElementById('completionSubtitle').textContent='The time limit has been reached. Your response has been saved.';
   }
-  document.getElementById('statWords').textContent=wc;
-  document.getElementById('statTime').textContent=m+':'+String(s).padStart(2,'0');
-  document.getElementById('previewText').textContent=text||'(No response written)';
+  localStorage.setItem('practice_writing_discussion_used_seconds',String(used));
   localStorage.setItem('practice_writing_discussion_words',String(wc));
   localStorage.setItem('practice_writing_discussion_response',text);
   document.getElementById('writingPage').style.display='none';
