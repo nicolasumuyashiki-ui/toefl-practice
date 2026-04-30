@@ -1,20 +1,20 @@
 /**
  * GAS API 通信モジュール — Practice Test (模試) 用
  *
- * Practice Test は当面 Task Training の GAS 配下にデータを集約します
- * （単一の管理画面で受講生を一元管理するため）。録音アップロードは
- * Task Training と同じ doPost エンドポイントへ送信し、`source=pt` 引数
- * でサーバ側に「これは模試の録音」と伝える。GAS は source=pt の時だけ
- *   - ファイル名: TCK_PT_RECORDING_* (vs Task Training の TCK_RECORDING_*)
- *   - シート: RECORDINGS_PT (vs RECORDINGS)
- * に振り分けて、模試と日々のトレーニングを論理的に分離。
+ * 2系統の GAS を使い分け:
+ *  - API_URL (PT 自前):   ログイン・getQuestions・旧 saveAnswer など。
+ *                         PT 独自の users/answers シートを参照。JSON 応答。
+ *  - REC_URL (TT 集約):   録音アップロードと PT 結果保存。Task Training の
+ *                         GAS に集約してスタッフが一元管理できるように。
+ *                         JSONP 応答 (callback ラップ) なので fetch で .json()
+ *                         してはいけない — script タグ注入で読む。
  */
 
-// Task Training (集約先) の GAS Web App URL
-const API_URL = 'https://script.google.com/macros/s/AKfycbwjI8n86Cu1ar1IsPffyq9mboDrUNpG-SsVpFtURjP6AmCFHD3Zbw5_qcJJUksz_UDyyw/exec';
+// PT 自前の GAS — ログイン用 (JSON で返す)
+const API_URL = 'https://script.google.com/macros/s/AKfycbwylm042co9aSzwlQG_nV8ZxyMEFtr0VGhL5i6hqHXoLLfNA8YJOLrpJriw0NdTWvZG2Q/exec';
 
-// Practice Test ローカル GAS（旧 — 必要に応じて使う）
-// const PT_API_URL = 'https://script.google.com/macros/s/AKfycbwylm042co9aSzwlQG_nV8ZxyMEFtr0VGhL5i6hqHXoLLfNA8YJOLrpJriw0NdTWvZG2Q/exec';
+// Task Training の GAS — 録音アップロード + PT 結果保存用 (JSONP で返す)
+const REC_URL = 'https://script.google.com/macros/s/AKfycbwjI8n86Cu1ar1IsPffyq9mboDrUNpG-SsVpFtURjP6AmCFHD3Zbw5_qcJJUksz_UDyyw/exec';
 
 const API = {
   async login(id, pass) {
@@ -104,7 +104,7 @@ var Api = {
       document.body.appendChild(iframe);
       var form = document.createElement('form');
       form.method = 'POST';
-      form.action = API_URL;
+      form.action = REC_URL;  // Task Training の集約 GAS へ
       form.target = name;
       form.enctype = 'application/x-www-form-urlencoded';
       form.acceptCharset = 'UTF-8';
@@ -153,12 +153,12 @@ var Api = {
       + '&total=' + encodeURIComponent(payload.total || 0)
       + '&band='  + encodeURIComponent(payload.band  || '')
       + '&readingPath=' + encodeURIComponent(payload.readingPath || '');
-    return _ptJsonp(API_URL + qs);
+    return _ptJsonp(REC_URL + qs);  // 集約 GAS の savePtResult エンドポイント
   },
 
   /* Fetch all past Practice Test results for the current user */
   listPtResults: function(){
     var u = JSON.parse(sessionStorage.getItem('kickstart_user') || '{}');
-    return _ptJsonp(API_URL + '?action=listPtResults&userId=' + encodeURIComponent(u.userId || ''));
+    return _ptJsonp(REC_URL + '?action=listPtResults&userId=' + encodeURIComponent(u.userId || ''));
   }
 };
