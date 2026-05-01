@@ -155,7 +155,7 @@ body {
 <nav class="top-nav">
     <div class="nav-left">
         <span class="section-label">Listening</span>
-        <span>Question <strong id="qNum">1</strong> of 20</span>
+        <span>Question <strong id="qNum">1</strong> of 24</span>
     </div>
     <div class="nav-right">
         <span class="timer-display" id="timerDisplay">0:20</span>
@@ -313,7 +313,7 @@ function startTest(){
 function renderQuestion(idx, playNow){
     const q=questions[idx];
     document.getElementById('qNum').textContent=idx+1;
-    document.getElementById('progressBar').style.width=((idx+1)/20*100)+'%';
+    document.getElementById('progressBar').style.width=((idx+1)/24*100)+'%';
     
     // Set speaker image
     document.getElementById('speakerImg').src=speakerImages[q.imageKey][q.imageIdx];

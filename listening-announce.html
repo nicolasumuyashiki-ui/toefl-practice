@@ -104,7 +104,7 @@ body{font-family:'Manrope','Zen Kaku Gothic New','Noto Sans JP',system-ui,sans-s
 </div>
 
 <nav class="top-nav">
-    <div class="nav-left">Question <strong id="qNum">13</strong> of 20 &nbsp;|&nbsp; Listening</div>
+    <div class="nav-left">Question <strong id="qNum">13</strong> of 24 &nbsp;|&nbsp; Listening</div>
     <div class="nav-right">
         <div class="timer-display" id="timerDisplay">00:15</div>
         <button class="btn-timer-toggle" id="btnTimerToggle" onclick="toggleTimer()">Hide Time</button>
@@ -266,7 +266,7 @@ function autoAdvance(){
 function renderPage(idx, playNow){
     const pg = pages[idx];
     elQNum.textContent = pg.questionNum;
-    elProgressBar.style.width = (pg.questionNum/20*100)+'%';
+    elProgressBar.style.width = (pg.questionNum/24*100)+'%';
     elSpeakerImage.src = pg.image;
     clearInterval(timerInterval);
     elTimerDisplay.classList.remove('warning');
