@@ -87,6 +87,19 @@ h1{font-size:2em;font-weight:800;color:#002817;letter-spacing:-0.02em;margin-bot
 if (typeof Auth !== 'undefined') { Auth.require(); Auth.showBadge('userBadge'); }
 function doLogout(){ Auth.clear(); location.href='index.html'; }
 function selectTest(n){
+  // Wipe any leftover state from a prior test attempt so test1 and
+  // test2 don't pollute each other's results.
+  var clear = function(store){
+    var keys = [];
+    for (var i = 0; i < store.length; i++){
+      var k = store.key(i);
+      if (/^(practice_|m1_|m2h_|results_|kickstart_done_|mic_check_next$|practice_test_id$)/.test(k)) keys.push(k);
+    }
+    keys.forEach(function(k){ store.removeItem(k); });
+  };
+  try { clear(localStorage); } catch(e){}
+  try { clear(sessionStorage); } catch(e){}
+
   sessionStorage.setItem('practice_test_id', String(n));
   if (n === 2) {
     location.href = 'test2/mic-check.html';

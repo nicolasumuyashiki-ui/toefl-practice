@@ -151,10 +151,10 @@ body{font-family:var(--font-en),var(--font-jp);background:var(--cream);min-heigh
 </div>
 
 <div class="hero">
-  <div class="kicker">Practice Test Results</div>
+  <div class="kicker"><span id="testIdLabel">Practice Test</span> Results</div>
   <h1>
-    <span class="jp">模試結果</span>
-    <span class="en">Practice Test Results</span>
+    <span class="jp">模試結果<span id="testIdLabelJp"></span></span>
+    <span class="en">Practice Test<span id="testIdLabelEn"></span> Results</span>
   </h1>
   <p class="sub">
     <span class="jp">受験お疲れ様でした。Reading・Listening は ETS 公式換算表に基づく予測スコア、Writing は Build a Sentence の正答率からの推定、Speaking は自動採点不可です。</span>
@@ -211,8 +211,8 @@ body{font-family:var(--font-en),var(--font-jp);background:var(--cream);min-heigh
   <button class="cta-btn" onclick="window.print()">
     <span class="jp">このページを印刷</span><span class="en">Print this page</span>
   </button>
-  <a class="cta-btn" href="index.html">
-    <span class="jp">ホームに戻る</span><span class="en">Back to Home</span>
+  <a class="cta-btn" href="test-select.html">
+    <span class="jp">もう一度受験する</span><span class="en">Take another test</span>
   </a>
   <a class="cta-btn gold" href="https://apps.tckworkshop.co.jp/toefl-task-training/" target="_blank" rel="noopener">
     <span class="jp">タスク別トレーニングで学習を続ける →</span><span class="en">Subscribe &amp; study more →</span>
@@ -271,6 +271,17 @@ body{font-family:var(--font-en),var(--font-jp);background:var(--cream);min-heigh
 if(typeof Auth!=='undefined'){Auth.require();}
 var currentUser=JSON.parse(sessionStorage.getItem('kickstart_user')||'{}');
 if(currentUser.userName){document.getElementById('userName').textContent=currentUser.userName;document.getElementById('avatarInit').textContent=currentUser.userName.charAt(0).toUpperCase();}
+
+/* Test 1 / Test 2 label — picked up from sessionStorage flag set by test-select.html */
+(function(){
+  var tid = sessionStorage.getItem('practice_test_id') || '1';
+  var lblE = document.getElementById('testIdLabel');
+  var lblJp = document.getElementById('testIdLabelJp');
+  var lblEn = document.getElementById('testIdLabelEn');
+  if (lblE)  lblE.textContent  = 'Practice Test ' + tid;
+  if (lblJp) lblJp.textContent = ' (Test ' + tid + ')';
+  if (lblEn) lblEn.textContent = ' ' + tid;
+})();
 function doLogout(){sessionStorage.removeItem('kickstart_user');location.href='index.html';}
 
 /* ============================================================
