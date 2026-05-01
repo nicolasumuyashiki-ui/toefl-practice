@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
+<link rel="shortcut icon" href="../assets/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon-180.png">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="TOEFL iBT - Writing Section">
+<meta property="og:description" content="Complete TOEFL iBT Practice Test covering Reading, Listening, Writing, and Speaking — by TCK Workshop.">
+<meta property="og:image" content="https://apps.tckworkshop.co.jp/toefl-practice/assets/ogp-card.jpg">
+<meta property="og:site_name" content="TCK Workshop">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TOEFL iBT - Writing Section">
+<meta name="twitter:description" content="Complete TOEFL iBT Practice Test covering Reading, Listening, Writing, and Speaking — by TCK Workshop.">
+<meta name="twitter:image" content="https://apps.tckworkshop.co.jp/toefl-practice/assets/ogp-card.jpg">
+
+<title>TOEFL iBT - Writing Section</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Manrope','Zen Kaku Gothic New','Noto Sans JP',system-ui,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#002817;line-height:1.6}
+.section-nav{background:#fff;border-bottom:1px solid #F5E9D3;padding:12px 24px;display:flex;align-items:center;gap:14px}
+.section-nav-label{font-size:.95em;color:#5A6861;font-weight:500}
+.section-progress{height:4px;background:#F5E9D3;width:100%;flex-shrink:0}
+.section-progress-fill{height:100%;width:0%;background:#007646;border-radius:2px}
+.section-body{flex:1;display:flex;justify-content:center;padding:60px 24px 120px}
+.section-content{width:100%;max-width:640px}
+.section-content h2{font-size:1.35em;font-weight:700;color:#002817;margin-bottom:16px}
+.section-content p{font-size:.95em;color:#5A6861;line-height:1.7;margin-bottom:20px}
+.task-table{width:100%;border-collapse:collapse;border:1px solid #F5E9D3;overflow:hidden}
+.task-table thead th{background:#F5E9D3;color:#002817;font-size:.85em;font-weight:600;text-align:left;padding:12px 18px;border-bottom:1px solid #F5E9D3}
+.task-table tbody td{padding:14px 18px;font-size:.9em;color:#5A6861;border-bottom:1px solid #F5E9D3;vertical-align:top}
+.task-table tbody tr:last-child td{border-bottom:none}
+.user-badge{font-size:.85em;color:#5A6861;margin-left:auto}
+.user-badge strong{color:#002817}
+.section-footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #F5E9D3;padding:14px 24px;display:flex;justify-content:flex-end}
+.btn-start{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-size:.95em;font-family:inherit;font-weight:600;color:#fff;background:#007646;border:none;border-radius:999px;cursor:pointer;transition:all .2s}
+.btn-start:hover{background:#004D2E;box-shadow:0 6px 18px rgba(0,118,70,.22);transform:translateY(-1px)}
+.btn-start svg{width:16px;height:16px;fill:currentColor}
+.note{margin-top:12px;padding:14px 18px;background:#fef5e7;border-left:3px solid #ed8936;border-radius:4px;font-size:.85em;color:#8A6D2A}
+</style>
+<!-- Start of HubSpot Embed Code --><script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/242729130.js"></script><!-- End of HubSpot Embed Code -->
+</head>
+<body>
+
+<div class="section-nav">
+  <img class="brand-logo" src="../assets/tck-logo.png" alt="TCK Workshop" style="margin-right:12px"><span class="section-nav-label">Writing</span>
+  <span class="user-badge" id="userBadge"></span>
+</div>
+<div class="section-progress"><div class="section-progress-fill"></div></div>
+
+<div class="section-body">
+  <div class="section-content">
+    <h2>Writing Section</h2>
+    <p>The Writing section measures your ability to use written English in academic and everyday situations. You will complete three tasks. Once you finish a task, you will not be able to return to it.</p>
+    <table class="task-table">
+      <thead>
+        <tr><th>Task Type</th><th>What You'll Do</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Build a Sentence</strong></td><td>Arrange words into grammatically correct responses (10 questions, 6 minutes).</td></tr>
+        <tr><td><strong>Write an Email</strong></td><td>Read a scenario and write an email response (1 task, 7 minutes).</td></tr>
+        <tr><td><strong>Academic Discussion</strong></td><td>Read a discussion thread and post your own response (1 task, 10 minutes).</td></tr>
+      </tbody>
+    </table>
+    <div class="note">⏱️ Each task is timed. The timer cannot be paused once started.</div>
+  </div>
+</div>
+
+<div class="section-footer">
+  <button class="btn-start" onclick="startWriting()">
+    Start Writing
+    <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+  </button>
+</div>
+
+<script src="../js/auth.js"></script>
+<script>
+if (typeof Auth !== 'undefined') { Auth.require(); Auth.showBadge('userBadge'); }
+function startWriting() { window.location.href = 'writing-sentence.html'; }
+</script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
+<link rel="shortcut icon" href="../assets/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon-180.png">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="TOEFL iBT - Write an Email">
+<meta property="og:description" content="Complete TOEFL iBT Practice Test covering Reading, Listening, Writing, and Speaking — by TCK Workshop.">
+<meta property="og:image" content="https://apps.tckworkshop.co.jp/toefl-practice/assets/ogp-card.jpg">
+<meta property="og:site_name" content="TCK Workshop">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TOEFL iBT - Write an Email">
+<meta name="twitter:description" content="Complete TOEFL iBT Practice Test covering Reading, Listening, Writing, and Speaking — by TCK Workshop.">
+<meta name="twitter:image" content="https://apps.tckworkshop.co.jp/toefl-practice/assets/ogp-card.jpg">
+
+<title>TOEFL iBT - Write an Email</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Manrope','Zen Kaku Gothic New','Noto Sans JP',system-ui,sans-serif;background:#FBF6EC;min-height:100vh;display:flex;flex-direction:column;}
+.top-nav{background:#002817;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:10px 24px;font-size:14px;}
+.nav-left{display:flex;align-items:center;gap:12px;}
+.nav-left .section-label{font-weight:700;font-size:15px;}
+.nav-left .divider{color:#5A6861;}
+.nav-left .task-label{color:#D6DAD7;}
+.nav-right{display:flex;align-items:center;gap:16px;}
+.timer-display{font-family:'Courier New',monospace;font-size:16px;font-weight:700;min-width:50px;text-align:center;}
+.timer-display.warning{color:#B85C3C;animation:blink 0.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.finish-btn{padding:7px 18px;background:#007646;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;transition:background 0.2s;}
+.finish-btn:hover{background:#004D2E;box-shadow:0 4px 12px rgba(0,118,70,.22);}
+.user-badge{font-size:13px;color:#D6DAD7;}
+.user-badge strong{color:#fff;}
+.progress-bar{height:4px;background:#F5E9D3;}
+.progress-fill{height:100%;background:#007646;transition:width 0.3s;}
+.page-container{flex:1;display:flex;flex-direction:column;}
+
+.instruction-page{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+.instruction-card{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.08);max-width:720px;width:100%;padding:40px;}
+.instruction-card h1{font-size:22px;color:#002817;margin-bottom:6px;font-style:italic;text-decoration:underline;text-decoration-color:#007646;text-underline-offset:4px;}
+.instruction-card p{color:#5A6861;font-size:14px;line-height:1.7;margin-bottom:16px;}
+.task-table{width:100%;border-collapse:collapse;margin:16px 0;}
+.task-table th{background:#4A90B8;color:#fff;padding:10px 14px;text-align:left;font-size:13px;}
+.task-table td{padding:10px 14px;border-bottom:1px solid #F5E9D3;font-size:13px;color:#5A6861;}
+.warning-box{background:#FDF7E8;border-left:4px solid #C9A961;padding:12px 16px;border-radius:4px;margin:16px 0;font-size:13px;color:#8A6D2A;}
+.btn-start{display:block;margin:20px auto 0;background:#007646;color:#fff;border:none;padding:14px 36px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;transition:background 0.2s;}
+.btn-start:hover{background:#004D2E;}
+
+.writing-page{flex:1;display:none;overflow:hidden;}
+.writing-split{display:flex;height:100%;min-height:0;}
+.left-panel{width:42%;padding:24px;overflow-y:auto;border-right:1px solid #F5E9D3;background:#FBF6EC;}
+.right-panel{width:58%;display:flex;flex-direction:column;padding:0;}
+.scenario-box{background:#e8f4fc;padding:18px;border-radius:8px;margin-bottom:16px;font-size:14px;color:#002817;line-height:1.7;}
+.task-instruction{font-weight:700;font-size:14px;color:#002817;margin-bottom:8px;}
+.task-points{list-style:disc;padding-left:20px;margin-bottom:12px;}
+.task-points li{font-size:14px;color:#5A6861;margin-bottom:6px;line-height:1.5;}
+.write-note{font-size:13px;color:#5A6861;font-style:italic;}
+.response-header{padding:16px 20px;border-bottom:1px solid #F5E9D3;background:#fff;}
+.response-header h3{font-size:15px;color:#002817;margin-bottom:8px;}
+.email-meta{font-size:13px;color:#5A6861;line-height:1.8;}
+.email-meta strong{color:#002817;}
+.toolbar{display:flex;align-items:center;gap:4px;padding:8px 12px;border-bottom:1px solid #F5E9D3;background:#FBF6EC;flex-wrap:wrap;}
+.tool-btn{padding:5px 10px;background:#fff;border:1px solid #D6DAD7;border-radius:4px;font-size:12px;color:#5A6861;cursor:pointer;transition:all 0.15s;user-select:none;}
+.tool-btn:hover{background:#FBF6EC;border-color:#D6DAD7;}
+.tool-separator{width:1px;height:20px;background:#D6DAD7;margin:0 4px;}
+.word-count-display{margin-left:auto;font-size:12px;color:#5A6861;font-weight:600;min-width:20px;text-align:right;}
+.writing-area-wrapper{flex:1;padding:12px;overflow:hidden;display:flex;}
+.writing-area{width:100%;min-height:100%;padding:14px;border:2px solid #F5E9D3;border-radius:6px;font-size:14px;font-family:'Manrope','Zen Kaku Gothic New','Noto Sans JP',system-ui,sans-serif;line-height:1.7;color:#002817;resize:vertical;outline:none;transition:border-color 0.2s;}
+.writing-area:focus{border-color:#007646;}
+
+.completion-page{flex:1;display:none;align-items:center;justify-content:center;padding:40px 20px;}
+.completion-card{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.08);max-width:700px;width:100%;padding:40px;text-align:center;}
+.completion-icon{font-size:48px;margin-bottom:12px;}
+.completion-card h2{color:#002817;margin-bottom:8px;font-size:22px;}
+.completion-card .subtitle{color:#5A6861;font-size:14px;margin-bottom:24px;}
+.stats-row{display:flex;justify-content:center;gap:32px;margin-bottom:24px;}
+.stat-item{text-align:center;}
+.stat-value{font-size:24px;font-weight:700;color:#002817;}
+.stat-label{font-size:12px;color:#5A6861;margin-top:2px;}
+.preview-box{text-align:left;background:#FBF6EC;border:1px solid #F5E9D3;border-radius:8px;padding:20px;margin-bottom:20px;max-height:200px;overflow-y:auto;}
+.preview-text{font-size:14px;color:#002817;line-height:1.7;white-space:pre-wrap;word-wrap:break-word;}
+.btn-next{display:inline-block;margin-top:8px;padding:14px 36px;background:#002817;color:#fff;border-radius:8px;font-size:15px;font-weight:600;border:none;cursor:pointer;}
+.btn-next:hover{background:#002817;}
+
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:none;justify-content:center;align-items:center;z-index:1000;}
+.modal-overlay.active{display:flex;}
+.modal-content{background:#fff;border-radius:12px;padding:32px;max-width:420px;width:90%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.2);}
+.modal-icon{font-size:40px;margin-bottom:12px;}
+.modal-content h3{font-size:18px;color:#002817;margin-bottom:8px;}
+.modal-content p{font-size:14px;color:#5A6861;line-height:1.6;margin-bottom:24px;}
+.modal-buttons{display:flex;gap:12px;justify-content:center;}
+.modal-btn{padding:10px 24px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;border:none;}
+.modal-btn.cancel{background:#FBF6EC;color:#5A6861;}
+.modal-btn.confirm{background:#007646;color:#fff;}
+</style>
+<!-- Start of HubSpot Embed Code --><script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/242729130.js"></script><!-- End of HubSpot Embed Code -->
+</head>
+<body>
+
+<div class="top-nav">
+  <img class="brand-logo" src="../assets/tck-logo.png" alt="TCK Workshop" style="margin-right:12px">
+  <div class="nav-left">
+    <span class="section-label">Writing</span>
+    <span class="divider">|</span>
+    <span class="task-label">Write an Email</span>
+  </div>
+  <div class="nav-right">
+    <span class="timer-display" id="timer">07:00</span>
+    <button class="finish-btn" id="btnFinish" onclick="showModal()" style="display:none;">Finish</button>
+    <span class="user-badge" id="userBadge"></span>
+  </div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+
+<div class="page-container">
+
+  <div class="instruction-page" id="instructionPage">
+    <div class="instruction-card">
+      <h1>Write an Email</h1>
+      <p>In this task, you will write an email response based on a given scenario. Read the scenario carefully and follow the instructions.</p>
+      <table class="task-table">
+        <thead><tr><th>Task</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Read</td><td>Read the scenario on the left side of the screen.</td></tr>
+          <tr><td>Write</td><td>Write your email response in the text area on the right.</td></tr>
+          <tr><td>Review</td><td>Check your response before the time runs out.</td></tr>
+        </tbody>
+      </table>
+      <div class="warning-box">⏱️ You will have <strong>7 minutes</strong> to complete this task. The timer will start when you click "Start Writing."</div>
+      <button class="btn-start" onclick="startWriting()">Start Writing</button>
+    </div>
+  </div>
+
+  <div class="writing-page" id="writingPage">
+    <div class="writing-split">
+      <div class="left-panel">
+        <div class="scenario-box">
+          <strong>Scenario</strong><br><br>
+          You are a university student. You just received the final examination schedule, and you noticed that the final exam for Professor Tanaka's Economics 101 class is scheduled at the same time as the final exam for another required course you are enrolled in. You need to contact Professor Tanaka to discuss this scheduling conflict.
+        </div>
+        <p class="task-instruction">Write an email to Professor Tanaka. In your email, do the following:</p>
+        <ul class="task-points">
+          <li>Explain the scheduling conflict and which two courses are affected.</li>
+          <li>Politely ask whether your Economics 101 exam can be rescheduled to a different day or time.</li>
+          <li>Propose two specific alternative time slots when you would be available to take the exam.</li>
+        </ul>
+        <p class="write-note">Write as much as you can and in complete sentences.</p>
+      </div>
+      <div class="right-panel">
+        <div class="response-header">
+          <h3>Your Response:</h3>
+          <div class="email-meta">
+            <strong>To:</strong> professor.tanaka@university.edu<br>
+            <strong>Subject:</strong> Final Exam Scheduling Conflict — Economics 101
+          </div>
+        </div>
+        <div class="toolbar">
+          <button class="tool-btn" onclick="doCut()">Cut</button>
+          <button class="tool-btn" onclick="doPaste()">Paste</button>
+          <span class="tool-separator"></span>
+          <button class="tool-btn" onclick="doUndo()">Undo</button>
+          <button class="tool-btn" onclick="doRedo()">Redo</button>
+          <span class="tool-separator"></span>
+          <button class="tool-btn" id="btnWordToggle" onclick="toggleWordCount()">Hide Word Count</button>
+          <span class="word-count-display" id="wordCountDisplay">0</span>
+        </div>
+        <div class="writing-area-wrapper">
+          <textarea class="writing-area" id="writingArea" placeholder="Start writing your email here..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="completion-page" id="completionPage">
+    <div class="completion-card" style="text-align:left;box-shadow:none;background:transparent;padding:0">
+      <h2 id="completionTitle" style="font-size:1.35em;font-weight:700;color:#002817;margin-bottom:16px">End of Write an Email</h2>
+      <p id="completionSubtitle" style="font-size:.95em;color:#5A6861;line-height:1.7;margin-bottom:0">You have finished this task. Continue to the next Writing task.</p>
+      <div style="margin-top:32px"><button class="btn-next" onclick="goNext()">Continue →</button></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-content">
+    <div class="modal-icon">⚠️</div>
+    <h3>Finish Writing?</h3>
+    <p>Are you sure you want to finish now? Once you submit, you will not be able to make any changes.</p>
+    <div class="modal-buttons">
+      <button class="modal-btn cancel" onclick="hideModal()">Cancel</button>
+      <button class="modal-btn confirm" onclick="finishWriting('manual')">Yes, Finish</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/auth.js"></script>
+<script>
+if(typeof Auth!=='undefined'){Auth.require();Auth.showBadge('userBadge');}
+
+let timerInterval=null,totalSeconds=420,secondsLeft=420,isWriting=false,wordCountVisible=true;
+
+function startWriting(){
+  document.getElementById('instructionPage').style.display='none';
+  document.getElementById('writingPage').style.display='flex';
+  document.getElementById('btnFinish').style.display='inline-block';
+  isWriting=true;startTimer();
+  document.getElementById('writingArea').focus();
+}
+function startTimer(){
+  updateTimerDisplay();
+  timerInterval=setInterval(()=>{
+    secondsLeft--;updateTimerDisplay();
+    document.getElementById('progressFill').style.width=((totalSeconds-secondsLeft)/totalSeconds*100)+'%';
+    if(secondsLeft<=60)document.getElementById('timer').classList.add('warning');
+    if(secondsLeft<=0){clearInterval(timerInterval);finishWriting('timeout');}
+  },1000);
+}
+function updateTimerDisplay(){
+  const m=Math.floor(secondsLeft/60),s=secondsLeft%60;
+  document.getElementById('timer').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+document.addEventListener('DOMContentLoaded',()=>{document.getElementById('writingArea').addEventListener('input',updateWordCount);});
+function updateWordCount(){
+  const t=document.getElementById('writingArea').value.trim();
+  const c=t?t.split(/\s+/).length:0;
+  if(wordCountVisible) document.getElementById('wordCountDisplay').textContent=c;
+}
+function toggleWordCount(){
+  wordCountVisible=!wordCountVisible;
+  document.getElementById('btnWordToggle').textContent=wordCountVisible?'Hide Word Count':'Show Word Count';
+  document.getElementById('wordCountDisplay').style.visibility=wordCountVisible?'visible':'hidden';
+  if(wordCountVisible) updateWordCount();
+}
+function doCut(){const ta=document.getElementById('writingArea');const s=ta.selectionStart,e=ta.selectionEnd;if(s!==e){navigator.clipboard.writeText(ta.value.substring(s,e)).then(()=>{ta.setRangeText('',s,e,'end');updateWordCount();});}}
+function doPaste(){navigator.clipboard.readText().then(t=>{const ta=document.getElementById('writingArea');ta.setRangeText(t,ta.selectionStart,ta.selectionEnd,'end');updateWordCount();}).catch(()=>{document.getElementById('writingArea').focus();document.execCommand('paste');});}
+function doUndo(){document.getElementById('writingArea').focus();document.execCommand('undo');setTimeout(updateWordCount,50);}
+function doRedo(){document.getElementById('writingArea').focus();document.execCommand('redo');setTimeout(updateWordCount,50);}
+function showModal(){document.getElementById('modalOverlay').classList.add('active');}
+function hideModal(){document.getElementById('modalOverlay').classList.remove('active');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')hideModal();});
+
+function finishWriting(method){
+  if(!isWriting) return;
+  isWriting=false;clearInterval(timerInterval);hideModal();
+  const text=document.getElementById('writingArea').value.trim();
+  const wc=text?text.split(/\s+/).length:0;
+  const used=totalSeconds-secondsLeft;
+  const m=Math.floor(used/60),s=used%60;
+  if(method==='timeout'){
+    document.getElementById('completionTitle').textContent="Time's Up";
+    document.getElementById('completionSubtitle').textContent='The time limit has been reached. Your response has been saved.';
+  }
+  localStorage.setItem('practice_writing_email_used_seconds',String(used));
+  localStorage.setItem('practice_writing_email_words',String(wc));
+  localStorage.setItem('practice_writing_email_response',text);
+  document.getElementById('writingPage').style.display='none';
+  document.getElementById('completionPage').style.display='flex';
+  document.getElementById('btnFinish').style.display='none';
+  document.getElementById('progressFill').style.width='100%';
+  document.getElementById('timer').textContent='00:00';
+  document.getElementById('timer').classList.remove('warning');
+}
+
+function goNext(){window.location.href='writing-transition.html';}
+</script>
+</body>
+</html>

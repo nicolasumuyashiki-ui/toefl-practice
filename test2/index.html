@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Favicon -->
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
-<link rel="shortcut icon" href="assets/favicon.ico">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
+<link rel="shortcut icon" href="../assets/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon-180.png">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="TCK Workshop — TOEFL iBT Practice Test">
@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="../css/common.css">
 <style>
 body{justify-content:flex-start}
 .top-bar{display:flex}
@@ -64,7 +64,7 @@ body{justify-content:flex-start}
 <body>
 <div class="top-bar">
   <div class="logo-mark">
-    <img class="brand-logo" src="assets/tck-logo.png" alt="TCK Workshop">
+    <img class="brand-logo" src="../assets/tck-logo.png" alt="TCK Workshop">
     <span class="header-divider"></span>
     <span class="header-title">TOEFL iBT Practice Test</span>
   </div>
@@ -72,7 +72,7 @@ body{justify-content:flex-start}
 <div class="main">
   <div class="login-card">
     <div class="login-header">
-      <img class="brand-logo brand-logo--xl" src="assets/tck-logo.png" alt="TCK Workshop" style="margin-bottom:14px">
+      <img class="brand-logo brand-logo--xl" src="../assets/tck-logo.png" alt="TCK Workshop" style="margin-bottom:14px">
       <div class="kicker">Practice Test</div>
       <h1>Practice Test Login</h1>
       <p>Enter your credentials to begin</p>
@@ -104,10 +104,10 @@ body{justify-content:flex-start}
   </div>
 </div>
 
-<script src="js/api.js"></script>
-<script src="js/auth.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
 <script>
-  if (Auth.get()) location.href = 'test-select.html';
+  if (Auth.get()) location.href = 'mic-check.html';
 
   document.getElementById('password').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
   document.getElementById('userId').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('password').focus(); });
@@ -136,7 +136,7 @@ body{justify-content:flex-start}
         var qs = new URLSearchParams(location.search);
         var skipTo = qs.get('goto');
         var ALLOWED_SKIP = {
-          'mic-check': 'test-select.html',
+          'mic-check': 'mic-check.html',
           'reading': 'reading-intro.html',
           'listening': 'listening-intro.html',
           'writing': 'writing-intro.html',
@@ -145,7 +145,7 @@ body{justify-content:flex-start}
           'speaking-ti': 'speaking-ti.html',
           'results': 'results.html'
         };
-        location.href = (skipTo && ALLOWED_SKIP[skipTo]) || 'test-select.html';
+        location.href = (skipTo && ALLOWED_SKIP[skipTo]) || 'mic-check.html';
       } else {
         err.classList.add('show');
         errT.textContent = result.message || 'Login failed.';

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
+<link rel="shortcut icon" href="../assets/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon-180.png">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="TOEFL iBT - Read an Academic Passage 2 (Module 2)">
+<meta property="og:description" content="Complete TOEFL iBT Practice Test covering Reading, Listening, Writing, and Speaking — by TCK Workshop.">
+<meta property="og:image" content="https://apps.tckworkshop.co.jp/toefl-practice/assets/ogp-card.jpg">
+<meta property="og:site_name" content="TCK Workshop">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TOEFL iBT - Read an Academic Passage 2 (Module 2)">
+<meta name="twitter:description" content="Complete TOEFL iBT Practice Test covering Reading, Listening, Writing, and Speaking — by TCK Workshop.">
+<meta name="twitter:image" content="https://apps.tckworkshop.co.jp/toefl-practice/assets/ogp-card.jpg">
+
+<title>TOEFL iBT - Read an Academic Passage 2 (Module 2)</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Manrope','Zen Kaku Gothic New','Noto Sans JP',system-ui,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#002817;line-height:1.7}
+.top-nav{background:#fff;border-bottom:1px solid #F5E9D3;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+.top-nav-left{display:flex;align-items:center;gap:16px;font-size:.9em;color:#5A6861}
+.top-nav-left strong{color:#002817}
+.top-nav-right{display:flex;align-items:center;gap:12px}
+.timer-btn{background:none;border:1px solid #D6DAD7;border-radius:6px;padding:6px 14px;font-size:.85em;color:#5A6861;cursor:pointer;font-family:inherit;transition:all .2s}
+.timer-btn:hover{background:#FBF6EC}
+.timer-display{font-family:'Courier New',monospace;font-size:.9em;color:#002817;font-weight:600;min-width:60px;text-align:center}
+.review-btn{background:#007646;color:#fff;border:none;border-radius:14px;padding:6px 18px;font-size:.85em;cursor:pointer;font-family:inherit;font-weight:500;transition:all .2s}
+.review-btn:hover{background:#004D2E}
+.user-badge{font-size:.8em;color:#5A6861}
+.progress-bar{height:4px;background:#F5E9D3;width:100%}
+.progress-fill{height:100%;background:#007646;border-radius:2px;transition:width .3s}
+.split-main{flex:1;display:flex;padding:0 0 80px 0;overflow:hidden;max-width:1100px;margin:0 auto}
+.passage-panel{flex:1;padding:32px 28px;overflow-y:auto;border-right:1px solid #F5E9D3;background:#FBF6EC}
+.question-panel{flex:1;padding:32px 28px;overflow-y:auto}
+.instruction{font-weight:600;font-size:.9em;color:#007646;margin-bottom:16px}
+.passage-title{font-size:1.1em;font-weight:700;color:#002817;margin-bottom:16px}
+.passage-content{font-size:.93em;line-height:1.8;color:#002817}
+.passage-content p{margin-bottom:14px}
+.question-page{display:none}
+.question-page.active{display:block}
+.question-text{font-weight:600;font-size:.95em;margin-bottom:20px;line-height:1.5}
+.question-number{color:#007646;font-weight:700;margin-right:4px}
+.options{display:flex;flex-direction:column;gap:12px}
+.option{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;border:1px solid #F5E9D3;border-radius:8px;cursor:pointer;transition:all .15s;font-size:.93em;line-height:1.5}
+.option:hover{background:#F5E9D3;border-color:#4A90B8}
+.option.selected{background:#F5E9D3;border-color:#007646}
+.option input{display:none}
+.option-label{font-weight:600;color:#007646;flex-shrink:0}
+.option-text{color:#002817}
+.bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #F5E9D3;padding:14px 32px;display:flex;align-items:center;justify-content:flex-end;gap:12px;z-index:50}
+.btn-nav{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-size:.95em;font-family:inherit;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+.btn-back{background:#fff;color:#5A6861;border:1px solid #D6DAD7}.btn-back:hover{background:#FBF6EC}
+.btn-next{background:#002817;color:#fff}.btn-next:hover{background:#004D2E;box-shadow:0 6px 18px rgba(0,118,70,.22)}
+/* Completion overlay */
+.complete-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center}
+.complete-overlay.active{display:flex}
+.complete-box{background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.25);width:90%;max-width:500px;padding:40px;text-align:center}
+.complete-icon{font-size:3em;margin-bottom:16px}
+.complete-title{font-size:1.3em;font-weight:700;color:#002817;margin-bottom:12px}
+.complete-desc{font-size:.95em;color:#5A6861;line-height:1.7;margin-bottom:24px}
+.btn-finish{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;font-size:1em;font-family:inherit;font-weight:600;color:#fff;background:#007646;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+.btn-finish:hover{background:#004D2E}
+/* Review */
+.review-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center}
+.review-overlay.active{display:flex}
+.review-box{background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.25);width:90%;max-width:700px;max-height:80vh;overflow-y:auto;padding:28px}
+.review-close{float:right;background:none;border:none;font-size:1.5em;cursor:pointer;color:#5A6861}.review-close:hover{color:#002817}
+.review-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:6px;margin-bottom:6px;font-size:.9em}
+.review-no{font-weight:600;color:#5A6861;min-width:36px}
+.review-q{flex:1;color:#002817}
+.review-status{font-size:.8em;padding:3px 10px;border-radius:10px;font-weight:500}
+.review-status.answered{background:#E6F3EC;color:#276749}
+.review-status.current{background:#F5E9D3;color:#004D2E}
+.review-panel{background:#fff;border-radius:12px;width:90%;max-width:820px;max-height:80vh;display:flex;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.2)}.review-left{flex:55%;border-right:1px solid #F5E9D3;overflow-y:auto;padding:0}.review-right{flex:45%;padding:28px;overflow-y:auto;background:#FBF6EC}.review-header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid #F5E9D3;position:sticky;top:0;background:#fff;z-index:1}.review-header h3{font-size:1em;color:#002817}.review-close{background:none;border:none;font-size:1.3em;cursor:pointer;color:#5A6861;padding:4px 8px;border-radius:4px}.review-close:hover{background:#FBF6EC}.review-row{display:flex;padding:12px 20px;border-bottom:1px solid #F5E9D3;cursor:pointer;align-items:center;font-size:.88em;transition:background .15s}.review-row:hover,.review-row.active{background:#F5E9D3}.review-no{width:36px;color:#5A6861;font-weight:500}.review-q{flex:1;color:#002817}.review-status{font-size:.8em;padding:3px 10px;border-radius:10px;white-space:nowrap}.review-status.answered{background:#E6F3EC;color:#002817}.review-status.not-answered{background:#FDF4F0;color:#B85C3C}.review-status.coming{background:#F5E9D3;color:#5A6861}.detail-label{display:inline-block;background:#F5E9D3;color:#007646;font-size:.75em;font-weight:600;padding:3px 10px;border-radius:10px;margin-bottom:12px}.detail-title{font-size:1.05em;font-weight:700;color:#002817;margin-bottom:12px}.detail-desc{font-size:.88em;color:#5A6861;line-height:1.65;margin-bottom:20px}.btn-goto{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;font-size:.85em;font-family:inherit;font-weight:600;color:#fff;background:#007646;border:none;border-radius:14px;cursor:pointer;transition:all .2s}.btn-goto:hover{background:#004D2E}.btn-goto.disabled{background:#D6DAD7;cursor:not-allowed}
+</style>
+<!-- Start of HubSpot Embed Code --><script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/242729130.js"></script><!-- End of HubSpot Embed Code -->
+</head>
+<body data-difficulty="harder">
+
+<div class="top-nav">
+  <div class="top-nav-left"><img class="brand-logo" src="../assets/tck-logo.png" alt="TCK Workshop" style="margin-right:12px"><span>Question <strong id="qLabel">16</strong> of 20</span>
+    <span style="color:#D6DAD7">|</span>
+    <span>Reading &mdash; Module 2</span>
+  </div>
+  <div class="top-nav-right">
+    <span class="user-badge" id="userBadge"></span>
+    <span class="timer-display" id="timerDisplay">12:00</span>
+    <button class="timer-btn" id="timerToggle" onclick="toggleTimer()">Hide Time</button>
+    <button class="review-btn" onclick="openReview()">Review</button>
+  </div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:75%"></div></div>
+
+<div class="split-main">
+
+<div class="passage-panel">
+  <p class="instruction">Read the passage.</p>
+  <h2 class="passage-title">Linguistic Relativity and Cognition</h2>
+  <div class="passage-content">
+    <p>The hypothesis that the language one speaks fundamentally shapes one's perception of reality has long provoked debate among linguists and cognitive scientists. Known as the Sapir-Whorf hypothesis, this idea exists in two forms: a strong version, which holds that language determines thought and that linguistic categories constrain cognitive categories, and a weak version, which proposes that language merely influences habitual patterns of thought without fully determining them. While the strong version has been largely discredited, the weak version has gained considerable empirical support in recent decades.</p>
+    <p>A particularly compelling line of evidence comes from cross-linguistic studies of color perception. Researchers found that speakers of languages possessing distinct terms for light blue and dark blue—such as Russian, which distinguishes between "goluboy" and "siniy"—were measurably faster at discriminating between shades that crossed this lexical boundary than speakers of English, whose single term "blue" encompasses both. Crucially, this advantage disappeared when participants performed a concurrent verbal task, suggesting that the effect was mediated by linguistic processing rather than by differences in the visual system itself.</p>
+    <p>Critics contend that such findings demonstrate only superficial performance differences on laboratory tasks and do not prove that language restructures underlying conceptual representations. They argue that speakers of any language can perceive and reason about distinctions for which their language lacks dedicated vocabulary, pointing to the universal capacity for learning new color terms as evidence. The debate thus remains unresolved: while language clearly modulates certain aspects of cognitive processing, the extent to which it penetrates deeper levels of thought continues to be investigated.</p>
+  </div>
+</div>
+
+<div class="question-panel">
+
+<!-- Q16: Factual -->
+<div class="question-page active" id="page1">
+  <p class="question-text"><span class="question-number">16.</span> According to the passage, what is the difference between the strong and weak versions of the Sapir-Whorf hypothesis?</p>
+  <div class="options">
+    <label class="option" data-q="q16" data-v="A" onclick="selectOption(this)"><input type="radio" name="q16" value="A"><span class="option-label">(A)</span><span class="option-text">The strong version focuses on color perception, while the weak version addresses spatial reasoning</span></label>
+    <label class="option" data-q="q16" data-v="B" onclick="selectOption(this)"><input type="radio" name="q16" value="B"><span class="option-label">(B)</span><span class="option-text">The strong version claims language determines thought, while the weak version claims language only influences thought</span></label>
+    <label class="option" data-q="q16" data-v="C" onclick="selectOption(this)"><input type="radio" name="q16" value="C"><span class="option-label">(C)</span><span class="option-text">The strong version applies only to Western languages, while the weak version applies universally</span></label>
+    <label class="option" data-q="q16" data-v="D" onclick="selectOption(this)"><input type="radio" name="q16" value="D"><span class="option-label">(D)</span><span class="option-text">The strong version has received more empirical support than the weak version in recent research</span></label>
+  </div>
+</div>
+
+<!-- Q17: Inference -->
+<div class="question-page" id="page2">
+  <p class="question-text"><span class="question-number">17.</span> What can be inferred from the color perception study described in paragraph 2?</p>
+  <div class="options">
+    <label class="option" data-q="q17" data-v="A" onclick="selectOption(this)"><input type="radio" name="q17" value="A"><span class="option-label">(A)</span><span class="option-text">Russian speakers have a biologically superior visual system compared to English speakers</span></label>
+    <label class="option" data-q="q17" data-v="B" onclick="selectOption(this)"><input type="radio" name="q17" value="B"><span class="option-label">(B)</span><span class="option-text">The speed advantage in color discrimination is linked to language rather than to innate visual differences</span></label>
+    <label class="option" data-q="q17" data-v="C" onclick="selectOption(this)"><input type="radio" name="q17" value="C"><span class="option-label">(C)</span><span class="option-text">English speakers are unable to distinguish between light blue and dark blue under any conditions</span></label>
+    <label class="option" data-q="q17" data-v="D" onclick="selectOption(this)"><input type="radio" name="q17" value="D"><span class="option-label">(D)</span><span class="option-text">Performing a verbal task enhances the ability to perceive subtle color differences</span></label>
+  </div>
+</div>
+
+<!-- Q18: Vocabulary in context -->
+<div class="question-page" id="page3">
+  <p class="question-text"><span class="question-number">18.</span> The word "modulates" in paragraph 3 is closest in meaning to</p>
+  <div class="options">
+    <label class="option" data-q="q18" data-v="A" onclick="selectOption(this)"><input type="radio" name="q18" value="A"><span class="option-label">(A)</span><span class="option-text">eliminates</span></label>
+    <label class="option" data-q="q18" data-v="B" onclick="selectOption(this)"><input type="radio" name="q18" value="B"><span class="option-label">(B)</span><span class="option-text">replaces</span></label>
+    <label class="option" data-q="q18" data-v="C" onclick="selectOption(this)"><input type="radio" name="q18" value="C"><span class="option-label">(C)</span><span class="option-text">regulates</span></label>
+    <label class="option" data-q="q18" data-v="D" onclick="selectOption(this)"><input type="radio" name="q18" value="D"><span class="option-label">(D)</span><span class="option-text">contradicts</span></label>
+  </div>
+</div>
+
+<!-- Q19: Rhetorical purpose -->
+<div class="question-page" id="page4">
+  <p class="question-text"><span class="question-number">19.</span> Why does the author mention the "concurrent verbal task" in paragraph 2?</p>
+  <div class="options">
+    <label class="option" data-q="q19" data-v="A" onclick="selectOption(this)"><input type="radio" name="q19" value="A"><span class="option-label">(A)</span><span class="option-text">To demonstrate that multitasking generally impairs all types of visual perception equally</span></label>
+    <label class="option" data-q="q19" data-v="B" onclick="selectOption(this)"><input type="radio" name="q19" value="B"><span class="option-label">(B)</span><span class="option-text">To provide evidence that the color discrimination advantage depends on active linguistic processing</span></label>
+    <label class="option" data-q="q19" data-v="C" onclick="selectOption(this)"><input type="radio" name="q19" value="C"><span class="option-label">(C)</span><span class="option-text">To argue that verbal abilities and color perception are controlled by the same brain region</span></label>
+    <label class="option" data-q="q19" data-v="D" onclick="selectOption(this)"><input type="radio" name="q19" value="D"><span class="option-label">(D)</span><span class="option-text">To show that Russian speakers lose all ability to distinguish colors when distracted</span></label>
+  </div>
+</div>
+
+<!-- Q20: Main argument -->
+<div class="question-page" id="page5">
+  <p class="question-text"><span class="question-number">20.</span> Which of the following best describes the author's conclusion about the Sapir-Whorf hypothesis?</p>
+  <div class="options">
+    <label class="option" data-q="q20" data-v="A" onclick="selectOption(this)"><input type="radio" name="q20" value="A"><span class="option-label">(A)</span><span class="option-text">Language has a measurable effect on some cognitive processes, but the full depth of its influence remains an open question</span></label>
+    <label class="option" data-q="q20" data-v="B" onclick="selectOption(this)"><input type="radio" name="q20" value="B"><span class="option-label">(B)</span><span class="option-text">The hypothesis has been conclusively proven by cross-linguistic color studies and should be accepted as fact</span></label>
+    <label class="option" data-q="q20" data-v="C" onclick="selectOption(this)"><input type="radio" name="q20" value="C"><span class="option-label">(C)</span><span class="option-text">Both versions of the hypothesis have been entirely disproven by recent experimental evidence</span></label>
+    <label class="option" data-q="q20" data-v="D" onclick="selectOption(this)"><input type="radio" name="q20" value="D"><span class="option-label">(D)</span><span class="option-text">The ability to learn new vocabulary proves that language has no relationship to perception whatsoever</span></label>
+  </div>
+</div>
+
+</div>
+</div>
+
+<div class="bottom-nav">
+  <button class="btn-nav btn-back" id="btnBack" onclick="changePage(-1)">&#8249; Back</button>
+  <button class="btn-nav btn-next" id="btnNext" onclick="changePage(1)">Next &#8250;</button>
+</div>
+
+<!-- COMPLETION OVERLAY -->
+<div class="complete-overlay" id="completeOverlay">
+  <div class="complete-box">
+    <div class="complete-icon">&#10003;</div>
+    <h2 class="complete-title">Reading Section Complete</h2>
+    <p class="complete-desc">You have finished all questions in the Reading section. Your responses have been recorded.</p>
+    <button class="btn-finish" onclick="window.location.href='reading-end.html'">Proceed to Listening</button>
+  </div>
+</div>
+
+<!-- REVIEW OVERLAY -->
+<div class="review-overlay" id="reviewOverlay">
+  <div class="review-box">
+    <button class="review-close" onclick="closeReview()">&times;</button>
+    <h2 style="font-size:1.15em;font-weight:700;color:#002817;margin-bottom:16px">Review Questions — Module 2</h2>
+    <div id="reviewList"></div>
+  </div>
+</div>
+
+<script>
+/* ===== TIMER ===== */
+var timerSeconds = 12 * 60;
+var timerRunning = true;
+var timerHidden = false;
+var timerInterval = setInterval(function(){
+  if(!timerRunning) return;
+  timerSeconds--;
+  if(timerSeconds <= 0){ clearInterval(timerInterval); timerSeconds = 0; }
+  var m = Math.floor(timerSeconds/60);
+  var s = timerSeconds%60;
+  document.getElementById('timerDisplay').textContent = m+':'+(s<10?'0':'')+s;
+}, 1000);
+function toggleTimer(){
+  timerHidden = !timerHidden;
+  document.getElementById('timerDisplay').style.visibility = timerHidden ? 'hidden' : 'visible';
+  document.getElementById('timerToggle').textContent = timerHidden ? 'Show Time' : 'Hide Time';
+}
+
+/* ===== PAGE STATE ===== */
+var currentPage = 1;
+var totalPages = 5;
+var startQ = 16;
+var userAnswers = {};
+
+function goToPage(p){if(typeof totalPages!=='undefined'&&p>=1&&p<=totalPages){document.getElementById('page'+currentPage).classList.remove('active');currentPage=p;document.getElementById('page'+currentPage).classList.add('active');var l=document.getElementById('qLabel');if(l)l.textContent=(startQ+currentPage-1);var b=document.getElementById('btnBack');if(b)b.disabled=(currentPage===1);var n=document.getElementById('btnNext');if(n){if(currentPage===totalPages){n.onclick=function(){goNext();};}else{n.onclick=function(){changePage(1);};}}}}
+
+function changePage(dir){
+  var next = currentPage + dir;
+  if(next < 1){ window.location.href = 'reading-m2h-academic1.html'; return; }
+  if(next > totalPages){ showComplete(); return; }
+  document.getElementById('page'+currentPage).classList.remove('active');
+  currentPage = next;
+  document.getElementById('page'+currentPage).classList.add('active');
+  document.getElementById('qLabel').textContent = (startQ + currentPage - 1);
+}
+
+function selectOption(el){
+  var q = el.getAttribute('data-q');
+  var v = el.getAttribute('data-v');
+  document.querySelectorAll('.option[data-q="'+q+'"]').forEach(function(o){ o.classList.remove('selected'); });
+  el.classList.add('selected');
+  userAnswers[q] = v;
+}
+
+function saveM2hAcademic2Score(){
+  var correctAnswers = {q16:'B', q17:'B', q18:'C', q19:'B', q20:'A'};
+  var correct = 0;
+  var total = 0;
+  for(var k in correctAnswers){
+    total++;
+    if(userAnswers[k] === correctAnswers[k]) correct++;
+  }
+  localStorage.setItem('m2h_academic2_correct', String(correct));
+  localStorage.setItem('m2h_academic2_total',   String(total));
+}
+
+function goNext(){
+  saveM2hAcademic2Score();
+  window.location.href = 'reading-end.html';
+}
+
+function showComplete(){
+  saveM2hAcademic2Score();
+  clearInterval(timerInterval);
+  document.getElementById('completeOverlay').classList.add('active');
+}
+
+/* ===== REVIEW ===== */
+function openReview(){var qs=window._rq||[];var html='';qs.forEach(function(q,i){var st='Not Answered',cl='not-answered';if(q.no==='1-10'){st='Completed';cl='answered';}else if(userAnswers['q'+q.no]){st='Answered';cl='answered';}html+='<div class="review-row" onclick="showDetail('+i+')" data-idx="'+i+'"><span class="review-no">'+q.no+'</span><span class="review-q">'+q.title+'</span><span class="review-status '+cl+'">'+st+'</span></div>';});document.getElementById('reviewList').innerHTML=html;document.getElementById('reviewOverlay').classList.add('active');showDetail(0);}
+
+function showDetail(idx){var q=(window._rq||questions)[idx];document.querySelectorAll('.review-row').forEach(function(r){r.classList.remove('active')});var rows=document.querySelectorAll('.review-row');if(rows[idx])rows[idx].classList.add('active');var btn;if(q.qPage!==undefined&&q.page==='reading-m2h-academic2.html'){btn='<button class="btn-goto" onclick="closeReview();goToPage('+q.qPage+')">Go to Question &#8250;<\/button>';}else if(q.page&&q.page!=='reading-m2h-academic2.html'){btn='<button class="btn-goto" onclick="window.location.href=\''+q.page+'\'">Go to Question &#8250;<\/button>';}else if(q.page){btn='<button class="btn-goto" onclick="closeReview()">Go to Question &#8250;<\/button>';}else{btn='<button class="btn-goto disabled" disabled>Coming Soon<\/button>';}document.getElementById('reviewDetail').innerHTML='<div class="detail-label">Reading — Module 2<\/div><div class="detail-title">'+q.title+'<\/div><div class="detail-desc">'+q.desc+'<\/div>'+btn;}
+
+function closeReview(){ document.getElementById('reviewOverlay').classList.remove('active'); }
+document.getElementById('reviewOverlay').addEventListener('click', function(e){ if(e.target===this) closeReview(); });
+
+/* ===== AUTH ===== */
+if(typeof Auth !== 'undefined'){ Auth.require(); Auth.showBadge('userBadge'); }
+</script>
+<script src="../js/difficulty-badge.js"></script>
+<script src="../js/auth.js"></script>
+</body>
+</html>
