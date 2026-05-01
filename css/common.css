@@ -51,6 +51,10 @@ body{
   letter-spacing:.14em;text-transform:uppercase;
 }
 .top-bar-right{font-size:.85em;color:var(--ink-500)}
+.brand-logo{height:28px;width:auto;display:inline-block;vertical-align:middle;flex-shrink:0}
+.brand-logo--lg{height:48px}
+.brand-logo--xs{height:22px}
+.brand-logo--xl{height:72px}
 .user-badge{font-size:.82em;color:var(--ink-500)}
 .user-badge strong{color:var(--green-deep);font-weight:700}
 
