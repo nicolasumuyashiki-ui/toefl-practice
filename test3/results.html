@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
+<link rel="shortcut icon" href="../assets/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon-180.png">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Practice Test Results — TCK Workshop">
+<meta property="og:description" content="Complete TOEFL iBT Practice Test covering Reading, Listening, Writing, and Speaking — by TCK Workshop.">
+<meta property="og:image" content="https://apps.tckworkshop.co.jp/toefl-practice/assets/ogp-card.jpg">
+<meta property="og:site_name" content="TCK Workshop">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Practice Test Results — TCK Workshop">
+<meta name="twitter:description" content="Complete TOEFL iBT Practice Test covering Reading, Listening, Writing, and Speaking — by TCK Workshop.">
+<meta name="twitter:image" content="https://apps.tckworkshop.co.jp/toefl-practice/assets/ogp-card.jpg">
+
+<title>Practice Test Results — TCK Workshop</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{min-height:100%}
+body{font-family:var(--font-en),var(--font-jp);background:var(--cream);min-height:100vh;color:var(--ink-900);-webkit-font-smoothing:antialiased;line-height:1.6;display:block}
+
+.header{background:var(--cream);border-bottom:1px solid var(--paper);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.header-left{display:flex;align-items:center;gap:14px}
+.logo-mark{display:inline-flex;align-items:center;gap:8px}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+.logo{font-family:var(--font-en);font-size:.72em;font-weight:800;color:var(--green);letter-spacing:.14em;text-transform:uppercase}
+.header-divider{width:1px;height:16px;background:var(--ink-200)}
+.header-title{font-size:.88em;color:var(--ink-500);font-weight:500}
+.header-right{display:flex;align-items:center;gap:12px}
+.tck-lang-toggle{display:inline-flex;background:var(--white);border:1px solid var(--paper);border-radius:999px;padding:3px;gap:2px}
+.tck-lang-toggle button{background:transparent;border:none;font-family:var(--font-en);font-size:.74em;font-weight:600;padding:5px 12px;border-radius:999px;cursor:pointer;color:var(--ink-500)}
+.tck-lang-toggle button.active{background:var(--green);color:var(--white)}
+.user-pill{display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--paper);padding:5px 12px 5px 5px;border-radius:999px;font-size:.78em;font-weight:500}
+.avatar{width:24px;height:24px;border-radius:50%;background:var(--green);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:.72em;font-weight:700;font-family:var(--font-en)}
+.btn-logout{background:transparent;border:none;font-size:.74em;font-weight:500;color:var(--ink-500);cursor:pointer;font-family:var(--font-en);padding:6px 10px;border-radius:8px}
+.btn-logout:hover{color:var(--green-deep)}
+
+.hero{max-width:980px;margin:0 auto;padding:32px 28px 12px}
+.hero .kicker{font-family:var(--font-en);font-size:.72em;font-weight:700;color:var(--green);letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px}
+.hero h1{font-family:var(--font-en);font-size:2.4em;font-weight:800;color:var(--green-deep);line-height:1.1;letter-spacing:-0.02em;margin-bottom:8px}
+.hero .sub{font-size:.95em;color:var(--ink-500);max-width:680px}
+.path-pill{display:inline-block;margin-top:10px;font-family:var(--font-en);font-size:.74em;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--paper);color:var(--green-dark);padding:4px 12px;border-radius:999px}
+
+.total-card{max-width:980px;margin:18px auto;padding:0 28px}
+.total-inner{background:linear-gradient(135deg,var(--green-deep) 0%,var(--green-dark) 100%);color:#fff;border-radius:20px;padding:30px 34px;display:flex;align-items:center;gap:30px;flex-wrap:wrap}
+.total-label{font-family:var(--font-en);font-size:.72em;font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
+.total-big{font-family:var(--font-en);font-size:3.6em;font-weight:800;letter-spacing:-0.03em;line-height:1}
+.total-big small{font-size:.32em;color:rgba(255,255,255,.5);font-weight:500;margin-left:4px}
+.total-band{font-family:var(--font-en);font-size:.95em;font-weight:700;color:var(--gold);margin-top:6px;letter-spacing:.02em}
+.total-band small{opacity:.7;font-weight:500;font-size:.72em}
+.total-caveat{flex:1;min-width:260px;font-size:.86em;color:rgba(255,255,255,.82);line-height:1.65}
+.total-caveat strong{color:var(--gold);font-weight:700}
+
+.skills-grid{max-width:980px;margin:18px auto;padding:0 28px;display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:720px){.skills-grid{grid-template-columns:1fr}}
+.skill-card{background:var(--white);border:1px solid var(--paper);border-radius:16px;padding:22px 24px;position:relative;overflow:hidden}
+.skill-card::before{content:"";position:absolute;top:0;left:0;width:3px;height:100%;background:var(--green)}
+.skill-card.estimated::before{background:var(--gold)}
+.skill-card.unscored::before{background:var(--terracotta)}
+.skill-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:10px}
+.skill-name{font-family:var(--font-en);font-size:1.15em;font-weight:800;color:var(--green-deep);letter-spacing:-0.01em}
+.skill-tag{font-family:var(--font-en);font-size:.66em;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--paper);color:var(--green-dark);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.skill-tag.est{background:#FFE8AE;color:#8A6D2A}
+.skill-tag.unscored{background:#F8DDD2;color:#8A3E24}
+.skill-score{display:flex;align-items:baseline;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+.skill-score .pred{font-family:var(--font-en);font-size:2.6em;font-weight:800;color:var(--green-deep);letter-spacing:-0.02em;line-height:1}
+.skill-score .pred.unscored{font-size:1.1em;color:var(--terracotta)}
+.skill-score .pred small{font-size:.34em;color:var(--ink-500);font-weight:500;margin-left:3px}
+.skill-band{font-family:var(--font-en);font-size:.78em;font-weight:700;color:var(--ink-500);margin-top:2px}
+.skill-band span{opacity:.6}
+.skill-rate{font-family:var(--font-en);font-size:.82em;color:var(--ink-500);font-weight:500}
+.skill-rate strong{color:var(--green-dark);font-weight:700}
+.skill-bar{height:6px;background:var(--paper);border-radius:6px;overflow:hidden;margin:8px 0 10px}
+.skill-bar-fill{height:100%;background:var(--green);border-radius:6px;transition:width .4s}
+.skill-card.estimated .skill-bar-fill{background:var(--gold)}
+.skill-card.unscored .skill-bar-fill{background:var(--terracotta);width:100%!important;opacity:.4}
+.skill-meta{font-family:var(--font-en);font-size:.78em;color:var(--ink-500);line-height:1.6;display:flex;gap:14px;flex-wrap:wrap}
+.skill-meta span strong{color:var(--ink-900);font-weight:700}
+.skill-note{font-size:.8em;color:var(--ink-500);line-height:1.6;margin-top:10px;padding-top:10px;border-top:1px dashed var(--paper)}
+.skill-note strong{color:var(--green-dark)}
+
+.section{max-width:980px;margin:32px auto;padding:0 28px}
+.section h2{font-family:var(--font-en);font-size:1.25em;font-weight:700;color:var(--green-deep);margin-bottom:6px;letter-spacing:-0.01em}
+.section .section-sub{font-size:.9em;color:var(--ink-500);margin-bottom:14px}
+.activity-card{background:var(--white);border:1px solid var(--paper);border-radius:14px;overflow:hidden}
+.atable{width:100%;border-collapse:collapse;font-size:.88em}
+.atable th{padding:12px 16px;text-align:left;font-family:var(--font-en),var(--font-jp);font-weight:700;font-size:.74em;color:var(--ink-500);letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--paper);background:var(--cream)}
+.atable td{padding:11px 16px;border-bottom:1px solid var(--paper);color:var(--ink-900);vertical-align:middle}
+.atable tr:last-child td{border-bottom:none}
+.atable td.num{text-align:right;font-family:var(--font-en)}
+.atable td.muted{color:var(--ink-500)}
+.task-tag{font-family:var(--font-en);font-size:.74em;color:var(--green-dark);background:var(--paper);border-radius:999px;padding:2px 10px;display:inline-block;white-space:nowrap}
+.pill{display:inline-block;font-family:var(--font-en);font-size:.7em;font-weight:700;padding:2px 9px;border-radius:999px;letter-spacing:.04em}
+.pill.perfect{background:var(--green);color:#fff}
+.pill.great{background:var(--sky);color:#fff}
+.pill.good{background:var(--gold);color:var(--green-deep)}
+.pill.keep{background:var(--terracotta);color:#fff}
+.pill.submitted{background:var(--green-dark);color:#fff}
+.pill.skipped{background:var(--ink-200);color:var(--ink-500)}
+
+.notice{max-width:980px;margin:18px auto;padding:0 28px}
+.notice-inner{background:#FDF4F0;border:1px solid #E5B8A0;border-left:4px solid var(--terracotta);border-radius:12px;padding:14px 18px;font-size:.86em;color:#5A2D1A;line-height:1.6}
+.notice-inner strong{color:#8A3E24}
+
+.cta-row{max-width:980px;margin:24px auto 12px;padding:0 28px;display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;font-family:var(--font-en);font-size:.92em;font-weight:600;border-radius:999px;cursor:pointer;text-decoration:none;border:1px solid var(--paper);background:var(--white);color:var(--ink-500);transition:all .18s}
+.cta-btn:hover{border-color:var(--green);color:var(--green-deep);background:var(--cream)}
+.cta-btn.primary{background:var(--green);color:#fff;border-color:var(--green)}
+.cta-btn.primary:hover{background:var(--green-dark);color:#fff;box-shadow:0 6px 18px rgba(0,118,70,.22)}
+.cta-btn.gold{background:var(--gold);color:var(--green-deep);border-color:var(--gold)}
+.cta-btn.gold:hover{background:#B89343;color:var(--green-deep)}
+
+.disclaimer{max-width:980px;margin:14px auto 60px;padding:0 28px;font-size:.82em;color:var(--ink-500);line-height:1.75}
+.disclaimer h3{font-family:var(--font-en);font-size:.74em;font-weight:700;color:var(--green-dark);letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.disclaimer ul{list-style:disc;padding-left:22px;margin-top:6px}
+.disclaimer li{margin-bottom:4px}
+.disclaimer a{color:var(--green-dark);text-decoration:underline;text-underline-offset:2px}
+
+@media print{
+  .header-right,.cta-row,.btn-logout{display:none!important}
+  body{background:#fff}
+  .total-inner{background:#002817!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+<!-- Start of HubSpot Embed Code --><script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/242729130.js"></script><!-- End of HubSpot Embed Code -->
+</head>
+<body data-lang="jp">
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo-mark"><img class="brand-logo" src="../assets/tck-logo.png" alt="TCK Workshop" style="height:28px;width:auto"></div>
+    <span class="header-divider"></span>
+    <span class="header-title jp">模試結果</span><span class="header-title en">Practice Test Results</span>
+  </div>
+  <div class="header-right">
+    <div class="tck-lang-toggle">
+      <button type="button" data-lang-btn="jp" class="active">日本語</button>
+      <button type="button" data-lang-btn="en">EN</button>
+    </div>
+    <div class="user-pill"><span class="avatar" id="avatarInit">?</span><span id="userName">---</span></div>
+    <button class="btn-logout" onclick="doLogout()"><span class="jp">ログアウト</span><span class="en">Log out</span></button>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="kicker"><span id="testIdLabel">Practice Test</span> Results</div>
+  <h1>
+    <span class="jp">模試結果<span id="testIdLabelJp"></span></span>
+    <span class="en">Practice Test<span id="testIdLabelEn"></span> Results</span>
+  </h1>
+  <p class="sub">
+    <span class="jp">受験お疲れ様でした。Reading・Listening は ETS 公式換算表に基づく予測スコア、Writing は Build a Sentence の正答率からの推定、Speaking は自動採点不可です。</span>
+    <span class="en">Great work finishing the practice test. Reading and Listening use the official ETS conversion tables; Writing is estimated from Build a Sentence accuracy; Speaking is not auto-scored.</span>
+  </p>
+  <div id="pathPill" class="path-pill" style="display:none"></div>
+</div>
+
+<div class="total-card">
+  <div class="total-inner">
+    <div>
+      <div class="total-label">Predicted Total <span style="font-size:.7em;opacity:.55;font-weight:500;text-transform:none;letter-spacing:.02em">· R + L + W</span></div>
+      <div class="total-big"><span id="totalScore">—</span> <small>/ 90 <span style="font-size:.55em;opacity:.7;font-weight:500;letter-spacing:.04em;margin-left:2px">(Speaking 採点なし)</span></small></div>
+      <div class="total-band">
+        <span class="jp">新スコア</span><span class="en">New scale</span>
+        <span style="margin-left:6px">Band <span id="totalBand">—</span> <small>/ 6.0</small></span>
+      </div>
+    </div>
+    <div class="total-caveat">
+      <span class="jp"><strong>ご参考まで</strong>：Reading と Listening は ETS 公式 raw→scaled 換算表に基づく予測値です。Writing は Build a Sentence の正答率を Reading 換算表に当てはめた推定値、Speaking は自動採点に対応していません。詳しいフィードバックは有料の<strong>個別指導オプション</strong>でご利用いただけます。</span>
+      <span class="en"><strong>Reference only</strong>: Reading and Listening use the official ETS raw-to-scaled conversion tables. Writing is approximated from Build a Sentence accuracy. Speaking is not auto-scored. Detailed feedback is available via the paid <strong>private coaching option</strong>.</span>
+    </div>
+  </div>
+</div>
+
+<div class="skills-grid" id="skillsGrid"></div>
+
+<div id="m2Notice" class="notice" style="display:none">
+  <div class="notice-inner">
+    <span class="jp"><strong>※ Module 2 結果が見つかりません</strong> — Practice Test を最後まで完了してください。</span>
+    <span class="en"><strong>Module 2 results not found</strong> — please complete the Practice Test in full.</span>
+  </div>
+</div>
+
+<div class="section">
+  <h2><span class="jp">タスク別の結果</span><span class="en">Activity breakdown</span></h2>
+  <p class="section-sub"><span class="jp">セクションごとの正答数と評価です。Writing の Email / Discussion と Speaking は提出のみの記録です。</span><span class="en">Per-task correct counts and grades. Writing Email/Discussion and Speaking are submission-only records.</span></p>
+  <div class="activity-card">
+    <table class="atable">
+      <thead>
+        <tr>
+          <th><span class="jp">セクション</span><span class="en">Section</span></th>
+          <th><span class="jp">タスク</span><span class="en">Task</span></th>
+          <th class="num"><span class="jp">スコア</span><span class="en">Score</span></th>
+          <th><span class="jp">評価</span><span class="en">Grade</span></th>
+        </tr>
+      </thead>
+      <tbody id="activityBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="cta-row">
+  <button class="cta-btn" onclick="window.print()">
+    <span class="jp">このページを印刷</span><span class="en">Print this page</span>
+  </button>
+  <a class="cta-btn" href="../test-select.html">
+    <span class="jp">もう一度受験する</span><span class="en">Take another test</span>
+  </a>
+  <a class="cta-btn gold" href="https://apps.tckworkshop.co.jp/toefl-task-training/" target="_blank" rel="noopener">
+    <span class="jp">タスク別トレーニングで学習を続ける →</span><span class="en">Subscribe &amp; study more →</span>
+  </a>
+</div>
+
+<div class="disclaimer">
+  <h3><span class="jp">スコア予測について</span><span class="en">About this estimate</span></h3>
+  <p>
+    <span class="jp">本ページの予測スコアは、ETS 公式 <em>TOEFL iBT Interactive Sampler</em> および raw→scaled 換算表に基づきます。Reading・Listening は各セクションの正答率を換算表に照らして算出。Writing は自動採点が効かない Email / Discussion の代わりに Build a Sentence の正答率を採用。Speaking は自動採点に対応していないため数値は表示しません。Writing と Speaking の詳細な採点は<a href="https://apps.tckworkshop.co.jp/toefl-task-training/private-coaching.html" target="_blank" rel="noopener">有料の個別指導オプション</a>でご対応します。</span>
+    <span class="en">Estimates follow ETS's <em>TOEFL iBT Interactive Sampler</em> raw-to-scaled tables. Reading and Listening derive from section accuracy mapped to the official curve. Writing uses Build a Sentence accuracy as a proxy (Email and Discussion need holistic grading). Speaking is intentionally not numerically scored. For detailed Writing and Speaking feedback, see our <a href="https://apps.tckworkshop.co.jp/toefl-task-training/private-coaching.html" target="_blank" rel="noopener">paid Private Coaching option</a>.</span>
+  </p>
+  <ul>
+    <li><span class="jp">Reading: 公式換算表（Raw 0-20 → Scaled 0-30）に準拠。Harder Module 問題は 1.5 倍重み付け。Easier 分岐は上限 26。</span><span class="en">Reading: official Raw 0-20 → Scaled 0-30 table. Harder-Module items weighted 1.5x; Easier-branch capped at 26.</span></li>
+    <li><span class="jp">Listening: 公式換算表（Raw 0-28 → Scaled 0-30）に準拠。Harder 質問（Conv Q3-4 / LCR Q6-8 / Talk Q5-8）は 1.5 倍重み付け。</span><span class="en">Listening: official Raw 0-28 → Scaled 0-30 table. Harder questions (Conv Q3-4 / LCR Q6-8 / Talk Q5-8) weighted 1.5x.</span></li>
+    <li><span class="jp">バンドスコア: 各セクションのバンドを平均し 0.5 単位で四捨五入（ETS 2026 方式）。</span><span class="en">Band: average of section bands rounded to nearest 0.5 (ETS 2026 method).</span></li>
+    <li><span class="jp">Writing / Speaking: 実スコアは TCK 講師の採点セッションで確定</span><span class="en">Writing / Speaking: actual scores confirmed in your coach's grading session</span></li>
+  </ul>
+  <p id="legacyBandFootnote" style="margin-top:10px;font-size:.92em;opacity:.85"></p>
+  <p style="margin-top:6px"><span class="jp">詳細は <a href="docs/score-methodology.md">スコア算出方法ドキュメント</a> をご覧ください。</span><span class="en">See <a href="docs/score-methodology.md">score methodology doc</a> for full details.</span></p>
+</div>
+
+<!-- ===== Past attempts history ===== -->
+<section class="card-section" id="historySection" style="display:none">
+  <h2><span class="jp">過去の受験履歴</span><span class="en">Past attempts</span></h2>
+  <p class="section-sub"><span class="jp">あなたの過去の模試スコアです。受験のたびに記録され、上達の推移を確認できます。</span><span class="en">All your past Practice Test scores. Each attempt is recorded so you can track progress over time.</span></p>
+  <div class="table-wrap">
+    <table id="historyTable" style="width:100%;border-collapse:collapse">
+      <thead>
+        <tr style="background:var(--paper);font-size:.82em">
+          <th style="padding:10px 12px;text-align:left"><span class="jp">回</span><span class="en">#</span></th>
+          <th style="padding:10px 12px;text-align:left;white-space:nowrap"><span class="jp">日時</span><span class="en">Date</span></th>
+          <th style="padding:10px 12px;text-align:right">Reading</th>
+          <th style="padding:10px 12px;text-align:right">Listening</th>
+          <th style="padding:10px 12px;text-align:right">Writing</th>
+          <th style="padding:10px 12px;text-align:right;white-space:nowrap"><span class="jp">合計 / 90</span><span class="en">Total/90</span></th>
+          <th style="padding:10px 12px;text-align:right">Band</th>
+        </tr>
+      </thead>
+      <tbody id="historyBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<script src="../js/auth.js"></script>
+<script src="../js/api.js"></script>
+<script>
+/* ===== Language toggle (mirrors my-score.html) ===== */
+(function(){
+  var stored=localStorage.getItem('tck_lang')||'jp';
+  setLang(stored);
+  document.querySelectorAll('[data-lang-btn]').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-lang-btn'));});});
+  function setLang(l){document.body.setAttribute('data-lang',l);document.documentElement.setAttribute('lang',l==='jp'?'ja':'en');localStorage.setItem('tck_lang',l);document.querySelectorAll('[data-lang-btn]').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang-btn')===l);});}
+})();
+
+if(typeof Auth!=='undefined'){Auth.require();}
+var currentUser=JSON.parse(sessionStorage.getItem('kickstart_user')||'{}');
+if(currentUser.userName){document.getElementById('userName').textContent=currentUser.userName;document.getElementById('avatarInit').textContent=currentUser.userName.charAt(0).toUpperCase();}
+
+/* Test 1 / Test 2 label — picked up from sessionStorage flag set by test-select.html */
+(function(){
+  var tid = sessionStorage.getItem('practice_test_id') || '1';
+  var lblE = document.getElementById('testIdLabel');
+  var lblJp = document.getElementById('testIdLabelJp');
+  var lblEn = document.getElementById('testIdLabelEn');
+  if (lblE)  lblE.textContent  = 'Practice Test ' + tid;
+  if (lblJp) lblJp.textContent = ' (Test ' + tid + ')';
+  if (lblEn) lblEn.textContent = ' ' + tid;
+})();
+function doLogout(){sessionStorage.removeItem('kickstart_user');location.href='index.html';}
+
+/* ============================================================
+   ETS-derived raw→scaled tables + band lookup
+   (copied verbatim from toefl-task-training/my-score.html)
+   ============================================================ */
+function totalToBand(t){
+  if(t===null||t===undefined||isNaN(t))return null;
+  t=Number(t);
+  if(t>=114)return 6.0;
+  if(t>=107)return 5.5;
+  if(t>=95) return 5.0;
+  if(t>=86) return 4.5;
+  if(t>=72) return 4.0;
+  if(t>=58) return 3.5;
+  if(t>=44) return 3.0;
+  if(t>=34) return 2.5;
+  if(t>=24) return 2.0;
+  if(t>=12) return 1.5;
+  return 1.0;
+}
+function sectionToBand(s30){if(s30===null||s30===undefined||isNaN(s30))return null;return totalToBand(Number(s30)*4);}
+function formatBand(b){return b===null||b===undefined?'—':Number(b).toFixed(1);}
+
+const READING_TABLE=[
+  {raw:20,scaled:30},{raw:19,scaled:29},{raw:18,scaled:27},{raw:17,scaled:26},
+  {raw:16,scaled:25},{raw:15,scaled:23},{raw:14,scaled:22},{raw:13,scaled:21},
+  {raw:12,scaled:19},{raw:11,scaled:18},{raw:10,scaled:17},{raw:9,scaled:15},
+  {raw:8,scaled:14},{raw:7,scaled:13},{raw:6,scaled:11},{raw:5,scaled:9},
+  {raw:4,scaled:7},{raw:3,scaled:5},{raw:2,scaled:3},{raw:1,scaled:1},{raw:0,scaled:0}
+];
+const LISTENING_TABLE=[
+  {raw:28,scaled:30},{raw:27,scaled:29},{raw:26,scaled:27},{raw:25,scaled:26},
+  {raw:24,scaled:25},{raw:23,scaled:23},{raw:22,scaled:22},{raw:21,scaled:21},
+  {raw:20,scaled:19},{raw:19,scaled:17},{raw:18,scaled:16},{raw:17,scaled:14},
+  {raw:16,scaled:13},{raw:15,scaled:11},{raw:14,scaled:10},{raw:13,scaled:8},
+  {raw:12,scaled:7},{raw:11,scaled:6},{raw:10,scaled:5},{raw:9,scaled:4},
+  {raw:8,scaled:3},{raw:7,scaled:2},{raw:6,scaled:2},{raw:5,scaled:1},
+  {raw:4,scaled:0},{raw:3,scaled:0},{raw:2,scaled:0},{raw:1,scaled:0},{raw:0,scaled:0}
+];
+function percentToScaled(pct,table){
+  if(pct<0)pct=0;if(pct>100)pct=100;
+  const maxRaw=table[0].raw;
+  const rawFloat=(pct/100)*maxRaw;
+  const lower=Math.floor(rawFloat),upper=Math.ceil(rawFloat);
+  const rowLow=table.find(r=>r.raw===lower),rowHigh=table.find(r=>r.raw===upper);
+  if(!rowLow||!rowHigh)return 0;
+  if(lower===upper)return rowLow.scaled;
+  const frac=rawFloat-lower;
+  return Math.round(rowLow.scaled+(rowHigh.scaled-rowLow.scaled)*frac);
+}
+function estimateWritingScaled(sentencePct){
+  if(sentencePct===null||sentencePct===undefined)return null;
+  return percentToScaled(sentencePct,READING_TABLE);
+}
+
+/* ============================================================
+   Read raw answers from this practice-test session
+   ============================================================ */
+function gi(k){
+  var raw=localStorage.getItem(k);
+  // Fallback: M1 live keys are wiped on Module 2 entry; the snapshot under
+  // results_m1_* (written by reading-m2-select.html) preserves them for this page.
+  if(raw==null && k.indexOf('m1_')===0){ raw=localStorage.getItem('results_'+k); }
+  var v=parseInt(raw);return isNaN(v)?null:v;
+}
+
+function collectReading(){
+  // Reading buckets. m2h_* keys = Harder Module content (1.5x weighted).
+  // m2e_* = Easier Module (NOT Harder, no weighting). m1_* are the
+  // routing-module questions, treated as standard difficulty.
+  var parts=[
+    {k:'ctw', label:'Complete the Words', c:gi('m1_ctw_correct'), t:gi('m1_ctw_total'), harder:false},
+    {k:'rdl1',label:'Read in Daily Life 1',c:gi('m1_rdl1_correct'),t:gi('m1_rdl1_total'), harder:false},
+    {k:'rdl2',label:'Read in Daily Life 2',c:gi('m1_rdl2_correct'),t:gi('m1_rdl2_total'), harder:false},
+    {k:'academic',label:'Academic Passage',c:gi('m1_academic_correct'),t:gi('m1_academic_total'), harder:false},
+    // Easier path — standard weighting (not Harder)
+    {k:'m2e_ctw',label:'M2 (Easier) CTW',c:gi('m2e_ctw_correct'),t:gi('m2e_ctw_total'), harder:false},
+    {k:'m2e_rdl1',label:'M2 (Easier) Read 1',c:gi('m2e_rdl1_correct'),t:gi('m2e_rdl1_total'), harder:false},
+    {k:'m2e_rdl2',label:'M2 (Easier) Read 2',c:gi('m2e_rdl2_correct'),t:gi('m2e_rdl2_total'), harder:false},
+    // Harder path — Enhancement A: ALL m2h_* questions weight 1.5x
+    {k:'m2h_ctw',label:'M2 (Harder) CTW',c:gi('m2h_ctw_correct'),t:gi('m2h_ctw_total'), harder:true},
+    {k:'m2h_academic1',label:'M2 (Harder) Academic 1',c:gi('m2h_academic1_correct'),t:gi('m2h_academic1_total'), harder:true},
+    {k:'m2h_academic2',label:'M2 (Harder) Academic 2',c:gi('m2h_academic2_correct'),t:gi('m2h_academic2_total'), harder:true}
+  ];
+  var present=parts.filter(p=>p.c!==null&&p.t!==null&&p.t>0);
+  // Enhancement A: split into standard vs harder pools, then combine with 1.5x.
+  var stdC=0,stdT=0,hC=0,hT=0;
+  present.forEach(function(p){
+    if(p.harder){hC+=p.c;hT+=p.t;} else {stdC+=p.c;stdT+=p.t;}
+  });
+  var totalC=stdC+hC;       // raw correct (for display)
+  var totalT=stdT+hT;       // raw total (for display)
+  var wC=stdC + hC*1.5;     // weighted correct
+  var wT=stdT + hT*1.5;     // weighted total
+  var anyM2=parts.some(p=>p.k.indexOf('m2')===0&&p.c!==null);
+  var path=null;
+  if(parts.find(p=>p.k.startsWith('m2e_')&&p.c!==null))path='easier';
+  if(parts.find(p=>p.k.startsWith('m2h_')&&p.c!==null))path='harder';
+  return {
+    parts:present, correct:totalC, total:totalT,
+    weightedCorrect:wC, weightedTotal:wT,
+    harderCorrect:hC, harderTotal:hT,
+    hasData:totalT>0, anyM2:anyM2, path:path
+  };
+}
+
+// Enhancement A: per-question Harder identification.
+// Listening pages share a global q1..q24 namespace:
+//   LCR     q1-q8   (Harder = Q6-8 within section → q6,q7,q8)
+//   Conv    q9-q12  (Harder = Q3-4 within section → q11,q12)
+//   Announce q13-q16 (Harder = NONE per Module 2 convention)
+//   Talk    q17-q24 (Harder = Q5-8 within section → q21-q24)
+var LISTENING_HARDER_QS = {q6:1,q7:1,q8:1, q11:1,q12:1, q21:1,q22:1,q23:1,q24:1};
+// Section count target = 24. Anything below means the learner skipped some.
+var LISTENING_FULL_TOTAL = 24;
+
+function collectListening(){
+  var raw=sessionStorage.getItem('practice_listening_answers');
+  if(!raw)return {hasData:false, parts:[], correct:0, total:0, weightedCorrect:0, weightedTotal:0, harderCorrect:0, harderTotal:0, incomplete:false};
+  var data;try{data=JSON.parse(raw)||{};}catch(e){return {hasData:false, parts:[], correct:0, total:0, weightedCorrect:0, weightedTotal:0, harderCorrect:0, harderTotal:0, incomplete:false};}
+  var keys=Object.keys(data);
+  var correct=0,total=0,hC=0,hT=0,stdC=0,stdT=0;
+  keys.forEach(function(k){
+    var item=data[k];if(!item)return;
+    total++;
+    var isCorrect=false;
+    if(typeof item.isCorrect==='boolean')isCorrect=item.isCorrect;
+    else if(item.selected!==undefined&&item.correct!==undefined)isCorrect=String(item.selected)===String(item.correct);
+    if(isCorrect)correct++;
+    // Enhancement A: weight Harder q-indices 1.5x
+    if(LISTENING_HARDER_QS[k]){
+      hT++; if(isCorrect)hC++;
+    } else {
+      stdT++; if(isCorrect)stdC++;
+    }
+  });
+  // Enhancement D: flag incomplete sections so we can show a notice
+  // and refrain from extrapolating up to 24.
+  var incomplete = total>0 && total<LISTENING_FULL_TOTAL;
+  return {
+    hasData:total>0, correct:correct, total:total,
+    weightedCorrect: stdC + hC*1.5,
+    weightedTotal:   stdT + hT*1.5,
+    harderCorrect:hC, harderTotal:hT,
+    incomplete:incomplete,
+    parts:[{label:'Listening (combined)', c:correct, t:total}]
+  };
+}
+
+function collectWriting(){
+  var sC=gi('practice_writing_sentence_correct');
+  var sT=gi('practice_writing_sentence_total');
+  var emailWords=gi('practice_writing_email_words');
+  var discWords=gi('practice_writing_discussion_words');
+  var hasSentence=sC!==null&&sT!==null&&sT>0;
+  return {
+    hasSentence:hasSentence,
+    sentenceCorrect:sC, sentenceTotal:sT,
+    sentencePct:hasSentence?(sC/sT*100):null,
+    emailSubmitted:emailWords!==null,
+    discussionSubmitted:discWords!==null,
+    emailWords:emailWords, discussionWords:discWords
+  };
+}
+
+function collectSpeaking(){
+  return {
+    lr: localStorage.getItem('practice_speaking_lr_completed')==='1',
+    ti: localStorage.getItem('practice_speaking_ti_completed')==='1'
+  };
+}
+
+/* ============================================================
+   Render
+   ============================================================ */
+function gradeFor(pct){
+  if(pct===null||pct===undefined)return null;
+  if(pct===100)return 'perfect';
+  if(pct>=80)return 'great';
+  if(pct>=50)return 'good';
+  return 'keep';
+}
+const GRADE_JP={perfect:'Perfect',great:'Great',good:'Good',keep:'Keep Going',submitted:'提出済み',skipped:'未受験'};
+const GRADE_EN={perfect:'Perfect',great:'Great',good:'Good',keep:'Keep Going',submitted:'Submitted',skipped:'Not taken'};
+
+function gradePill(g){
+  if(!g)g='skipped';
+  return '<span class="pill '+g+'"><span class="jp">'+GRADE_JP[g]+'</span><span class="en">'+GRADE_EN[g]+'</span></span>';
+}
+
+function render(){
+  var reading=collectReading();
+  var listening=collectListening();
+  var writing=collectWriting();
+  var speaking=collectSpeaking();
+
+  // Enhancement A: use weighted correct/total so Harder items count 1.5x.
+  // Backwards-compat: when no Harder data exists, weighted == raw.
+  var readingPct=reading.hasData?(reading.weightedCorrect/reading.weightedTotal*100):null;
+  var listeningPct=listening.hasData?(listening.weightedCorrect/listening.weightedTotal*100):null;
+  // Display percentages (raw, for the "X% accuracy" badge — keeps numbers
+  // intuitive for learners; weighting is an internal scoring detail).
+  var readingDisplayPct=reading.hasData?(reading.correct/reading.total*100):null;
+  var listeningDisplayPct=listening.hasData?(listening.correct/listening.total*100):null;
+  var readingScaled=readingPct!==null?percentToScaled(readingPct,READING_TABLE):null;
+  var listeningScaled=listeningPct!==null?percentToScaled(listeningPct,LISTENING_TABLE):null;
+
+  // Enhancement B: Adaptive-path scaling for Reading.
+  // The ETS adaptive engine effectively caps Easier-branch reading scores
+  // because the hardest items are gated behind the Harder Module. We mirror
+  // that with a soft 0.92x multiplier AND a hard ceiling of 26. Listening
+  // branching isn't implemented yet, so leave it untouched.
+  // No M2 data at all → assume Easier-branch (conservative).
+  var pathForScaling = reading.path || (reading.anyM2 ? null : 'easier');
+  var readingPathAdjusted = false;
+  if(readingScaled!==null && pathForScaling==='easier'){
+    var soft=Math.round(readingScaled*0.92);
+    var capped=Math.min(soft,26);
+    if(capped!==readingScaled){readingPathAdjusted=true;}
+    readingScaled=capped;
+  }
+
+  var writingScaled=writing.hasSentence?estimateWritingScaled(writing.sentencePct):null;
+
+  // Path indicator
+  var pp=document.getElementById('pathPill');
+  if(reading.path==='easier'){pp.style.display='inline-block';pp.innerHTML='<span class="jp">適応パス：Easier モジュール</span><span class="en">Adaptive path: Easier module</span>';}
+  else if(reading.path==='harder'){pp.style.display='inline-block';pp.innerHTML='<span class="jp">適応パス：Harder モジュール</span><span class="en">Adaptive path: Harder module</span>';}
+
+  // Edge case: learner reached results with an assigned adaptive path but no
+  // M2 score keys (e.g. abandoned the practice test partway). Surface a notice.
+  var assignedPath=localStorage.getItem('results_path');
+  if(assignedPath && !reading.anyM2){
+    document.getElementById('m2Notice').style.display='block';
+  }
+
+  // Total = R + L + W (out of 90).
+  var partsForTotal=[readingScaled,listeningScaled,writingScaled];
+  var allKnown=partsForTotal.every(function(s){return s!==null;});
+  var total=allKnown?partsForTotal.reduce(function(a,s){return a+s;},0):null;
+  document.getElementById('totalScore').textContent=(total!==null&&total>0)?total:'—';
+
+  // Enhancement C: ETS 2026 says overall band = average of section bands
+  // rounded to nearest 0.5. Compute each known section's band, average,
+  // then round. Skip Speaking (unscored). Falls back to the legacy
+  // total*4/3 projection only if no sections have produced a band yet.
+  var sectionBands=[
+    sectionToBand(readingScaled),
+    sectionToBand(listeningScaled),
+    sectionToBand(writingScaled)
+  ].filter(function(b){return b!==null && b!==undefined;});
+  var avgBand=null;
+  if(sectionBands.length){
+    var sum=sectionBands.reduce(function(a,b){return a+b;},0);
+    var raw=sum/sectionBands.length;
+    avgBand=Math.round(raw*2)/2;  // round to nearest 0.5
+  }
+  var projected120=(total!==null&&total>0)?Math.round(total*4/3):null;
+  var projectedBand=projected120!==null?totalToBand(projected120):null;
+  document.getElementById('totalBand').textContent=avgBand!==null?formatBand(avgBand):(projectedBand!==null?formatBand(projectedBand):'—');
+  // Stash the legacy projection for the disclaimer footnote.
+  window.__projected120=projected120;
+  window.__projectedBand=projectedBand;
+  window.__avgBand=avgBand;
+
+  // Section cards
+  // Build supplementary notes (Enhancements A/B/D).
+  var rHarderNoteJp = reading.harderTotal>0 ? ' Harder Module の '+reading.harderTotal+' 問は 1.5 倍で重み付けしています。' : '';
+  var rHarderNoteEn = reading.harderTotal>0 ? ' Harder-Module questions ('+reading.harderTotal+') are weighted 1.5x.' : '';
+  var rPathNoteJp = readingPathAdjusted ? '<br><strong>※ Easier 分岐の上限調整</strong>：適応試験では Easier 分岐に上限があるため、26 を上限としています。' : '';
+  var rPathNoteEn = readingPathAdjusted ? '<br><strong>Easier-branch cap applied</strong>: the adaptive engine caps Easier-branch reading at 26.' : '';
+  var lHarderNoteJp = listening.harderTotal>0 ? ' Conv Q3-4 / LCR Q6-8 / Talk Q5-8（計 '+listening.harderTotal+' 問）は 1.5 倍で重み付けしています。' : '';
+  var lHarderNoteEn = listening.harderTotal>0 ? ' Conv Q3-4 / LCR Q6-8 / Talk Q5-8 ('+listening.harderTotal+' total) are weighted 1.5x.' : '';
+  var lIncompleteJp = listening.incomplete ? '<br><strong>※ 未完了</strong>：'+listening.total+'/'+LISTENING_FULL_TOTAL+' 問のみ回答されています。スコアは回答済みの範囲のみを反映しています（補完推定はしていません）。' : '';
+  var lIncompleteEn = listening.incomplete ? '<br><strong>Section incomplete</strong> — score reflects only answered questions ('+listening.total+'/'+LISTENING_FULL_TOTAL+'). No extrapolation applied.' : '';
+
+  var sections=[
+    {
+      key:'reading', name:'Reading',
+      scaled:readingScaled, pct:readingDisplayPct!==null?Math.round(readingDisplayPct):null,
+      correctTotal:reading.hasData?(reading.correct+'/'+reading.total):null,
+      kind:'official',
+      noteJp:'CTW + RDL + Academic + Module 2 の正答率を ETS 公式換算表に照らしたもの。'+rHarderNoteJp+(reading.hasData&&!reading.anyM2?'（Module 2 の結果が見つからないため Module 1 のみで計算しています。）':'')+rPathNoteJp,
+      noteEn:'Mapped from CTW + RDL + Academic + Module 2 accuracy via the ETS official conversion table.'+rHarderNoteEn+(reading.hasData&&!reading.anyM2?' (Module 2 results not found, so this score is computed from Module 1 only.)':'')+rPathNoteEn
+    },
+    {
+      key:'listening', name:'Listening',
+      scaled:listeningScaled, pct:listeningDisplayPct!==null?Math.round(listeningDisplayPct):null,
+      correctTotal:listening.hasData?(listening.correct+'/'+listening.total):null,
+      kind:'official',
+      noteJp:'LCR + Conversation + Announcement + Academic Talk の正答率を ETS 公式換算表に照らしたもの。'+lHarderNoteJp+lIncompleteJp,
+      noteEn:'Mapped from LCR + Conversation + Announcement + Academic Talk accuracy via the ETS official conversion table.'+lHarderNoteEn+lIncompleteEn
+    },
+    {
+      key:'writing', name:'Writing',
+      scaled:writingScaled, pct:writing.hasSentence?Math.round(writing.sentencePct):null,
+      correctTotal:writing.hasSentence?(writing.sentenceCorrect+'/'+writing.sentenceTotal):null,
+      kind:'estimated',
+      noteJp:'<strong>暫定値</strong>：Build a Sentence の正答率を Reading 換算表に当てはめた推定スコア。Email '+(writing.emailSubmitted?'提出済 ('+writing.emailWords+' words)':'未提出')+' / Discussion '+(writing.discussionSubmitted?'提出済 ('+writing.discussionWords+' words)':'未提出')+'。詳細な採点は<strong>個別指導オプション</strong>へ。',
+      noteEn:'<strong>Tentative</strong>: derived from Build-a-Sentence accuracy mapped through the Reading conversion table. Email '+(writing.emailSubmitted?'submitted ('+writing.emailWords+' words)':'not submitted')+' / Discussion '+(writing.discussionSubmitted?'submitted ('+writing.discussionWords+' words)':'not submitted')+'. Detailed grading via the <strong>private coaching option</strong>.'
+    },
+    {
+      key:'speaking', name:'Speaking',
+      scaled:null, pct:null, correctTotal:null,
+      kind:'unscored',
+      submissionsJp:'Listen & Repeat '+(speaking.lr?'提出済':'未提出')+' / Take an Interview '+(speaking.ti?'提出済':'未提出'),
+      submissionsEn:'Listen & Repeat '+(speaking.lr?'submitted':'not submitted')+' / Take an Interview '+(speaking.ti?'submitted':'not submitted'),
+      noteJp:'Speaking は自動採点に対応していません。録音内容に対する採点・フィードバックをご希望の場合は<strong>個別指導オプション</strong>をご活用ください。',
+      noteEn:'Speaking is not auto-scored. For grading and feedback on your recordings, see the <strong>private coaching option</strong>.'
+    }
+  ];
+
+  var grid=document.getElementById('skillsGrid');
+  grid.innerHTML=sections.map(function(s){
+    var cardCls='skill-card';
+    var tagCls='', tagTxt='';
+    if(s.kind==='official'){tagCls='';tagTxt='<span class="jp">換算表準拠</span><span class="en">Official table</span>';}
+    else if(s.kind==='estimated'){cardCls+=' estimated';tagCls='est';tagTxt='<span class="jp">推定</span><span class="en">Estimated</span>';}
+    else {cardCls+=' unscored';tagCls='unscored';tagTxt='<span class="jp">採点不可</span><span class="en">Not scored</span>';}
+
+    var scoreHtml='';
+    if(s.kind==='unscored'){
+      scoreHtml='<div class="skill-score"><div class="pred unscored"><span class="jp">採点不可</span><span class="en">Not auto-scored</span></div></div>';
+    } else {
+      var scaled=s.scaled===null?'—':s.scaled;
+      var bandHtml=s.scaled!==null?'<div class="skill-band">Band '+formatBand(sectionToBand(s.scaled))+' <span>/ 6.0</span></div>':'';
+      var rate=s.pct!==null?'<div class="skill-rate"><strong>'+s.pct+'%</strong> <span class="jp">正答率</span><span class="en">accuracy</span></div>':'';
+      scoreHtml='<div class="skill-score"><div class="pred">'+scaled+'<small>/ 30</small></div>'+rate+'</div>'+bandHtml;
+    }
+
+    var barWidth=(s.scaled===null||s.kind==='unscored')?0:Math.round(s.scaled/30*100);
+    var meta='';
+    if(s.correctTotal)meta+='<span><span class="jp">正答</span><span class="en">correct</span> <strong>'+s.correctTotal+'</strong></span>';
+    if(s.submissionsJp)meta+='<span class="jp">'+s.submissionsJp+'</span><span class="en">'+s.submissionsEn+'</span>';
+
+    return '<div class="'+cardCls+'">'+
+      '<div class="skill-head"><div class="skill-name">'+s.name+'</div><div class="skill-tag '+tagCls+'">'+tagTxt+'</div></div>'+
+      scoreHtml+
+      '<div class="skill-bar"><div class="skill-bar-fill" style="width:'+barWidth+'%"></div></div>'+
+      (meta?'<div class="skill-meta">'+meta+'</div>':'')+
+      '<div class="skill-note"><span class="jp">'+s.noteJp+'</span><span class="en">'+s.noteEn+'</span></div>'+
+    '</div>';
+  }).join('');
+
+  // Activity table rows
+  var rows=[];
+  reading.parts.forEach(function(p){
+    var pct=Math.round(p.c/p.t*100);
+    rows.push({section:'Reading', label:p.label, score:p.c+'/'+p.t+' · '+pct+'%', grade:gradeFor(pct)});
+  });
+  if(listening.hasData){
+    var lpct=Math.round(listening.correct/listening.total*100);
+    rows.push({section:'Listening', label:'All Listening tasks', score:listening.correct+'/'+listening.total+' · '+lpct+'%', grade:gradeFor(lpct)});
+  } else {
+    rows.push({section:'Listening', label:'All Listening tasks', score:'—', grade:'skipped'});
+  }
+  if(writing.hasSentence){
+    var wpct=Math.round(writing.sentencePct);
+    rows.push({section:'Writing', label:'Build a Sentence', score:writing.sentenceCorrect+'/'+writing.sentenceTotal+' · '+wpct+'%', grade:gradeFor(wpct)});
+  } else {
+    rows.push({section:'Writing', label:'Build a Sentence', score:'—', grade:'skipped'});
+  }
+  rows.push({section:'Writing', label:'Write an Email', score:writing.emailSubmitted?(writing.emailWords+' words'):'—', grade:writing.emailSubmitted?'submitted':'skipped'});
+  rows.push({section:'Writing', label:'Academic Discussion', score:writing.discussionSubmitted?(writing.discussionWords+' words'):'—', grade:writing.discussionSubmitted?'submitted':'skipped'});
+  rows.push({section:'Speaking', label:'Listen & Repeat', score:'—', grade:speaking.lr?'submitted':'skipped'});
+  rows.push({section:'Speaking', label:'Take an Interview', score:'—', grade:speaking.ti?'submitted':'skipped'});
+
+  // Legacy projection footnote — transparency for the old total*4/3 method.
+  var foot=document.getElementById('legacyBandFootnote');
+  if(foot){
+    if(window.__avgBand!==null && window.__projectedBand!==null && window.__projectedBand!==undefined){
+      foot.innerHTML='<span class="jp">参考：旧方式（合計×4/3 → バンド換算）では Band '+formatBand(window.__projectedBand)+'。新方式（セクション平均）では Band '+formatBand(window.__avgBand)+'。</span><span class="en">Reference: legacy projection (total×4/3 → band lookup) gives Band '+formatBand(window.__projectedBand)+'; the new section-average method gives Band '+formatBand(window.__avgBand)+'.</span>';
+    } else {
+      foot.textContent='';
+    }
+  }
+
+  var tbody=document.getElementById('activityBody');
+  tbody.innerHTML=rows.map(function(r){
+    return '<tr>'+
+      '<td class="muted">'+r.section+'</td>'+
+      '<td><span class="task-tag">'+r.label+'</span></td>'+
+      '<td class="num">'+r.score+'</td>'+
+      '<td>'+gradePill(r.grade)+'</td>'+
+    '</tr>';
+  }).join('');
+}
+
+render();
+
+/* ============================================================
+   Save current attempt to GAS + fetch + render history.
+   Runs once after render() so we have computed scaled scores.
+   ============================================================ */
+(function(){
+  if (typeof Api === 'undefined' || typeof Api.savePtResult !== 'function') {
+    console.warn('[pt-results] Api.savePtResult missing — history disabled');
+    return;
+  }
+
+  // Stable session id so reloading results.html in the same tab doesn't
+  // double-save. Persist for this PT session in sessionStorage.
+  var sessionId = sessionStorage.getItem('practice_test_session_id');
+  if (!sessionId) {
+    sessionId = 'pt_' + new Date().toISOString().replace(/[^0-9]/g,'').slice(0,14)
+              + '_' + Math.random().toString(36).slice(2,7);
+    sessionStorage.setItem('practice_test_session_id', sessionId);
+  }
+
+  var reading   = collectReading();
+  var listening = collectListening();
+  var writing   = collectWriting();
+  var speaking  = collectSpeaking();
+
+  // Read scaled scores back from the DOM (set by render()).
+  // We only know the "total" attribute reliably from the DOM.
+  function num(id){ var v = (document.getElementById(id)||{}).textContent || ''; v = v.replace(/[^0-9.]/g,''); return v ? Number(v) : null; }
+
+  // Reverse-engineer scaled per section from the rendered cards. Each
+  // .skill-score .pred has the scaled score; pick by section title.
+  var scaledBySection = {};
+  document.querySelectorAll('.skill-card').forEach(function(card){
+    var label = (card.querySelector('.skill-name') || {}).textContent || '';
+    var pred  = card.querySelector('.skill-score .pred');
+    if (!pred) return;
+    var n = parseInt((pred.textContent || '').replace(/[^0-9]/g,''), 10);
+    if (isNaN(n)) return;
+    if (/Reading|リーディング/i.test(label))  scaledBySection.reading = n;
+    if (/Listening|リスニング/i.test(label))  scaledBySection.listening = n;
+    if (/Writing|ライティング/i.test(label))  scaledBySection.writing = n;
+  });
+
+  var saveAttemptCount = 0;
+  function saveAttempt() {
+    if (saveAttemptCount++ > 0) return;  // only once
+    var payload = {
+      sessionId:          sessionId,
+      readingCorrect:     reading.correct || 0,
+      readingTotal:       reading.total   || 0,
+      readingScaled:      scaledBySection.reading || 0,
+      listeningCorrect:   listening.correct || 0,
+      listeningTotal:     listening.total   || 0,
+      listeningScaled:    scaledBySection.listening || 0,
+      writingSentCorrect: writing.sentenceCorrect || 0,
+      writingSentTotal:   writing.sentenceTotal   || 0,
+      writingScaled:      scaledBySection.writing || 0,
+      speakingLr:         !!speaking.lr,
+      speakingTi:         !!speaking.ti,
+      total:              num('totalScore') || 0,
+      band:               (document.getElementById('totalBand') || {}).textContent || '',
+      readingPath:        reading.path || ''
+    };
+    Api.savePtResult(payload).then(function(r){
+      console.log('[pt-results] save:', r);
+      fetchHistory();
+    }).catch(function(err){
+      console.warn('[pt-results] save failed:', err);
+      fetchHistory();
+    });
+  }
+
+  function fetchHistory() {
+    Api.listPtResults().then(function(r){
+      if (!r || !r.success || !r.results || !r.results.length) return;
+      renderHistory(r.results);
+    }).catch(function(err){
+      console.warn('[pt-results] fetch history failed:', err);
+    });
+  }
+
+  function renderHistory(results) {
+    document.getElementById('historySection').style.display = 'block';
+    var tbody = document.getElementById('historyBody');
+    // Oldest first for "1回目, 2回目..." numbering, but display newest first
+    // with attempt# annotated.
+    var ordered = results.slice().sort(function(a,b){ return (a.timestamp || '').localeCompare(b.timestamp || ''); });
+    var lookup = {};
+    ordered.forEach(function(r, idx){ lookup[r.timestamp] = idx + 1; });
+    var rowsDesc = results.slice().sort(function(a,b){ return (b.timestamp || '').localeCompare(a.timestamp || ''); });
+    tbody.innerHTML = rowsDesc.map(function(r){
+      var attemptN = lookup[r.timestamp] || '?';
+      var dt = r.timestamp ? new Date(r.timestamp).toLocaleString('ja-JP', { hour12:false }) : '';
+      return '<tr style="border-bottom:1px solid var(--paper);font-size:.85em">'
+        + '<td style="padding:10px 12px"><strong>' + attemptN + '</strong></td>'
+        + '<td style="padding:10px 12px;white-space:nowrap">' + dt + '</td>'
+        + '<td style="padding:10px 12px;text-align:right;font-family:var(--font-en);font-weight:600">' + (r.readingScaled || '—') + '</td>'
+        + '<td style="padding:10px 12px;text-align:right;font-family:var(--font-en);font-weight:600">' + (r.listeningScaled || '—') + '</td>'
+        + '<td style="padding:10px 12px;text-align:right;font-family:var(--font-en);font-weight:600">' + (r.writingScaled  || '—') + '</td>'
+        + '<td style="padding:10px 12px;text-align:right;font-family:var(--font-en);font-weight:700;color:var(--green-deep)">' + (r.total || '—') + '</td>'
+        + '<td style="padding:10px 12px;text-align:right;font-family:var(--font-en);font-weight:600">' + (r.band || '—') + '</td>'
+        + '</tr>';
+    }).join('');
+  }
+
+  // Save attempt slightly after render() so DOM has been populated.
+  setTimeout(saveAttempt, 200);
+})();
+</script>
+<footer class="pt-tos-footer" style="margin-top:48px;padding:18px 24px 28px;border-top:1px solid #F5E9D3;text-align:center;font-size:.78em;color:#5A6861;font-family:'Manrope',system-ui,sans-serif">
+  <span>© TCK Workshop · </span>
+  <a href="https://apps.tckworkshop.co.jp/toefl-task-training/terms.html" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid #D6DAD7"><span class="jp">利用規約</span><span class="en">Terms</span></a>
+  <span> · </span>
+  <a href="https://www.tckwshop.com/privacypolicy/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid #D6DAD7"><span class="jp">プライバシー</span><span class="en">Privacy</span></a>
+</footer>
+</body>
+</html>

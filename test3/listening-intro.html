@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
+<link rel="shortcut icon" href="../assets/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon-180.png">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="TOEFL iBT - Listening Section">
+<meta property="og:description" content="Complete TOEFL iBT Practice Test covering Reading, Listening, Writing, and Speaking — by TCK Workshop.">
+<meta property="og:image" content="https://apps.tckworkshop.co.jp/toefl-practice/assets/ogp-card.jpg">
+<meta property="og:site_name" content="TCK Workshop">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TOEFL iBT - Listening Section">
+<meta name="twitter:description" content="Complete TOEFL iBT Practice Test covering Reading, Listening, Writing, and Speaking — by TCK Workshop.">
+<meta name="twitter:image" content="https://apps.tckworkshop.co.jp/toefl-practice/assets/ogp-card.jpg">
+
+<title>TOEFL iBT - Listening Section</title>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Manrope','Zen Kaku Gothic New','Noto Sans JP',system-ui,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;color:#002817;line-height:1.6}
+.listening-nav{background:#fff;border-bottom:1px solid #F5E9D3;padding:12px 24px;display:flex;align-items:center;gap:14px}
+.listening-nav-close{width:32px;height:32px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:6px;color:#5A6861;font-size:1.2em;transition:background .2s}
+.listening-nav-close:hover{background:#FBF6EC}
+.listening-nav-label{font-size:.95em;color:#5A6861;font-weight:500}
+.listening-progress{height:4px;background:#F5E9D3;width:100%;flex-shrink:0}
+.listening-progress-fill{height:100%;width:0%;background:#007646;border-radius:2px}
+.listening-body{flex:1;display:flex;justify-content:center;padding:60px 24px 120px}
+.listening-content{width:100%;max-width:640px}
+.listening-content h2{font-size:1.35em;font-weight:700;color:#002817;margin-bottom:16px}
+.listening-content p{font-size:.95em;color:#5A6861;line-height:1.7;margin-bottom:28px}
+.task-table{width:100%;border-collapse:collapse;border:1px solid #F5E9D3;overflow:hidden}
+.task-table thead th{background:#F5E9D3;color:#002817;font-size:.85em;font-weight:600;text-align:left;padding:12px 18px;border-bottom:1px solid #F5E9D3}
+.task-table tbody td{padding:14px 18px;font-size:.9em;color:#5A6861;border-bottom:1px solid #F5E9D3;vertical-align:top}
+.task-table tbody tr:last-child td{border-bottom:none}
+.task-table tbody tr:hover{background:#FBF6EC}
+.user-badge{font-size:.85em;color:#5A6861;margin-left:auto}
+.user-badge strong{color:#002817}
+.listening-footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #F5E9D3;padding:14px 24px;display:flex;justify-content:flex-end}
+.btn-start{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-size:.95em;font-family:inherit;font-weight:600;color:#fff;background:#007646;border:none;border-radius:999px;cursor:pointer;transition:all .2s}
+.btn-start:hover{background:#004D2E;box-shadow:0 6px 18px rgba(0,118,70,.22);transform:translateY(-1px)}
+.btn-start svg{width:16px;height:16px;fill:currentColor}
+.btn-start:disabled{background:#D6DAD7;cursor:not-allowed}
+</style>
+<!-- Start of HubSpot Embed Code --><script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/242729130.js"></script><!-- End of HubSpot Embed Code -->
+</head>
+<body>
+
+<div class="listening-nav">
+  <img class="brand-logo" src="../assets/tck-logo.png" alt="TCK Workshop" style="height:28px;width:auto;margin-right:12px"><span class="listening-nav-label">Listening</span>
+  <span class="user-badge" id="userBadge"></span>
+</div>
+<div class="listening-progress"><div class="listening-progress-fill"></div></div>
+
+<div class="listening-body">
+  <div class="listening-content">
+    <h2>Listening Section</h2>
+
+    <p id="narrated-text">The Listening section tests your ability to understand spoken English in academic and everyday settings. You will hear audio clips and answer 24 questions based on what you hear. There are three types of tasks in this section. Once you move forward, you will <strong>NOT</strong> be able to go back to earlier questions.</p>
+
+    <table class="task-table">
+      <thead>
+        <tr>
+          <th>Type of Task</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Listen and Choose a Response</td>
+          <td>Pick the best answer to a short question or statement you hear.</td>
+        </tr>
+        <tr>
+          <td>Conversations</td>
+          <td>Listen to a brief conversation and answer questions about it.</td>
+        </tr>
+        <tr>
+          <td>Announcements and Academic Talks</td>
+          <td>Listen to announcements or lectures and respond to questions.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="listening-footer">
+  <button class="btn-start" id="btnStart" onclick="startListening()" disabled>
+    Start Practice
+    <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+  </button>
+</div>
+
+<!-- Narration audio — replace src with ElevenLabs-generated file -->
+<audio id="narrationAudio" src="listening-intro.mp3" preload="auto"></audio>
+
+<script src="../js/auth.js"></script>
+<script>
+/* ===== AUTH ===== */
+if (typeof Auth !== 'undefined') {
+  Auth.require();
+  Auth.showBadge('userBadge');
+}
+
+/* ===== NARRATION ===== */
+const audio = document.getElementById('narrationAudio');
+const btnStart = document.getElementById('btnStart');
+
+// Auto-play narration on load
+window.addEventListener('DOMContentLoaded', () => {
+  audio.play().catch(() => {
+    // If autoplay is blocked, enable the button immediately
+    btnStart.disabled = false;
+  });
+});
+
+// Enable button when narration finishes
+audio.addEventListener('ended', () => {
+  btnStart.disabled = false;
+});
+
+// Fallback: if audio fails to load, enable button
+audio.addEventListener('error', () => {
+  btnStart.disabled = false;
+});
+
+/* ===== NAVIGATION ===== */
+function startListening() {
+  // TODO: Update to the first Listening question page
+  window.location.href = 'listening-lcr.html';
+}
+</script>
+</body>
+  </html>
