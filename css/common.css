@@ -55,6 +55,25 @@ body{
 .brand-logo--lg{height:48px}
 .brand-logo--xs{height:22px}
 .brand-logo--xl{height:72px}
+
+/* Footer brand mark — used on *-end completion pages */
+.tck-footer-brand{display:flex;flex-direction:column;align-items:center;gap:6px;margin:48px auto 24px;padding-top:24px;border-top:1px solid var(--paper);max-width:560px;color:var(--ink-500);font-family:var(--font-en);font-size:.7em;letter-spacing:.16em;text-transform:uppercase}
+.tck-footer-brand img{height:36px;width:auto;opacity:.85}
+
+/* Print styles — visible logo header on printed results / completion pages */
+@media print{
+  .top-bar,.section-nav,.reading-nav,.listening-nav,.writing-nav,.speaking-nav{
+    background:#fff!important;border-bottom:1px solid #ccc!important;page-break-after:avoid;
+  }
+  .brand-logo{height:36px!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .btn-logout,.btn-start,.btn-next,.user-pill,.user-badge,.tck-lang-toggle,
+  .modal-overlay,.section-footer,.reading-footer,.listening-footer,.writing-footer,.speaking-footer,
+  .footer-cta,.btn-footer{display:none!important}
+  body{background:#fff!important;color:#000!important}
+  .total-inner{background:#fff!important;color:#000!important;border:1px solid #ccc!important}
+  .total-label,.total-big,.total-band,.skill-name{color:#000!important}
+  a{color:#000!important;text-decoration:none}
+}
 .user-badge{font-size:.82em;color:var(--ink-500)}
 .user-badge strong{color:var(--green-deep);font-weight:700}
 
