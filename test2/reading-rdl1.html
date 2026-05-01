@@ -131,15 +131,15 @@ body{font-family:'Manrope','Zen Kaku Gothic New','Noto Sans JP',system-ui,sans-s
   <div class="passage-panel">
     <p class="instruction">Read a notice.</p>
     <div class="notice-container">
-      <div class="notice-header">LIBRARY HOURS CHANGE</div>
-      <div class="notice-subheader">Effective March 3 – March 14</div>
+      <div class="notice-header">3D PRINTER RESERVATION POLICY</div>
+      <div class="notice-subheader">Effective from October 15</div>
       <div class="notice-body">
-        <p>Due to heating system repairs, the <strong>West Campus Library</strong> will close at <strong>6:00 PM</strong> instead of the usual 10:00 PM on weekdays (Monday through Friday). Weekend hours (Saturday and Sunday, 9:00 AM – 5:00 PM) are not affected.</p>
-        <p>The <strong>24-hour study room</strong> on the ground floor (Room G-04) will remain open as usual. Outdoor book return drop boxes and online catalog access are also available at all times.</p>
-        <p>Students who wish to use the study room after 6:00 PM must bring a valid student ID for after-hours access. The security desk at the ground-floor entrance will verify IDs.</p>
-        <p>We apologize for any inconvenience and appreciate your patience while we improve the building's heating infrastructure.</p>
+        <p>The <strong>Maker Lab</strong> on the third floor of the Engineering Building has installed two new 3D printers. Because of the high demand expected this semester, students must <strong>reserve a printer</strong> through the online booking system at least 24 hours in advance.</p>
+        <p>Each reservation is limited to <strong>two hours</strong>, and printer use is restricted to enrolled students with valid Maker Lab certifications. Students who do not yet have a certification can complete the <strong>free orientation session</strong> held every Wednesday at 4:00 PM in Room 305.</p>
+        <p>PLA filament is provided at no cost for projects related to coursework. For personal projects, students must bring their own materials or purchase them at the Lab Front Desk.</p>
+        <p>If you cannot keep a reservation, please cancel it through the booking system at least three hours before your slot so other students can use the equipment.</p>
       </div>
-      <div class="notice-footer">Questions? Contact the Library Help Desk: library-help@university.example</div>
+      <div class="notice-footer">Questions? Contact the Maker Lab: makerlab@university.example</div>
     </div>
   </div>
 
@@ -147,54 +147,54 @@ body{font-family:'Manrope','Zen Kaku Gothic New','Noto Sans JP',system-ui,sans-s
   <div class="question-panel">
     <!-- Page 1: Q11 -->
     <div class="question-page active" id="page1">
-      <p class="question-text"><span class="question-number">11.</span> Why will the library close earlier on weekdays?</p>
+      <p class="question-text"><span class="question-number">11.</span> Why must students reserve a 3D printer in advance?</p>
       <div class="options">
         <label class="option" data-q="q11" data-v="A" onclick="selectOption(this)">
           <input type="radio" name="q11" value="A">
           <span class="option-label">(A)</span>
-          <span class="option-text">There is a staff shortage.</span>
+          <span class="option-text">The lab has a limited number of staff members.</span>
         </label>
         <label class="option" data-q="q11" data-v="B" onclick="selectOption(this)">
           <input type="radio" name="q11" value="B">
           <span class="option-label">(B)</span>
-          <span class="option-text">The heating system is being repaired.</span>
+          <span class="option-text">There is high demand for the printers this semester.</span>
         </label>
         <label class="option" data-q="q11" data-v="C" onclick="selectOption(this)">
           <input type="radio" name="q11" value="C">
           <span class="option-label">(C)</span>
-          <span class="option-text">The building is being renovated.</span>
+          <span class="option-text">Each printing job takes more than two hours.</span>
         </label>
         <label class="option" data-q="q11" data-v="D" onclick="selectOption(this)">
           <input type="radio" name="q11" value="D">
           <span class="option-label">(D)</span>
-          <span class="option-text">A new schedule is being tested.</span>
+          <span class="option-text">The printers are being tested for new software.</span>
         </label>
       </div>
     </div>
 
     <!-- Page 2: Q12 -->
     <div class="question-page" id="page2">
-      <p class="question-text"><span class="question-number">12.</span> What can students still use after 6:00 PM during this period?</p>
+      <p class="question-text"><span class="question-number">12.</span> What is true about Maker Lab certification?</p>
       <div class="options">
         <label class="option" data-q="q12" data-v="A" onclick="selectOption(this)">
           <input type="radio" name="q12" value="A">
           <span class="option-label">(A)</span>
-          <span class="option-text">The main reading room</span>
+          <span class="option-text">It is required only for personal projects.</span>
         </label>
         <label class="option" data-q="q12" data-v="B" onclick="selectOption(this)">
           <input type="radio" name="q12" value="B">
           <span class="option-label">(B)</span>
-          <span class="option-text">The computer lab on the second floor</span>
+          <span class="option-text">It must be renewed every semester.</span>
         </label>
         <label class="option" data-q="q12" data-v="C" onclick="selectOption(this)">
           <input type="radio" name="q12" value="C">
           <span class="option-label">(C)</span>
-          <span class="option-text">The 24-hour study room on the ground floor</span>
+          <span class="option-text">Students can earn it through a free Wednesday orientation.</span>
         </label>
         <label class="option" data-q="q12" data-v="D" onclick="selectOption(this)">
           <input type="radio" name="q12" value="D">
           <span class="option-label">(D)</span>
-          <span class="option-text">The Library Help Desk</span>
+          <span class="option-text">It is granted automatically with course enrollment.</span>
         </label>
       </div>
     </div>
@@ -235,8 +235,8 @@ var userAnswers = {};
 /* ===== REVIEW DATA ===== */
 var questions = [
   {no:"1-10",  title:"Complete the Words",       desc:"Fill in the missing letters in the paragraph.", section:"Reading", page:"reading-ctw.html"},
-  {no:"11",    title:"Read a Notice (Q11)",       desc:"Read a notice about library hours and answer a factual question.", section:"Reading", page:"reading-rdl1.html", qPage:1},
-  {no:"12",    title:"Read a Notice (Q12)",       desc:"Read the same notice and answer a detail question.", section:"Reading", page:"reading-rdl1.html", qPage:2},
+  {no:"11",    title:"Read a Notice (Q11)",       desc:"Read a notice about the campus 3D printer reservation policy.", section:"Reading", page:"reading-rdl1.html", qPage:1},
+  {no:"12",    title:"Read a Notice (Q12)",       desc:"Identify a detail in the same notice about the certification process.", section:"Reading", page:"reading-rdl1.html", qPage:2},
   {no:"13",    title:"Read an Email (Q13)",       desc:"Read an email and answer a question.", section:"Reading", page:"reading-rdl2.html"},
   {no:"14",    title:"Read an Email (Q14)",       desc:"Read the same email and answer a second question.", section:"Reading", page:"reading-rdl2.html"},
   {no:"15",    title:"Read an Email (Q15)",       desc:"Read the same email and answer a third question.", section:"Reading", page:"reading-rdl2.html"},

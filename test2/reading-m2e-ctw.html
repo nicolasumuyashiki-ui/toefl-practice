@@ -152,23 +152,23 @@ body{font-family:'Manrope','Zen Kaku Gothic New','Noto Sans JP',system-ui,sans-s
    Pattern: ETS alternating — blank/full every other word in target section
    Target: 20 words, blanks on odd positions (1,3,5,7,9,11,13,15,17,19)
 */
-var intro = "Solar panels have become a popular way to make clean power for homes and businesses.";
+var intro = "Many students believe that maintaining a steady daily routine helps them stay productive and feel less stressed during busy academic terms.";
 
 var blanks = [
-  {given:"Th",  answer:"ey"},      // 1. They
-  {given:"li",  answer:"ght"},     // 3. light
-  {given:"t",   answer:"he"},      // 5. the
-  {given:"in",  answer:"to"},      // 7. into
-  {given:"use", answer:"ful"},     // 9. useful
-  {given:"mak", answer:"ing"},     // 11. making
-  {given:"har", answer:"mful"},     // 13. harmful
-  {given:"o",   answer:"r"},       // 15. or
-  {given:"dur", answer:"ing"},     // 17. during
-  {given:"who", answer:"le"}       // 19. whole
+  {given:"Th", answer:"ey"},
+  {given:"u", answer:"p"},
+  {given:"consis", answer:"tent"},
+  {given:"an", answer:"d"},
+  {given:"thro", answer:"ugh"},
+  {given:"rout", answer:"ines"},
+  {given:"thin", answer:"king"},
+  {given:"har", answer:"d"},
+  {given:"smal", answer:"l"},
+  {given:"lik", answer:"e"}
 ];
-var fullWords = ["change","from","sun","power","without","any","gases","smoke","the","process"];
+var fullWords = ["wake","at","times","go","morning","without","too","about","decisions","breakfast"];
 
-var conclusion = "As technology improves, solar energy is expected to play an even greater role in meeting the world's power needs.";
+var conclusion = "or what to wear, freeing mental energy for the harder challenges later in the day.";
 
 /* ===== BUILD PASSAGE ===== */
 var inputIdx = 0; // global input index for all boxes
@@ -262,7 +262,7 @@ function toggleTimer(){
 
 /* ===== REVIEW DATA ===== */
 var questions = [
-  {no:"1-10",  title:"Complete the Words",        desc:"Fill in the missing letters in a paragraph about solar energy.", section:"Reading", page:"reading-m2e-ctw.html"},
+  {no:"1-10",  title:"Complete the Words",        desc:"Fill in the missing letters in a paragraph about daily routines.", section:"Reading", page:"reading-m2e-ctw.html"},
   {no:"11",    title:"Read a Notice (Q11)",        desc:"Read a short notice and answer a factual question.", section:"Reading", page:"reading-m2e-rdl1.html"},
   {no:"12",    title:"Read a Notice (Q12)",        desc:"Read the same notice and answer another question.", section:"Reading", page:"reading-m2e-rdl1.html"},
   {no:"13",    title:"Read an Email (Q13)",        desc:"Read an email and identify its main purpose.", section:"Reading", page:"reading-m2e-rdl2.html"},

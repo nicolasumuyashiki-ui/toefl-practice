@@ -145,35 +145,24 @@ body{font-family:'Manrope','Zen Kaku Gothic New','Noto Sans JP',system-ui,sans-s
    Pattern: ETS alternating — blank/full every other word in target section
    10 blanks, 10 full words interleaved
 */
-var intro = "Cognitive biases represent systematic deviations from rational judgment that affect the quality of everyday decisions.";
+var intro = "Bread fermentation is one of the oldest examples of applied biochemistry, transforming a simple mixture of flour, water, and yeast into a complex and flavorful food.";
 
 var blanks = [
-  {given:"under",  answer:"mine"},       // 1. undermine
-  {given:"over",   answer:"estimate"},    // 2. overestimate
-  {given:"prob",   answer:"abilities"},   // 3. probabilities
-  {given:"assoc",  answer:"iated"},       // 4. associated
-  {given:"fam",    answer:"iliar"},       // 5. familiar
-  {given:"neg",    answer:"lect"},        // 6. neglect
-  {given:"stat",   answer:"istical"},     // 7. statistical
-  {given:"pers",   answer:"uasive"},      // 8. persuasive
-  {given:"rati",   answer:"onal"},        // 9. rational
-  {given:"prev",   answer:"alent"}        // 10. prevalent
+  {given:"yea", answer:"sts"},
+  {given:"carb", answer:"ohydrates"},
+  {given:"alc", answer:"ohol"},
+  {given:"carb", answer:"on"},
+  {given:"expan", answer:"ding"},
+  {given:"do", answer:"ugh"},
+  {given:"glu", answer:"ten"},
+  {given:"tra", answer:"p"},
+  {given:"ga", answer:"ses"},
+  {given:"ba", answer:"king"}
 ];
 
-var fullWords = [
-  "Researchers",    // after blank 1
-  "consistently",   // after blank 2
-  "the",            // after blank 3
-  "with",           // after blank 4
-  "outcomes",       // after blank 5
-  "crucial",        // after blank 6
-  "evidence.",      // after blank 7
-  "data,",          // after blank 8
-  "analysis,",      // after blank 9
-  "across"          // after blank 10
-];
+var fullWords = ["metabolize","producing","and","dioxide,","the","structure.","networks","the","while","stabilizes"];
 
-var conclusion = "cultures and educational backgrounds.";
+var conclusion = "the entire crumb structure into the airy interior that we recognize as bread.";
 
 /* Surrounding text fragments that connect blanks and full words into natural sentences */
 var fragments = [
@@ -290,7 +279,7 @@ function toggleTimer(){
 
 /* ===== REVIEW DATA ===== */
 var questions = [
-  {no:"1-10", title:"Complete the Words", desc:"Fill in the missing letters in a paragraph about cognitive biases in decision-making.", section:"Reading", page:"reading-m2h-ctw.html"},
+  {no:"1-10", title:"Complete the Words", desc:"Fill in the missing letters in a paragraph about the chemistry of bread fermentation.", section:"Reading", page:"reading-m2h-ctw.html"},
   {no:"11", title:"Academic Passage 1 (Q11)", desc:"Answer a vocabulary question about epigenetics and inherited behavior.", section:"Reading", page:"reading-m2h-academic1.html"},
   {no:"12", title:"Academic Passage 1 (Q12)", desc:"Answer an inference question about the famine study.", section:"Reading", page:"reading-m2h-academic1.html"},
   {no:"13", title:"Academic Passage 1 (Q13)", desc:"Identify the rhetorical purpose of a key phrase.", section:"Reading", page:"reading-m2h-academic1.html"},
